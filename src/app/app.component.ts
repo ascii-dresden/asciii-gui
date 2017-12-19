@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ascii-root',
-  templateUrl: './app.component.html',
-  styles: []
+  template: `
+    <ascii-navigation></ascii-navigation>
+    <router-outlet></router-outlet>
+  `
 })
-export class AppComponent {
-  title = 'ascii';
-}
+export class AppComponent { }

@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <table class="table table-sm table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Manager</th>
+          <th scope="col">Number</th>
+          <th scope="col">Date</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col" class="text-right">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let project of projects; index as i">
+          <td scope="row">{{ i + 1 }}</td>
+          <td>{{ project.event.name }}</td>
+          <td>{{ project.event.manager }}</td>
+          <td>{{ project.invoice.number }}</td>
+          <td>{{ project.event.date }}</td>
+          <td>{{ project.checks.ready_for_invoice }}</td>
+          <td>{{ project.checks.ready_for_archive }}</td>
+          <td>{{ project.checks.payed_by_customer }}</td>
+          <td>{{ project.checks.payed_employees }}</td>
+          <td class="text-right">{{ project.invoice.net_total }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
