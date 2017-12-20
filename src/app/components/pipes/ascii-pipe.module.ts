@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BoolPipe } from './bool.pipe';
+import { DisplayNamePipe } from './display-name.pipe';
 import { TemperaturePipe } from './temperature.pipe';
 
 @NgModule({
@@ -8,12 +8,12 @@ import { TemperaturePipe } from './temperature.pipe';
     CommonModule
   ],
   declarations: [
-    TemperaturePipe,
-    BoolPipe
+    DisplayNamePipe,
+    TemperaturePipe
   ],
   exports: [
-    TemperaturePipe,
-    BoolPipe
+    DisplayNamePipe,
+    TemperaturePipe
   ]
 })
 export class AsciiPipeModule { }

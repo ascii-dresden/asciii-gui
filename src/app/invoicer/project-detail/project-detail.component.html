@@ -1,0 +1,226 @@
+<script src="../../../main.ts"></script>
+<div class="container-fluid" *ngIf="project">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1 class="h2">{{ project.event.name }}
+        <small class="text-muted">{{ project.event.date }}</small>
+      </h1>
+    </div>
+    <div class="col-lg-2">
+      <p class="m-0 text-truncate"><b>Manager:</b> {{ project.event.manager }}</p>
+    </div>
+    <div class="col-lg-2">
+      <p class="m-0 text-truncate"><b>Total:</b> {{ project.invoice.net_total }}</p>
+    </div>
+    <div class="col-lg-2">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
+        </li>
+        <li class="list-inline-item">
+          <ascii-fa-bool [bool]="project.checks.ready_for_invoice" [colorized]="true"></ascii-fa-bool>
+        </li>
+        <li class="list-inline-item">
+          <ascii-payed
+            [status]="payedStatus"></ascii-payed>
+        </li>
+        <li class="list-inline-item">
+          <ascii-fa-bool [bool]="project.checks.ready_for_archive" [colorized]="true"></ascii-fa-bool>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Client</h2>
+          <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.client.full_name }}</h3>
+          <dl class="row">
+            <dt class="col-lg-3">Name</dt>
+            <dd class="col-lg-9 m-0 text-truncate">
+              {{ [project.client.title, project.client.first_name, project.client.last_name] | displayName }}
+            </dd>
+            <dt class="col-lg-3">Email</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.client.email }}</dd>
+            <dt class="col-lg-3">Address</dt>
+            <dd class="col-lg-9 m-0 text-truncate" style="white-space: pre-wrap;">{{ project.client.address }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Event</h2>
+          <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.event.name }}</h3>
+          <dl class="row">
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.event.name }}</dd>
+            <dt class="col-lg-3">Date:</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.event.date }}</dd>
+            <dt class="col-lg-3">Manager:</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.event.manager }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Service</h2>
+          <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.service.net_total }}</h3>
+          <dl class="row">
+            <dt class="col-lg-3">Time</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.service.time }}h</dd>
+            <dt class="col-lg-3">Tax</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.service.tax }}</dd>
+            <dt class="col-lg-3">Salary</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.service.salary }}</dd>
+            <dt class="col-lg-3">Gross</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.service.gross_total }}</dd>
+            <dt class="col-lg-3">Net</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.service.net_total }}</dd>
+          </dl>
+          <table class="table table-sm table-striped" *ngIf="project.service.employees.length > 0">
+            <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Time</th>
+            <th scope="col">Wage</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let employee of project.service.employees">
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.salary }}</td>
+              <td>{{ employee.time }}h</td>
+              <td>{{ employee.wage }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Offer</h2>
+          <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.offer.number }}</h3>
+          <dl class="row">
+            <dt class="col-lg-3">Date</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.offer.date }}</dd>
+            <dt class="col-lg-3">Number</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.offer.number }}</dd>
+          </dl>
+          <table class="table table-sm table-striped" *ngIf="project.offer.sums.length > 0">
+            <thead>
+            <th scope="col">Gross</th>
+            <th scope="col">Taxable</th>
+            <th scope="col">Tax sum</th>
+            <th scope="col">Tax value</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let sum of project.offer.sums">
+              <td>{{ sum.gross_sum }}</td>
+              <td><ascii-fa-bool [bool]="sum.has_tax" [centered]="true"></ascii-fa-bool></td>
+              <td>{{ sum.tax_sum }}</td>
+              <td>{{ sum.tax_value }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Invoice</h2>
+          <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.invoice.number_long }}</h3>
+          <dl class="row">
+            <dt class="col-lg-3">Date</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.invoice.date }}</dd>
+            <dt class="col-lg-3">Number</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.invoice.number }}</dd>
+            <dt class="col-lg-3">Official</dt>
+            <dd class="col-lg-9 m-0 text-truncate"><ascii-fa-bool [bool]="project.invoice.number"></ascii-fa-bool></dd>
+            <dt class="col-lg-3">Gross</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.invoice.gross_total }}</dd>
+            <dt class="col-lg-3">Net</dt>
+            <dd class="col-lg-9 m-0 text-truncate">{{ project.invoice.net_total }}</dd>
+          </dl>
+          <table class="table table-sm table-striped" *ngIf="project.invoice.sums.length > 0">
+            <thead>
+            <th scope="col">Gross</th>
+            <th scope="col">Taxable</th>
+            <th scope="col">Tax sum</th>
+            <th scope="col">Tax value</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of project.invoice.sums">
+              <td>{{ invoice.gross_sum }}</td>
+              <td><ascii-fa-bool [bool]="invoice.has_tax" [centered]="true"></ascii-fa-bool></td>
+              <td>{{ invoice.tax_sum }}</td>
+              <td>{{ invoice.tax_value }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="h4 card-title">Bill</h2>
+          <dl class="row">
+            <dt class="col-lg-3">Offered <small class="text-muted">{{ project.bills.offer.length }}</small></dt>
+            <dd class="col-lg-9 m-0">{{ project.bills.offer | join }}</dd>
+            <dt class="col-lg-3">Invoiced <small class="text-muted">{{ project.bills.invoice.length }}</small></dt>
+            <dd class="col-lg-9 m-0">{{ project.bills.invoice | join }}</dd>
+          </dl>
+          <h3 class="h6 text-muted">Offer</h3>
+          <table class="table table-sm table-striped" *ngIf="project.bills.offer.length > 0">
+            <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Tax</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let offer of project.bills.offer">
+              <td>{{ offer.name }}</td>
+              <td>{{ offer.price }}</td>
+              <td>{{ offer.unit }}</td>
+              <td>{{ offer.amount }}</td>
+              <td>{{ offer.cost }}</td>
+              <td>{{ offer.tax }}</td>
+            </tr>
+            </tbody>
+          </table>
+          <h3 class="h6 text-muted">Invoice</h3>
+          <table class="table table-sm table-striped" *ngIf="project.bills.invoice.length > 0">
+            <thead>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Tax</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of project.bills.invoice">
+              <td>{{ invoice.name }}</td>
+              <td>{{ invoice.price }}</td>
+              <td>{{ invoice.unit }}</td>
+              <td>{{ invoice.amount }}</td>
+              <td>{{ invoice.cost }}</td>
+              <td>{{ invoice.tax }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
