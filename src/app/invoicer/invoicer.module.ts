@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { InvoicerComponent } from './invoicer.component';
 import { InvoicerService } from './invoicer.service';
-import { CheckPipe } from './check.pipe';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [InvoicerComponent, CheckPipe],
+  declarations: [InvoicerComponent],
   providers: [InvoicerService]
 })
-export class InvoicerModule { }
+export class InvoicerModule {}

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavigationComponent } from './navigation.component';
+import { FontAwesomeComponent } from './font-awesome.component';
 
-describe('NavigationComponent', () => {
-  let component: NavigationComponent;
-  let fixture: ComponentFixture<NavigationComponent>;
+describe('FontAwesomeComponent', () => {
+  let component: FontAwesomeComponent;
+  let fixture: ComponentFixture<FontAwesomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NavigationComponent]
+      declarations: [ FontAwesomeComponent ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavigationComponent);
+    fixture = TestBed.createComponent(FontAwesomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
