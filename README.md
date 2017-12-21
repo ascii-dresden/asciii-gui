@@ -1,27 +1,68 @@
 # AsciiHub
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.1.
+AsciiHub simplifies all day work at ascii Dresden, featuring invoicer frontend and matemat.
+
+[![travis](https://travis-ci.org/ascii-dresden/ascii-hub.svg?branch=master)](https://travis-ci.org/ascii-dresden/ascii-hub/)
+[![dependency Status](https://david-dm.org/ascii-dresden/ascii-hub.svg)](https://david-dm.org/ascii-dresden/ascii-hub)
+[![devDependency Status](https://david-dm.org/ascii-dresden/ascii-hub.svg)](https://david-dm.org/ascii-dresden/ascii-hub?type=dev)
+
+[![GitHub forks](https://img.shields.io/github/forks/ascii-dresden/ascii-hub.svg?style=social&label=Fork)](https://github.com/ascii-dresden/ascii-hub/fork)
+[![GitHub stars](https://img.shields.io/github/stars/ascii-dresden/ascii-hub.svg?style=social&label=Star)](https://github.com/ascii-dresden/ascii-hub)
+
+> Build with :heartpulse: in dresden
+
+## Features
+
+- [asciii](https://github.com/ascii-dresden/asciii) frontend
+- Dashboard with weather [forecast](#forecast)
+- i18n (en, [de](#i18n))
+
+More great features will be implemented soon.
+
+## Preparation
+
+Install the dependencies.
+
+```
+npm install
+``` 
+
+Some settings are stored in `src/environments/settings.ts`. Simply rename `src/environments/settings.sample.ts`.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+For a dev server run
 
-## Code scaffolding
+```
+ng serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To use the RESTful API from ascii invoicer you need to run a local instance of [rocket](https://github.com/SergioBenitez/Rocket).
+Checkout asciii and switch to feature/server branch. Run
 
-## Build
+```
+cargo --features server --example server
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+to setup a local server instance. Read the asciii documentation for more information.
 
-## Running unit tests
+### Weather forecast
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The dashboard provides a weather forecast widget. 
+Visit [darksky.net](https://darksky.net) to get your own free API Key and put in into the
+`src/environments/settings.ts` file. In dev mode the app uses a mock service to prevent 
+unnecessary HTTP requests onto the Dark Sky API. 
 
-## Running end-to-end tests
+### i18n
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+To change your interface language to german run
 
-## Further help
+```
+npm run start:de
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Change currency and locale by editing `src/environments/settings.ts`.
+
+## License
+
+MIT - [ascii Dresden](https://github.com/ascii-dresden)
