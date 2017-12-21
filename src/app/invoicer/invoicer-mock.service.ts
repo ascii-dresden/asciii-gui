@@ -1,14 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 import { LoggerService } from '../logger/logger.service';
+import 'rxjs/add/operator/map';
 
 @Injectable()
-export class InvoicerService {
+export class InvoicerMockService {
 
-  private url = 'http://localhost:8000/api/projects';
+  private url = 'http://localhost:3000/projects';
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
@@ -20,7 +21,7 @@ export class InvoicerService {
   }
 
   findByName(year: string, name: string): Observable<any> {
-    return this.http.get<any>(`${this.url}/year/${year}/${name}`).pipe(
+    return this.http.get<any>(`${this.url}/year/${year}/${name}`).map(value => value[0]).pipe(
       tap(() => this.logger.info(`fetched project w/ name=${name}`)),
       catchError(this.handleError(`find project by name=${name}`, {}))
     );
@@ -34,6 +35,6 @@ export class InvoicerService {
   }
 
   private log(message: string) {
-    this.logger.info(`InvoicerService: ${message}`);
+    this.logger.info(`InvoicerMockService: ${message}`);
   }
 }

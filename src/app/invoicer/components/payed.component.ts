@@ -1,9 +1,6 @@
-import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
-import localeDe from '@angular/common/locales/de';
-import { getLanguage } from '../../app.module';
 
 @Component({
   selector: 'ascii-payed',

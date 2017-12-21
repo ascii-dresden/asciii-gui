@@ -51,4 +51,5 @@ testem.log
 Thumbs.db
 
 # Environment senstive files
+src/environments/settings.ts
 src/environments/forecast.ts

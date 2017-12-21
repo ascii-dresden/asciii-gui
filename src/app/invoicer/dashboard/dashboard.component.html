@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa fa-bar-chart"></i> Offer Overview</div>
+        <div class="card-body">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa fa-bar-chart"></i> Invoice Overview</div>
+        <div class="card-body"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa fa-history"></i> Recent Offers</div>
+        <div class="card-body">
+          <ul>
+            <li *ngFor="let offer of offers"><b>{{ offer.number }}</b> {{ offer.date }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa fa-history"></i> Recent Invoices</div>
+        <div class="card-body">
+          <ul>
+            <li *ngFor="let invoice of invoices"><b>{{ invoice.number_long }}</b> {{ invoice.date }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { InvoicerService } from '../invoicer.service';
 import { Subscription } from 'rxjs/Subscription';
 import { LoggerService } from '../../logger/logger.service';
@@ -13,10 +14,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private _subscription = new Subscription();
   projects;
 
-  constructor(private invoicer: InvoicerService) { }
+  constructor(private route: ActivatedRoute, private invoicer: InvoicerService) { }
 
   ngOnInit() {
-    this._subscription.add(this.invoicer.findAll()
+    this._subscription.add(this.invoicer.findByYear(this.route.snapshot.paramMap.get('year'))
       .subscribe(value => this.projects = value));
   }
 

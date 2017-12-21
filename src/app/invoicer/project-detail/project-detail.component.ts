@@ -29,7 +29,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   private getProject() {
-    this._subscription.add(this.invoicer.findById(this.route.snapshot.paramMap.get('id')).subscribe(project => {
+    this._subscription.add(this.invoicer.findByName('2017', this.route.snapshot.paramMap.get('name')).subscribe(project => {
       this.project = project;
       this.getPayedStatus();
     }));
