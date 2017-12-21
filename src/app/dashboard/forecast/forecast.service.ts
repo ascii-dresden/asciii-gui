@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { LoggerService } from '../../logger/logger.service';
-import { Forecast } from './forecast';
 import { SettingsService } from '../../settings.service';
 
 
@@ -25,15 +24,11 @@ export class ForecastService {
     }).join('&');
   }
 
-  getForecast(): Observable<Forecast> {
-    this.logger.info();
-    return this.http
-      .get<Forecast>(`${this._forecastUrl}/${this._apiKey}/${this._location.latitude},${this._location.longitude}?${this._params}`).pipe(
-        tap(() => {
-          this.logger.info(`${this._forecastUrl}/${this._apiKey}/${this._location.latitude},${this._location.longitude}?${this._params}`);
-          this.log('fetched forecast');
-        }),
-        catchError(this.handleError<Forecast>('fetch forecast'))
+  getForecast(): Observable<any> {
+    return this.http.get<any>(`${this._forecastUrl}/${this._apiKey}/${this._location.latitude},${this._location.longitude}?${this._params}`)
+      .pipe(
+        tap(() => this.log('fetched forecast')),
+        catchError(this.handleError<any>('fetch forecast', {}))
       );
   }
 

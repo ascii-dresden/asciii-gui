@@ -39,6 +39,6 @@ registerLocaleData(localeDe, 'de');
 })
 export class AppModule {}
 
-function getLanguage(settings: SettingsService) {
+export function getLanguage(settings: SettingsService) {
   return settings.language;
 }

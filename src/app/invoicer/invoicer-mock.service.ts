@@ -22,7 +22,7 @@ export class InvoicerMockService {
 
   findByName(year: string, name: string): Observable<any> {
     return this.http.get<any>(`${this.url}/year/${year}/${name}`).map(value => value[0]).pipe(
-      tap(() => this.logger.info(`fetched project w/ name=${name}`)),
+      tap(() => this.log  (`fetched project w/ name=${name}`)),
       catchError(this.handleError(`find project by name=${name}`, {}))
     );
   }

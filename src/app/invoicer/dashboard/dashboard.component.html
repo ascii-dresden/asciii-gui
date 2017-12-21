@@ -3,21 +3,21 @@
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-bar-chart"></i> Offer Overview
+          <i class="fa fa-bar-chart"></i> <span i18n>Offer Overview</span>
           <span class="float-right text-muted">Q{{ currentQuarter }}</span>
         </div>
         <table class="table table-sm table-bordered mb-0">
           <tbody>
           <tr>
-            <td>Sent</td>
+            <td i18n>Sent</td>
             <td class="text-right text-info">{{ sentOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td>Approved</td>
+            <td i18n>Approved</td>
             <td class="text-right text-success">{{ approvedOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td>Rejected</td>
+            <td i18n>Rejected</td>
             <td class="text-right text-danger">{{ rejectedOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           </tbody>
@@ -27,21 +27,21 @@
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-bar-chart"></i> Invoice Overview
+          <i class="fa fa-bar-chart"></i> <span i18n>Invoice Overview</span>
           <span class="float-right text-muted">Q{{ currentQuarter }}</span>
         </div>
         <table class="table table-sm table-bordered mb-0">
           <tbody>
           <tr>
-            <td>Sent</td>
+            <td i18n>Sent</td>
             <td class="text-right text-info">{{ sentInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td>Paid by Customer</td>
+            <td i18n>Paid by Customer</td>
             <td class="text-right text-success">{{ pbcInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td>Payed Employee</td>
+            <td i18n>Payed Employee</td>
             <td class="text-right text-warning">{{ peInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           </tbody>
@@ -49,7 +49,7 @@
       </div>
       <div class="card mb-3 border-danger">
         <div class="card-body p-2">
-          <a class="card-text text-danger"><i class="fa fa-external-link"></i> Overdue Invoices</a>
+          <a class="card-text text-danger"><i class="fa fa-external-link"></i> <span i18n>Overdue Invoices</span></a>
           <span class="float-right text-danger">{{ overdue() | convertBalance | currency:currencyCode }}</span>
         </div>
       </div>
@@ -58,32 +58,30 @@
   <div class="row">
     <div class="col-md-6">
       <div class="card mb-3">
-        <div class="card-header"><i class="fa fa-history"></i> Recent Offers</div>
+        <div class="card-header"><i class="fa fa-history"></i> <span i18n>Recent Offers</span></div>
         <table class="table table-sm table-striped mb-0">
           <thead>
-          <th scope="col">Status</th>
-          <th scope="col">Date</th>
-          <th scope="col">Offer</th>
-          <th scope="col">Name</th>
-          <th scope="col" class="text-right">Balance</th>
-          <th scope="col"></th>
+          <tr>
+            <th scope="col" i18n>Status</th>
+            <th scope="col" i18n>Date</th>
+            <th scope="col" i18n>Offer</th>
+            <th scope="col" i18n>Name</th>
+            <th scope="col" class="text-right" i18n>Balance</th>
+          </tr>
           </thead>
           <tbody>
           <tr *ngFor="let offer of offers">
-            <td *ngIf="offer.sent"><span class="badge badge-info">Sent</span></td>
-            <td *ngIf="offer.approved"><span class="badge badge-success">Approved</span></td>
-            <td *ngIf="offer.rejected"><span class="badge badge-danger">Rejected</span></td>
+            <td *ngIf="offer.sent"><span class="badge badge-info" i18n>Sent</span></td>
+            <td *ngIf="offer.approved"><span class="badge badge-success" i18n>Approved</span></td>
+            <td *ngIf="offer.rejected"><span class="badge badge-danger" i18n>Rejected</span></td>
             <td>{{ offer.date | date }}</td>
-            <td>{{ offer.number }}</td>
-            <td>{{ offer.name }}</td>
+            <td><a [routerLink]="['project', offer.name]">{{ offer.number }}</a></td>
+            <td><a [routerLink]="['project', offer.name]">{{ offer.name }}</a></td>
             <td class="text-right">{{ offer.balance }}</td>
-            <td><a [routerLink]="['project', offer.name]">
-              <ascii-fa name="link"></ascii-fa>
-            </a></td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['offers/year/2017/all']">View All</a></small>
+              <small><a [routerLink]="['offers/year/2017/all']" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>
@@ -92,31 +90,30 @@
     </div>
     <div class="col-md-6">
       <div class="card mb-3">
-        <div class="card-header"><i class="fa fa-history"></i> Recent Invoices</div>
+        <div class="card-header"><i class="fa fa-history"></i> <span i18n>Recent Invoices</span></div>
         <table class="table table-sm table-striped mb-0">
           <thead>
-          <th scope="col">Status</th>
-          <th scope="col">Due Date</th>
-          <th scope="col">Offer</th>
-          <th scope="col">Name</th>
-          <th scope="col" class="text-right">Balance</th>
-          <th scope="col"></th>
+          <tr>
+            <th scope="col" i18n>Status</th>
+            <th scope="col" i18n>Due Date</th>
+            <th scope="col" i18n>Offer</th>
+            <th scope="col" i18n>Name</th>
+            <th scope="col" class="text-right" i18n>Balance</th>
+          </tr>
           </thead>
           <tbody>
           <tr *ngFor="let invoice of invoices">
-            <td *ngIf="invoice.sent"><span class="badge badge-info">Sent</span></td>
-            <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success">Payed</span></td>
+            <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
+            <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success" i18n>Payed</span></td>
             <td>{{ invoice.date | dueDate | date }}</td>
-            <td>{{ invoice.number }}</td>
-            <td>{{ invoice.name }}</td>
+            <td><a [routerLink]="['project', invoice.name]">{{ invoice.number }}</a></td>
+            <td><a [routerLink]="['project', invoice.name]">{{ invoice.name }}</a></td>
+            <td></td>
             <td class="text-right">{{ invoice.balance }}</td>
-            <td><a [routerLink]="['project', invoice.name]">
-              <ascii-fa name="link"></ascii-fa>
-            </a></td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['invoices/year/2017/all']">View All</a></small>
+              <small><a [routerLink]="['invoices/year/2017/all']" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>

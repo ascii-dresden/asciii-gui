@@ -1,39 +1,38 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <table class="table table-sm table-hover">
-        <thead>
-        <tr>
-          <th></th>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Manager</th>
-          <th scope="col">Number</th>
-          <th scope="col">Date</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col" class="text-right">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let project of projects; index as i;">
-          <td><a class="btn btn-sm btn-link" [routerLink]="['../..', 'project' ,project.event.name]"><ascii-fa name="link"></ascii-fa></a></td>
-          <td scope="row">{{ i + 1 }}</td>
-          <td>{{ project.event.name }}</td>
-          <td>{{ project.event.manager }}</td>
-          <td>{{ project.invoice.number }}</td>
-          <td>{{ project.event.date }}</td>
-          <td><ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool></td>
-          <td><ascii-fa-bool [bool]="project.checks.ready_for_invoice" [colorized]="true"></ascii-fa-bool></td>
-          <td><ascii-payed
-            [status]="getPayedStatus(project.checks.payed_by_customer, project.checks.payed_employees)"></ascii-payed>
-          <td><ascii-fa-bool [bool]="project.checks.ready_for_archive" [colorized]="true"></ascii-fa-bool></td>
-          <td class="text-right">{{ project.invoice.net_total }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+<table class="table table-sm table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col" i18n>Name</th>
+    <th scope="col" i18n>Manager</th>
+    <th scope="col" i18n>Number</th>
+    <th scope="col" i18n>Date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col" class="text-right" i18n>Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let project of projects; index as i;">
+    <td scope="row">{{ i + 1 }}</td>
+    <td><a [routerLink]="['../..', 'project' ,project.event.name]">{{ project.event.name }}</a></td>
+    <td>{{ project.event.manager }}</td>
+    <td>{{ project.invoice.number }}</td>
+    <td>{{ project.event.date }}</td>
+    <td>
+      <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td>
+      <ascii-fa-bool [bool]="project.checks.ready_for_invoice" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td>
+      <ascii-payed
+        [status]="getPayedStatus(project.checks.payed_by_customer, project.checks.payed_employees)"></ascii-payed>
+    <td>
+      <ascii-fa-bool [bool]="project.checks.ready_for_archive" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td class="text-right">{{ project.invoice.net_total }}</td>
+  </tr>
+  </tbody>
+</table>

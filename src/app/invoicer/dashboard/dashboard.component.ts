@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     return this.projects
       .filter(p => p.invoice.date && !p.checks.payed_by_customer &&
-        (now.setDate(now.getDate() - 14) > this.parseDate(p.invoice.date, 'dd.mm.yyyy')))
+        (now.setDate(now.getDate() - 14) > this.parseDate(p.invoice.date, 'dd.mm.yyyy').getDate()))
       .map(p => p.invoice.net_total);
   }
 
