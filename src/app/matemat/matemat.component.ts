@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'ascii-matemat',
   template: `<router-outlet></router-outlet>`
 })
-export class MatematComponent { }
+export class MatematComponent {}

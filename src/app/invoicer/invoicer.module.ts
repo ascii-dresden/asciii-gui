@@ -47,4 +47,4 @@ import { ProjectComponent } from './project/project.component';
     }
   ]
 })
-export class InvoicerModule { }
+export class InvoicerModule {}

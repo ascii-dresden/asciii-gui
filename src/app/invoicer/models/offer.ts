@@ -1,14 +1,5 @@
 export class Offer {
 
-  private _name;
-  private _client;
-  private _date;
-  private _number;
-  private _balance;
-  private _sent;
-  private _approved;
-  private _rejected;
-
   constructor(private _project) {
     this._name = _project.event.name;
     this._client = _project.client.full_name;
@@ -20,33 +11,49 @@ export class Offer {
     this._rejected = _project.checks.ready_for_offer && !_project.checks.ready_for_invoice && _project.checks.ready_for_archive;
   }
 
+  private _name;
+
   get name() {
     return this._name;
   }
+
+  private _client;
 
   get client() {
     return this._client;
   }
 
+  private _date;
+
   get date() {
     return this._date;
   }
+
+  private _number;
 
   get number() {
     return this._number;
   }
 
+  private _balance;
+
   get balance() {
     return this._balance;
   }
+
+  private _sent;
 
   get sent() {
     return this._sent;
   }
 
+  private _approved;
+
   get approved() {
     return this._approved;
   }
+
+  private _rejected;
 
   get rejected() {
     return this._rejected;

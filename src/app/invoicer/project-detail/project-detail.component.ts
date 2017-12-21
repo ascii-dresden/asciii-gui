@@ -1,8 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InvoicerService } from '../invoicer.service';
-import { Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
+import { InvoicerService } from '../invoicer.service';
 
 @Component({
   selector: 'ascii-project-detail',
@@ -10,11 +10,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
 
-  private _subscription = new Subscription();
-  private _payedStatus: number;
   project: any;
+  private _subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, private invoicer: InvoicerService, private location: Location) { }
+
+  private _payedStatus: number;
+
+  get payedStatus(): number {
+    return this._payedStatus;
+  }
 
   ngOnInit() {
     this.getProject();
@@ -26,17 +31,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.location.back();
-  }
-
-  private getProject() {
-    this._subscription.add(this.invoicer.findByName('2017', this.route.snapshot.paramMap.get('name')).subscribe(project => {
-      this.project = project;
-      this.getPayedStatus();
-    }));
-  }
-
-  get payedStatus(): number {
-    return this._payedStatus;
   }
 
   getPayedStatus(): void {
@@ -52,6 +46,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     } else {
       this._payedStatus = 0;
     }
+  }
+
+  private getProject() {
+    this._subscription.add(this.invoicer.findByName('2017', this.route.snapshot.paramMap.get('name')).subscribe(project => {
+      this.project = project;
+      this.getPayedStatus();
+    }));
   }
 }
 

@@ -6,16 +6,14 @@ declare var Skycons: any;
 
 @Component({
   selector: 'ascii-dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: []
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  private _subscription = new Subscription();
 
   forecast: any;
   scyconId = 'skycon' + Math.floor((Math.random() * 1000) + 1);
   skycons = new Skycons({ color: '#212529', resizeClear: true });
+  private _subscription = new Subscription();
 
   constructor(private forecastService: ForecastService) { }
 

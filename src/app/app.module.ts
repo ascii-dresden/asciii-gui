@@ -1,18 +1,18 @@
-import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
 import localeDe from '@angular/common/locales/de';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { InvoicerModule } from './invoicer/invoicer.module';
-import { MatematModule } from './matemat/matemat.module';
-import { LoggerService } from './logger/logger.service';
 import { ConsoleLoggerService } from './logger/console-logger.service';
-import { SettingsService } from './settings.service';
-import { AppComponent } from './app.component';
+import { LoggerService } from './logger/logger.service';
+import { MatematModule } from './matemat/matemat.module';
 import { NavigationComponent } from './navigation/navigation.component';
+import { SettingsService } from './settings.service';
 
 
 registerLocaleData(localeDe, 'de');

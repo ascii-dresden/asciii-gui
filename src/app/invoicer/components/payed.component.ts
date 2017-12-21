@@ -11,18 +11,27 @@ import { SettingsService } from '../../settings.service';
 })
 export class PayedComponent implements OnInit {
 
-  private _currencyCode;
-  private _icon: boolean;
-  private _cssClasses = [];
-
   @Input() status: number;
   @Input() colorized? = true;
   pipe;
   currency: string;
+  private _currencyCode;
 
   constructor(private settings: SettingsService) {
     this._currencyCode = this.settings.currencyCode;
     this.pipe = new CurrencyPipe(settings.language);
+  }
+
+  private _icon: boolean;
+
+  get icon() {
+    return this._icon;
+  }
+
+  private _cssClasses = [];
+
+  get cssClasses() {
+    return this._cssClasses;
   }
 
   ngOnInit() {
@@ -53,14 +62,6 @@ export class PayedComponent implements OnInit {
       default:
         throw new Error(`Status may be 0, 1 or 2. Found ${this.status}`);
     }
-  }
-
-  get icon() {
-    return this._icon;
-  }
-
-  get cssClasses() {
-    return this._cssClasses;
   }
 
   private addToCssClasses(cssClass: string): void {

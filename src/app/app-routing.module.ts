@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { InvoicerComponent } from './invoicer/invoicer.component';
-import { MatematComponent } from './matemat/matemat.component';
 import { invoicerRoutes } from './invoicer/invoice-routing.module';
+import { InvoicerComponent } from './invoicer/invoicer.component';
 import { matematRoutes } from './matemat/matemat-routing.module';
+import { MatematComponent } from './matemat/matemat.component';
 
 
 const routes: Routes = [

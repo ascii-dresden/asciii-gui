@@ -8,11 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FontAwesomeBoolComponent implements OnInit {
 
-  private _cssClasses = ['fa'];
-
   @Input() bool: boolean;
   @Input() colorized = false;
   @Input() centered = true;
+
+  private _cssClasses = ['fa'];
+
+  get cssClasses() {
+    return this._cssClasses;
+  }
 
   ngOnInit() {
     if (this.bool) {
@@ -30,10 +34,6 @@ export class FontAwesomeBoolComponent implements OnInit {
     if (this.centered) {
       this.addToCssClasses('text-center');
     }
-  }
-
-  get cssClasses() {
-    return this._cssClasses;
   }
 
   private addToCssClasses(cssClass: string): void {

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { InvoicerService } from '../invoicer.service';
-import { Offer } from '../models/offer';
-import { Invoice } from '../models/invoice';
-import { SettingsService } from '../../settings.service';
 import { LoggerService } from '../../logger/logger.service';
+import { SettingsService } from '../../settings.service';
+import { InvoicerService } from '../invoicer.service';
+import { Invoice } from '../models/invoice';
+import { Offer } from '../models/offer';
 
 
 @Component({
@@ -13,13 +13,12 @@ import { LoggerService } from '../../logger/logger.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  private _subscription = new Subscription();
-
   currentQuarter: number;
   currencyCode: string;
   projects: any[] = [];
   offers: Offer[] = [];
   invoices: Invoice[] = [];
+  private _subscription = new Subscription();
 
   constructor(private invoicer: InvoicerService, private settings: SettingsService, private logger: LoggerService) {
     this.currencyCode = this.settings.currencyCode;

@@ -8,9 +8,8 @@ describe('FontAwesomeBoolComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FontAwesomeBoolComponent ]
-    })
-    .compileComponents();
+      declarations: [FontAwesomeBoolComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

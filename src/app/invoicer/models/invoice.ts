@@ -1,14 +1,5 @@
 export class Invoice {
 
-  private _name;
-  private _client;
-  private _date;
-  private _number;
-  private _balance;
-  private _sent;
-  private _payedByCustomer;
-  private _payedEmployees;
-
   constructor(private _project) {
     this._name = _project.event.name;
     this._client = _project.client.full_name;
@@ -21,33 +12,49 @@ export class Invoice {
     this._payedEmployees = _project.checks.payed_employees;
   }
 
+  private _name;
+
   get name() {
     return this._name;
   }
+
+  private _client;
 
   get client() {
     return this._client;
   }
 
+  private _date;
+
   get date() {
     return this._date;
   }
+
+  private _number;
 
   get number() {
     return this._number;
   }
 
+  private _balance;
+
   get balance() {
     return this._balance;
   }
+
+  private _sent;
 
   get sent() {
     return this._sent;
   }
 
+  private _payedByCustomer;
+
   get payedByCustomer() {
     return this._payedByCustomer;
   }
+
+  private _payedEmployees;
 
   get payedEmployees() {
     return this._payedEmployees;

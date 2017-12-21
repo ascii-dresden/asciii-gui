@@ -16,4 +16,4 @@ import { TemperaturePipe } from './temperature.pipe';
     TemperaturePipe
   ]
 })
-export class AsciiPipeModule { }
+export class AsciiPipeModule {}

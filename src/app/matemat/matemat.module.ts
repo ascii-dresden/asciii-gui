@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatematComponent } from './matemat.component';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from '../app-routing.module';
+import { MatematComponent } from './matemat.component';
 
 @NgModule({
   imports: [
@@ -10,4 +10,4 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   declarations: [MatematComponent]
 })
-export class MatematModule { }
+export class MatematModule {}

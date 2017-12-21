@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InvoicerService } from '../invoicer.service';
 import { Subscription } from 'rxjs/Subscription';
-import { LoggerService } from '../../logger/logger.service';
+import { InvoicerService } from '../invoicer.service';
 
 @Component({
   selector: 'ascii-project',
@@ -11,8 +10,8 @@ import { LoggerService } from '../../logger/logger.service';
 })
 export class ProjectComponent implements OnInit, OnDestroy {
 
-  private _subscription = new Subscription();
   projects;
+  private _subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, private invoicer: InvoicerService) { }
 
