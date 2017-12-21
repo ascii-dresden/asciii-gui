@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { forecast_io } from '../../environments/forecast';
 import { Forecast } from './forecast/forecast';
 import { ForecastService } from './forecast/forecast.service';
 
@@ -16,7 +15,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private _subscription = new Subscription();
 
   forecast: Forecast;
-  locale = forecast_io.params.lang;
   scyconId = 'skycon' + Math.floor((Math.random() * 1000) + 1);
   skycons = new Skycons({ color: '#212529', resizeClear: true });
 

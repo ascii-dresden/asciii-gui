@@ -2,15 +2,56 @@
   <div class="row">
     <div class="col-md-6">
       <div class="card mb-3">
-        <div class="card-header"><i class="fa fa-bar-chart"></i> Offer Overview</div>
-        <div class="card-body">
+        <div class="card-header">
+          <i class="fa fa-bar-chart"></i> Offer Overview
+          <span class="float-right text-muted">Q{{ currentQuarter }}</span>
         </div>
+        <table class="table table-sm table-bordered mb-0">
+          <tbody>
+          <tr>
+            <td>Sent</td>
+            <td class="text-right text-info">{{ sentOffers() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          <tr>
+            <td>Approved</td>
+            <td class="text-right text-success">{{ approvedOffers() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          <tr>
+            <td>Rejected</td>
+            <td class="text-right text-danger">{{ rejectedOffers() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card mb-3">
-        <div class="card-header"><i class="fa fa-bar-chart"></i> Invoice Overview</div>
-        <div class="card-body"></div>
+        <div class="card-header">
+          <i class="fa fa-bar-chart"></i> Invoice Overview
+          <span class="float-right text-muted">Q{{ currentQuarter }}</span>
+        </div>
+        <table class="table table-sm table-bordered mb-0">
+          <tbody>
+          <tr>
+            <td>Sent</td>
+            <td class="text-right text-info">{{ sentInvoices() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          <tr>
+            <td>Paid by Customer</td>
+            <td class="text-right text-success">{{ pbcInvoices() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          <tr>
+            <td>Payed Employee</td>
+            <td class="text-right text-warning">{{ peInvoices() | convertBalance | currency:currencyCode }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card mb-3 border-danger">
+        <div class="card-body p-2">
+          <a class="card-text text-danger"><i class="fa fa-external-link"></i> Overdue Invoices</a>
+          <span class="float-right text-danger">{{ overdue() | convertBalance | currency:currencyCode }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -18,21 +59,68 @@
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="card-header"><i class="fa fa-history"></i> Recent Offers</div>
-        <div class="card-body">
-          <ul>
-            <li *ngFor="let offer of offers"><b>{{ offer.number }}</b> {{ offer.date }}</li>
-          </ul>
-        </div>
+        <table class="table table-sm table-striped mb-0">
+          <thead>
+          <th scope="col">Status</th>
+          <th scope="col">Date</th>
+          <th scope="col">Offer</th>
+          <th scope="col">Name</th>
+          <th scope="col" class="text-right">Balance</th>
+          <th scope="col"></th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let offer of offers">
+            <td *ngIf="offer.sent"><span class="badge badge-info">Sent</span></td>
+            <td *ngIf="offer.approved"><span class="badge badge-success">Approved</span></td>
+            <td *ngIf="offer.rejected"><span class="badge badge-danger">Rejected</span></td>
+            <td>{{ offer.date | date }}</td>
+            <td>{{ offer.number }}</td>
+            <td>{{ offer.name }}</td>
+            <td class="text-right">{{ offer.balance }}</td>
+            <td><a [routerLink]="['project', offer.name]">
+              <ascii-fa name="link"></ascii-fa>
+            </a></td>
+          </tr>
+          <tr>
+            <td colspan="6" class="text-right">
+              <small><a [routerLink]="['offers/year/2017/all']">View All</a></small>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="card-header"><i class="fa fa-history"></i> Recent Invoices</div>
-        <div class="card-body">
-          <ul>
-            <li *ngFor="let invoice of invoices"><b>{{ invoice.number_long }}</b> {{ invoice.date }}</li>
-          </ul>
-        </div>
+        <table class="table table-sm table-striped mb-0">
+          <thead>
+          <th scope="col">Status</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Offer</th>
+          <th scope="col">Name</th>
+          <th scope="col" class="text-right">Balance</th>
+          <th scope="col"></th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let invoice of invoices">
+            <td *ngIf="invoice.sent"><span class="badge badge-info">Sent</span></td>
+            <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success">Payed</span></td>
+            <td>{{ invoice.date | dueDate | date }}</td>
+            <td>{{ invoice.number }}</td>
+            <td>{{ invoice.name }}</td>
+            <td class="text-right">{{ invoice.balance }}</td>
+            <td><a [routerLink]="['project', invoice.name]">
+              <ascii-fa name="link"></ascii-fa>
+            </a></td>
+          </tr>
+          <tr>
+            <td colspan="6" class="text-right">
+              <small><a [routerLink]="['invoices/year/2017/all']">View All</a></small>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

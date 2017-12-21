@@ -3,29 +3,34 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
-import { forecast_io } from '../../../environments/forecast';
 import { LoggerService } from '../../logger/logger.service';
 import { Forecast } from './forecast';
+import { SettingsService } from '../../settings.service';
 
 
 @Injectable()
 export class ForecastService {
 
-  private forecastUrl = 'https://api.darksky.net/forecast';
-  private apiKey = forecast_io.apiKey;
-  private location = forecast_io.location;
-  private params = Object.keys(forecast_io.params).map(key => {
-    return `${encodeURIComponent(key)}=${encodeURIComponent(forecast_io.params[key])}`;
-  }).join('&');
+  private _forecastUrl = 'https://api.darksky.balance/forecast';
+  private _apiKey: string;
+  private _location: any;
+  private _params: string;
 
-  constructor(private http: HttpClient, private logger: LoggerService) { }
+  constructor(private http: HttpClient, private logger: LoggerService, private settings: SettingsService) {
+    const forecast = this.settings.forecast;
+    this._apiKey = forecast.apiKey;
+    this._location = forecast.location;
+    this._params = Object.keys(forecast.params).map(key => {
+      return `${encodeURIComponent(key)}=${encodeURIComponent(forecast.params[key])}`;
+    }).join('&');
+  }
 
   getForecast(): Observable<Forecast> {
     this.logger.info();
     return this.http
-      .get<Forecast>(`${this.forecastUrl}/${this.apiKey}/${this.location.latitude},${this.location.longitude}?${this.params}`).pipe(
+      .get<Forecast>(`${this._forecastUrl}/${this._apiKey}/${this._location.latitude},${this._location.longitude}?${this._params}`).pipe(
         tap(() => {
-          this.logger.info(`${this.forecastUrl}/${this.apiKey}/${this.location.latitude},${this.location.longitude}?${this.params}`);
+          this.logger.info(`${this._forecastUrl}/${this._apiKey}/${this._location.latitude},${this._location.longitude}?${this._params}`);
           this.log('fetched forecast');
         }),
         catchError(this.handleError<Forecast>('fetch forecast'))

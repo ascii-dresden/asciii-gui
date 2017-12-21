@@ -1,2 +1,25 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.min.css";
+
+body {
+  font-size: 0.875rem;
+}
+
+.card {
+  .table th {
+    border-top: none;
+  }
+
+  .table-bordered {
+    border: 0;
+  }
+}
+
+.table {
+  .badge {
+    font-weight: normal;
+    padding: 5px 10px;
+    display: block;
+    width: 100%;
+  }
+}

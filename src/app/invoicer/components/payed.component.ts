@@ -1,6 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { SettingsService } from '../../settings.service';
 
 @Component({
   selector: 'ascii-payed',
@@ -11,14 +11,19 @@ import { environment } from '../../../environments/environment';
 })
 export class PayedComponent implements OnInit {
 
-  private _currencyCode = environment.currencyCode;
+  private _currencyCode;
   private _icon: boolean;
   private _cssClasses = [];
 
   @Input() status: number;
   @Input() colorized? = true;
-  pipe = new CurrencyPipe(environment.language);
+  pipe;
   currency: string;
+
+  constructor(private settings: SettingsService) {
+    this._currencyCode = this.settings.currencyCode;
+    this.pipe = new CurrencyPipe(settings.language);
+  }
 
   ngOnInit() {
     this.currency = this.pipe.transform(0, this._currencyCode, 'symbol', '1.0-2');

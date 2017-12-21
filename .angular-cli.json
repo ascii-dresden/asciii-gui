@@ -28,7 +28,7 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
-        "forecast": "environments/forecast.ts"
+        "settings": "environments/settings.ts"
       }
     }
   ],

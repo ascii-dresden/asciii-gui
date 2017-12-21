@@ -6,6 +6,7 @@ import { MatematComponent } from './matemat/matemat.component';
 import { invoicerRoutes } from './invoicer/invoice-routing.module';
 import { matematRoutes } from './matemat/matemat-routing.module';
 
+
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoicer', component: InvoicerComponent, children: [...invoicerRoutes] },
@@ -17,4 +18,28 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+  /*private _modules: string[] = [];
+
+  constructor(private router: Router, private settings: SettingsService) {
+    this._modules = settings.modules;
+
+    if (this.contains('ascii-invoicer')) {
+      routes.push({ path: 'invoicer', component: InvoicerComponent, children: [...invoicerRoutes] });
+    }
+    if (this.contains('ascii-matemat')) {
+      routes.push({ path: 'matemat', component: MatematComponent, children: [...matematRoutes] });
+    }
+
+    this.router.resetConfig(routes);
+  }
+
+  private contains(value: string, array?: string[]): boolean {
+    if (array) {
+      return (array.indexOf(value) > -1);
+    } else {
+      return (this._modules.indexOf(value) > -1);
+    }
+  }*/
+}

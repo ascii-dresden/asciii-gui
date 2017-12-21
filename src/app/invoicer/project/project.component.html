@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let project of projects; index as i;">
-          <th><a class="btn btn-sm btn-link" [routerLink]="['../..', 'project' ,project.event.name]"><ascii-fa name="link"></ascii-fa></a></th>
+          <td><a class="btn btn-sm btn-link" [routerLink]="['../..', 'project' ,project.event.name]"><ascii-fa name="link"></ascii-fa></a></td>
           <td scope="row">{{ i + 1 }}</td>
           <td>{{ project.event.name }}</td>
           <td>{{ project.event.manager }}</td>

@@ -11,6 +11,8 @@ import { InvoicerService } from './invoicer.service';
 import { JoinBill, ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectComponent } from './project/project.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConvertBalancePipe } from './pipes/convert-balance.pipe';
+import { DueDatePipe } from './pipes/due-date.pipe';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ProjectDetailComponent,
     ProjectComponent,
     JoinBill,
-    DashboardComponent
+    DashboardComponent,
+    ConvertBalancePipe,
+    DueDatePipe
   ],
   providers: [
     { provide: InvoicerService, useClass: (isDevMode() && settings.os === 'windows') ? InvoicerMockService : InvoicerService }
