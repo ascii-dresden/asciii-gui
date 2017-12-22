@@ -4,17 +4,17 @@ AsciiHub simplifies all day work at ascii Dresden, featuring invoicer frontend a
 
 [![travis](https://travis-ci.org/ascii-dresden/ascii-hub.svg?branch=master)](https://travis-ci.org/ascii-dresden/ascii-hub/)
 [![dependency Status](https://david-dm.org/ascii-dresden/ascii-hub.svg)](https://david-dm.org/ascii-dresden/ascii-hub)
-[![devDependency Status](https://david-dm.org/ascii-dresden/ascii-hub.svg)](https://david-dm.org/ascii-dresden/ascii-hub?type=dev)
+[![devDependency Status](https://david-dm.org/ascii-dresden/ascii-hub/dev-status.svg)](https://david-dm.org/ascii-dresden/ascii-hub?type=dev)
 
 [![GitHub forks](https://img.shields.io/github/forks/ascii-dresden/ascii-hub.svg?style=social&label=Fork)](https://github.com/ascii-dresden/ascii-hub/fork)
 [![GitHub stars](https://img.shields.io/github/stars/ascii-dresden/ascii-hub.svg?style=social&label=Star)](https://github.com/ascii-dresden/ascii-hub)
 
-> Build with :heartpulse: in dresden
+> Build with :heartpulse: in Dresden
 
 ## Features
 
 - [asciii](https://github.com/ascii-dresden/asciii) frontend
-- Dashboard with weather [forecast](#forecast)
+- Dashboard with weather [forecast](#weather-forecast)
 - i18n (en, [de](#i18n))
 
 More great features will be implemented soon.
