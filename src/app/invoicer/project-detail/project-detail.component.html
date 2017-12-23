@@ -14,7 +14,7 @@
           <p class="m-0 text-truncate"><b i18n>Total</b> {{ project.invoice.net_total }}</p>
         </div>
         <div class="col-md-2">
-          <ul class="list-inline">
+          <ul class="list-inline m-0">
             <li class="list-inline-item">
               <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
             </li>
@@ -186,12 +186,10 @@
           <div class="card-body">
             <h2 class="h4 card-title" i18n>Bill</h2>
             <dl class="row">
-              <dt class="col-md-3"><span i18n>Offered</span>
-                <small class="text-muted">{{ project.bills.offer.length }}</small>
+              <dt class="col-md-3"><span i18n>Offered</span> <small class="text-muted">{{ project.bills.offer.length }}</small>
               </dt>
               <dd class="col-md-9 m-0">{{ project.bills.offer | join }}</dd>
-              <dt class="col-md-3" *ngIf="project.invoice.date"><span i18n>Invoiced</span>
-                <small class="text-muted">{{ project.bills.invoice.length }}</small>
+              <dt class="col-md-3" *ngIf="project.invoice.date"><span i18n>Invoiced</span> <small class="text-muted">{{ project.bills.invoice.length }}</small>
               </dt>
               <dd class="col-md-9 m-0" *ngIf="project.invoice.date">{{ project.bills.invoice | join }}</dd>
             </dl>

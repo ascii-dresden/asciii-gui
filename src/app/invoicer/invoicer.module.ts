@@ -16,7 +16,7 @@ import { ConvertBalancePipe } from './pipes/convert-balance.pipe';
 import { ConvertDatePipe } from './pipes/convert-date.pipe';
 import { DueDatePipe } from './pipes/due-date.pipe';
 import { JoinBill, ProjectDetailComponent } from './project-detail/project-detail.component';
-import { ProjectComponent } from './project/project.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { ProjectComponent } from './project/project.component';
     InvoicerComponent,
     PayedComponent,
     ProjectDetailComponent,
-    ProjectComponent,
+    ProjectsComponent,
     JoinBill,
     DashboardComponent,
     ConvertBalancePipe,

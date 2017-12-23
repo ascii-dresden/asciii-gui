@@ -13,16 +13,18 @@ import { Offer } from '../models/offer';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  currentQuarter: number;
+  private _subscription = new Subscription();
+  private _now = new Date();
+
+  currentYear: number = this._now.getFullYear();
+  currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);;
   currencyCode: string;
   projects: any[] = [];
   offers: Offer[] = [];
   invoices: Invoice[] = [];
-  private _subscription = new Subscription();
 
   constructor(private invoicer: InvoicerService, private settings: SettingsService, private logger: LoggerService) {
     this.currencyCode = this.settings.currencyCode;
-    this.currentQuarter = this.getQuarter(new Date().getMonth());
   }
 
   ngOnInit() {
@@ -82,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private getProjects(next: any) {
-    this._subscription.add(this.invoicer.findByYear(new Date().getFullYear().toString()).subscribe(data => {
+    this._subscription.add(this.invoicer.findByYear(this.currentYear).subscribe(data => {
       next(data);
       this.projects = data.sort((a, b) => a.offer.date < b.offer.date ? -1 : a.offer.date > b.offer.date ? 1 : 0);
     }));
@@ -102,9 +104,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
 
     this.invoices = this.invoices.slice(Math.max(this.invoices.length - 10, 1));
-  }
-
-  private getQuarter(month: number): number {
-    return Math.floor((month + 3) / 3);
   }
 }

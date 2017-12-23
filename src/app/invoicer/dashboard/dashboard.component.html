@@ -1,5 +1,10 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col">
+      <h1 class="h6 mb-3" i18n>Invoicer Dashboard </h1>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <div class="card mb-3">
         <div class="card-header">
@@ -9,15 +14,15 @@
         <table class="table table-sm table-bordered mb-0">
           <tbody>
           <tr>
-            <td i18n>Sent</td>
+            <td><a [routerLink]="['offers', currentYear, 'sent']" i18n>Sent</a></td>
             <td class="text-right text-info">{{ sentOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td i18n>Approved</td>
+            <td><a [routerLink]="['offers', currentYear, 'approved']" i18n>Approved</a></td>
             <td class="text-right text-success">{{ approvedOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td i18n>Rejected</td>
+            <td><a [routerLink]="['offers', currentYear, 'rejected']" i18n>Rejected</a></td>
             <td class="text-right text-danger">{{ rejectedOffers() | convertBalance | currency:currencyCode }}</td>
           </tr>
           </tbody>
@@ -33,15 +38,15 @@
         <table class="table table-sm table-bordered mb-0">
           <tbody>
           <tr>
-            <td i18n>Sent</td>
+            <td><a [routerLink]="['invoices', currentYear, 'sent']" i18n>Sent</a></td>
             <td class="text-right text-info">{{ sentInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td i18n>Paid by Customer</td>
+            <td><a [routerLink]="['invoices', currentYear, 'pbc']" i18n>Paid by Customer</a></td>
             <td class="text-right text-success">{{ pbcInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           <tr>
-            <td i18n>Payed Employee</td>
+            <td><a [routerLink]="['invoices', currentYear, 'pe']" i18n>Payed Employee</a></td>
             <td class="text-right text-warning">{{ peInvoices() | convertBalance | currency:currencyCode }}</td>
           </tr>
           </tbody>
@@ -49,7 +54,7 @@
       </div>
       <div class="card mb-3 border-danger">
         <div class="card-body p-2">
-          <a class="card-text text-danger"><i class="fa fa-external-link"></i> <span i18n>Overdue Invoices</span></a>
+          <a class="card-text text-danger" [routerLink]="['invoices', currentYear, 'overdue']"><i class="fa fa-external-link"></i> <span i18n>Overdue Invoices</span></a>
           <span class="float-right text-danger">{{ overdue() | convertBalance | currency:currencyCode }}</span>
         </div>
       </div>
@@ -75,13 +80,13 @@
             <td *ngIf="offer.approved"><span class="badge badge-success" i18n>Approved</span></td>
             <td *ngIf="offer.rejected"><span class="badge badge-danger" i18n>Rejected</span></td>
             <td>{{ offer.date | date }}</td>
-            <td><a [routerLink]="['project', offer.name]">{{ offer.number }}</a></td>
-            <td><a [routerLink]="['project', offer.name]">{{ offer.name }}</a></td>
+            <td><a [routerLink]="['project', offer.id]">{{ offer.number }}</a></td>
+            <td><a [routerLink]="['project', offer.id]">{{ offer.name }}</a></td>
             <td class="text-right">{{ offer.balance }}</td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['offers/year/2017/all']" i18n>View All</a></small>
+              <small><a [routerLink]="['offer', currentYear, 'all']" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>
@@ -106,13 +111,13 @@
             <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
             <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success" i18n>Payed</span></td>
             <td>{{ invoice.date | dueDate | date }}</td>
-            <td><a [routerLink]="['project', invoice.name]">{{ invoice.number }}</a></td>
-            <td><a [routerLink]="['project', invoice.name]">{{ invoice.name }}</a></td>
+            <td><a [routerLink]="['project', invoice.id]">{{ invoice.number }}</a></td>
+            <td><a [routerLink]="['project', invoice.id]">{{ invoice.name }}</a></td>
             <td class="text-right">{{ invoice.balance }}</td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['invoices/year/2017/all']" i18n>View All</a></small>
+              <small><a [routerLink]="['invoices', currentYear, 'all']" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>

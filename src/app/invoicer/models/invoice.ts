@@ -1,5 +1,3 @@
-const tr = { 'ä': 'ae', 'ü': 'ue', 'ö': 'oe', 'ß': 'ss' };
-
 export class Invoice {
 
   private _id: string;
@@ -13,6 +11,7 @@ export class Invoice {
   private _payedEmployees: boolean;
 
   constructor(private _project) {
+    this._id = _project.id;
     this._name = _project.event.name;
     this._client = _project.client.full_name;
     this._date = _project.invoice.date;
@@ -22,7 +21,10 @@ export class Invoice {
       !_project.checks.payed_by_customer && !_project.checks.payed_employees;
     this._payedByCustomer = _project.checks.payed_by_customer;
     this._payedEmployees = _project.checks.payed_employees;
-    this._id = `${(this._date ? this._date.getFullYear() : '') + '-'}${this.normalizeEventName()}`;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get name() {
@@ -62,9 +64,5 @@ export class Invoice {
 
   get payedEmployees() {
     return this._payedEmployees;
-  }
-
-  private normalizeEventName(): string {
-    return this._name.replace(/[äöüß]/g, $0 => tr[$0]).replace(' ', '-');
   }
 }

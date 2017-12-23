@@ -49,7 +49,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   private getProject() {
-    this._subscription.add(this.invoicer.findByName(this.route.snapshot.paramMap.get('name')).subscribe(project => {
+    this._subscription.add(this.invoicer.findById(this.route.snapshot.paramMap.get('name')).subscribe(project => {
       this.project = project;
       this.getPayedStatus();
     }));

@@ -16,10 +16,10 @@
   <tbody>
   <tr *ngFor="let project of projects; index as i;">
     <td scope="row">{{ i + 1 }}</td>
-    <td><a [routerLink]="['../..', 'project' ,project.event.name]">{{ project.event.name }}</a></td>
+    <td><a [routerLink]="['../..', 'project' ,project.id]">{{ project.event.name }}</a></td>
     <td>{{ project.event.manager }}</td>
     <td>{{ project.invoice.number }}</td>
-    <td>{{ project.event.date }}</td>
+    <td>{{ project.event.date | date }}</td>
     <td>
       <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
     </td>

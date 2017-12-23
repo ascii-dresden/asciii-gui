@@ -11,28 +11,28 @@ import * as moment from 'moment/moment';
 @Injectable()
 export class InvoicerService {
 
-  private url = 'http://localhost:8000/api';
+  private url = 'http://localhost:8000/api/projects';
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
   findAll(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/projects`).map(this.parseDates).pipe(
+    return this.http.get<any[]>(this.url).map(this.parseDates).pipe(
       tap(() => this.log('fetched projects')),
       catchError(this.handleError('find projects', []))
     );
   }
 
-  findByYear(year: string): Observable<any[]> {
+  findByYear(year: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/projects/year/${year}`).map(this.parseDates).pipe(
       tap(() => this.log(`fetched projects w/ year=${year}`)),
       catchError(this.handleError<any[]>('findAll projects', []))
     );
   }
 
-  findByName(name: string): Observable<any> {
-    return this.http.get<any>(`${this.url}/projects/${name}`).map(this.parseDates).pipe(
-      tap(() => this.log(`fetched project w/ name=${name}`)),
-      catchError(this.handleError(`find project by name=${name}`, {}))
+  findById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/projects/${id}`).map(this.parseDates).pipe(
+      tap(() => this.log(`fetched project w/ id=${id}`)),
+      catchError(this.handleError(`find project by id=${id}`, {}))
     );
   }
 
@@ -47,15 +47,6 @@ export class InvoicerService {
     }
 
     return projects;
-  }
-
-  private parseDate(input, format?) {
-    const parts = input.match(/(\d+)/g), fmt = {};
-    let i = 0;
-    format = format || 'dd.mm.yyyy';
-    format.replace(/(yyyy|dd|mm)/g, function (part) { fmt[part] = i++; });
-
-    return new Date(parts[fmt['yyyy']], parts[fmt['mm']] - 1, parts[fmt['dd']]);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
