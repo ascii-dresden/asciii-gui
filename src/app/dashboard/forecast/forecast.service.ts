@@ -19,9 +19,9 @@ export class ForecastService {
     const forecast = this.settings.forecast;
     this._apiKey = forecast.apiKey;
     this._location = forecast.location;
-    this._params = Object.keys(forecast.params).map(key => {
-      return `${encodeURIComponent(key)}=${encodeURIComponent(forecast.params[key])}`;
-    }).join('&');
+    this._params = Object.keys(forecast.params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(forecast.params[key])}`)
+      .join('&');
   }
 
   getForecast(): Observable<any> {

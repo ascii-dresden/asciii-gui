@@ -77,18 +77,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     return this.projects
       .filter(p => p.invoice.date && !p.checks.payed_by_customer &&
-        (now.setDate(now.getDate() - 14) > this.parseDate(p.invoice.date, 'dd.mm.yyyy').getDate()))
+        (now.setDate(now.getDate() - 14) > p.invoice.date.getDate()))
       .map(p => p.invoice.net_total);
   }
 
   private getProjects(next: any) {
     this._subscription.add(this.invoicer.findByYear(new Date().getFullYear().toString()).subscribe(data => {
       next(data);
-      this.projects = data.sort((a: any, b: any) => {
-        const a1 = this.parseDate(a.offer.date, 'dd.mm.yyyy');
-        const b1 = this.parseDate(b.offer.date, 'dd.mm.yyyy');
-        return a1 < b1 ? -1 : a1 > b1 ? 1 : 0;
-      });
+      this.projects = data.sort((a, b) => a.offer.date < b.offer.date ? -1 : a.offer.date > b.offer.date ? 1 : 0);
     }));
   }
 
@@ -110,14 +106,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private getQuarter(month: number): number {
     return Math.floor((month + 3) / 3);
-  }
-
-  private parseDate(input, format) {
-    const parts = input.match(/(\d+)/g), fmt = {};
-    let i = 0;
-    format = format || 'yyyy-mm-dd';
-    format.replace(/(yyyy|dd|mm)/g, function (part) { fmt[part] = i++; });
-
-    return new Date(parts[fmt['yyyy']], parts[fmt['mm']] - 1, parts[fmt['dd']]);
   }
 }

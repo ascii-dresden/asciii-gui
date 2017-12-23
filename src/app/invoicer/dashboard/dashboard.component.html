@@ -96,7 +96,7 @@
           <tr>
             <th scope="col" i18n>Status</th>
             <th scope="col" i18n>Due Date</th>
-            <th scope="col" i18n>Offer</th>
+            <th scope="col" i18n>Invoice</th>
             <th scope="col" i18n>Name</th>
             <th scope="col" class="text-right" i18n>Balance</th>
           </tr>
@@ -108,7 +108,6 @@
             <td>{{ invoice.date | dueDate | date }}</td>
             <td><a [routerLink]="['project', invoice.name]">{{ invoice.number }}</a></td>
             <td><a [routerLink]="['project', invoice.name]">{{ invoice.name }}</a></td>
-            <td></td>
             <td class="text-right">{{ invoice.balance }}</td>
           </tr>
           <tr>
