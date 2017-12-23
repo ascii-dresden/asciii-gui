@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { LoggerService } from '../../logger/logger.service';
 import { SettingsService } from '../../settings.service';
 import { InvoicerService } from '../invoicer.service';
 import { Invoice } from '../models/invoice';
@@ -17,13 +16,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private _now = new Date();
 
   currentYear: number = this._now.getFullYear();
-  currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);;
+  currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);
   currencyCode: string;
   projects: any[] = [];
   offers: Offer[] = [];
   invoices: Invoice[] = [];
 
-  constructor(private invoicer: InvoicerService, private settings: SettingsService, private logger: LoggerService) {
+  constructor(private invoicer: InvoicerService, private settings: SettingsService) {
     this.currencyCode = this.settings.currencyCode;
   }
 

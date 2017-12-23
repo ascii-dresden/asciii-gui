@@ -5,18 +5,21 @@ import { InvoicerService } from '../invoicer.service';
 
 @Component({
   selector: 'ascii-project',
-  templateUrl: './project.component.html',
-  styles: []
+  templateUrl: './projects.component.html'
 })
-export class ProjectComponent implements OnInit, OnDestroy {
+export class ProjectsComponent implements OnInit, OnDestroy {
 
-  projects;
   private _subscription = new Subscription();
 
-  constructor(private route: ActivatedRoute, private invoicer: InvoicerService) { }
+  currentYear: number;
+  projects: any[] = [];
+
+  constructor(private route: ActivatedRoute, private invoicer: InvoicerService) {
+    this.currentYear = +this.route.snapshot.paramMap.get('year');
+  }
 
   ngOnInit() {
-    this._subscription.add(this.invoicer.findByYear(this.route.snapshot.paramMap.get('year'))
+    this._subscription.add(this.invoicer.findByYear(this.currentYear)
       .subscribe(value => this.projects = value));
   }
 
