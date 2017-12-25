@@ -12,7 +12,7 @@ import { ConsoleLoggerService } from './logger/console-logger.service';
 import { LoggerService } from './logger/logger.service';
 import { MatematModule } from './matemat/matemat.module';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SettingsService } from './settings.service';
+import { ConfigurationService } from './configuration.service';
 
 
 registerLocaleData(localeDe, 'de');
@@ -31,14 +31,14 @@ registerLocaleData(localeDe, 'de');
     MatematModule
   ],
   providers: [
-    { provide: LOCALE_ID, deps: [SettingsService], useFactory: getLanguage },
-    { provide: LoggerService, useClass: ConsoleLoggerService },
-    SettingsService
+    ConfigurationService,
+    { provide: LOCALE_ID, deps: [ConfigurationService], useFactory: getLanguage },
+    { provide: LoggerService, useClass: ConsoleLoggerService }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
 
-export function getLanguage(settings: SettingsService) {
-  return settings.language;
+export function getLanguage(config: ConfigurationService) {
+  return config.language;
 }

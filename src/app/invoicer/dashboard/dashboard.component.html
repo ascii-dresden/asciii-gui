@@ -1,7 +1,7 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col">
-      <h1 class="h6 mb-3" i18n>Invoicer Dashboard</h1>
+      <h1 class="h6 m-0" i18n>Invoicer Dashboard</h1>
     </div>
   </div>
   <div class="row">
@@ -87,7 +87,7 @@
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['offer', currentYear, 'all']" i18n>View All</a></small>
+              <small><a [routerLink]="['offers', currentYear]" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>
@@ -118,7 +118,7 @@
           </tr>
           <tr>
             <td colspan="6" class="text-right">
-              <small><a [routerLink]="['invoices', currentYear, 'all']" i18n>View All</a></small>
+              <small><a [routerLink]="['invoices', currentYear]" i18n>View All</a></small>
             </td>
           </tr>
           </tbody>

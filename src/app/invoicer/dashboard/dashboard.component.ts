@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { SettingsService } from '../../settings.service';
 import { InvoicerService } from '../invoicer.service';
 import { InvoiceDTO } from '../models/invoice.dto';
 import { OfferDTO } from '../models/offer.dto';
 import { Project } from '../models/project';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -18,15 +18,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   currentYear: number = this._now.getFullYear();
   currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);
-  currencyCode: string;
+  currencyCode: string = environment.currencyCode;
   overdue: number;
   projects: Project[] = [];
   offers: OfferDTO[] = [];
   invoices: InvoiceDTO[] = [];
 
-  constructor(private invoicer: InvoicerService, private settings: SettingsService) {
-    this.currencyCode = this.settings.currencyCode;
-  }
+  constructor(private invoicer: InvoicerService) { }
 
   ngOnInit() {
     this.getProjects();

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { InvoicerService } from '../invoicer.service';
 import { Project } from '../models/project';
 import { environment } from '../../../environments/environment';
-import { settings } from '../../../environments/settings';
 import { Bill } from '../models/bill';
 import { Client } from '../models/client';
 import { Service } from '../models/serice';
@@ -22,8 +21,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   private _subscription = new Subscription();
 
-  currencyCode: string = settings.currencyCode;
-  payedStatus: number;
+  currencyCode: string = environment.currencyCode;
   project: Project = <Project>{};
   client: Client = <Client>{};
   service: Service = <Service>{};
@@ -49,24 +47,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  private getPayedStatus(project: Project): number {
-    const payedByCustomer = project.payedByCustomer;
-    const payedEmployee = project.payedEmployees;
-
-    if (!payedByCustomer && !payedEmployee) {
-      return 0;
-    } else if ((payedByCustomer && !payedEmployee) || !payedByCustomer && payedEmployee) {
-      return 1;
-    } else if (payedByCustomer && payedEmployee) {
-      return 2;
-    } else {
-      return 0;
-    }
-  }
-
   private getProject() {
     this._subscription.add(this.invoicer.findProjectById(this.route.snapshot.paramMap.get('name')).subscribe(project => {
-      this.payedStatus = this.getPayedStatus(project);
       this.project = project;
       this.client = project.client;
       this.service = project.service;

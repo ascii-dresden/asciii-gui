@@ -1,17 +1,17 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col">
-      <h1 class="h6 mb-3" i18n>Projects {{ currentYear }}</h1>
+      <h1 class="h6 m-0" i18n>Projects {{ currentYear }}</h1>
     </div>
   </div>
 </div>
-<table class="table table-sm table-striped">
+<table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
+    <th scope="col" i18n>Number</th>
     <th scope="col" i18n>Name</th>
     <th scope="col" i18n>Manager</th>
-    <th scope="col" i18n>Number</th>
     <th scope="col" i18n>Date</th>
     <th scope="col"></th>
     <th scope="col"></th>
@@ -23,23 +23,25 @@
   <tbody>
   <tr *ngFor="let project of projects; index as i;">
     <td scope="row">{{ i + 1 }}</td>
-    <td><a [routerLink]="['../..', 'project' ,project.id]">{{ project.event.name }}</a></td>
-    <td>{{ project.event.manager }}</td>
-    <td>{{ project.invoice.number }}</td>
-    <td>{{ project.event.date | date }}</td>
+    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.invoice.number }}</a></td>
+    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.name }}</a></td>
+    <td>{{ project.manager }}</td>
+    <td>{{ project.date | date }}</td>
     <td>
-      <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
+      <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
     </td>
     <td>
-      <ascii-fa-bool [bool]="project.checks.ready_for_invoice" [colorized]="true"></ascii-fa-bool>
+      <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
     </td>
     <td>
-      <ascii-payed
-        [status]="getPayedStatus(project.checks.payed_by_customer, project.checks.payed_employees)"></ascii-payed>
+      <i class="fa fa-check text-success" *ngIf="project.payedByCustomer && project.payedEmployees"></i>
+      <b class="text-warning" *ngIf="(project.payedByCustomer && !project.payedEmployees)
+      || !project.payedByCustomer && project.payedEmployees">€</b>
+      <i class="fa fa-times text-danger" *ngIf="!project.payedByCustomer && !project.payedEmployees"></i>
     <td>
-      <ascii-fa-bool [bool]="project.checks.ready_for_archive" [colorized]="true"></ascii-fa-bool>
+      <ascii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></ascii-fa-bool>
     </td>
-    <td class="text-right">{{ project.invoice.net_total }}</td>
+    <td class="text-right">{{ project.invoice.net | currency:currencyCode }}</td>
   </tr>
   </tbody>
 </table>

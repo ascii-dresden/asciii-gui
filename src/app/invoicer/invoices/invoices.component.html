@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col">
+      <h1 class="h6 m-0" i18n>Invoices {{ currentYear }}</h1>
+    </div>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col" i18n>Status</th>
+    <th scope="col" i18n>Invoice</th>
+    <th scope="col" i18n>Created</th>
+    <th scope="col" i18n="@@invoiceDate">Date</th>
+    <th scope="col" i18n>Due Date</th>
+    <th scope="col" i18n>Client Name</th>
+    <th scope="col" class="text-right" i18n>Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let invoice of invoices; index as i;">
+    <td scope="row">{{ i + 1 }}</td>
+    <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
+    <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success" i18n>Payed</span></td>
+    <td><a [routerLink]="['../..', 'project', invoice.id]">{{ invoice.number }}</a></td>
+    <td><a [routerLink]="['../..', 'project', invoice.id]">{{ invoice.name }}</a></td>
+    <td>{{ invoice.date | date }}</td>
+    <td>{{ invoice.date | dueDate | date }}</td>
+    <td>{{ invoice.client }}</td>
+    <td class="text-right">{{ invoice.gross | currency:currencyCode }}</td>
+  </tr>
+  </tbody>
+</table>

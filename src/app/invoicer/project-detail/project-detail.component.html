@@ -1,17 +1,17 @@
 <div class="container-fluid" *ngIf="project">
-  <div class="row">
-    <div class="col-md-4">
-      <h1 class="h2 text-truncate">{{ project.name }}
+  <div class="row mb-3">
+    <div class="col-md-5">
+      <h1 class="h6 m-0 text-truncate">{{ project.name }}
         <small class="text-muted">{{ project.date | date }}</small>
       </h1>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <p class="m-0 text-truncate"><b i18n>Manager</b> {{ project.manager }}</p>
         </div>
-        <div class="col-md-2">
-          <p class="m-0 text-truncate"><b i18n>Total</b> {{ invoice.net }}</p>
+        <div class="col-md-3">
+          <p class="m-0 text-truncate"><b i18n>Total</b> {{ invoice.net | currency:currencyCode }}</p>
         </div>
         <div class="col-md-2">
           <ul class="list-inline m-0">
@@ -22,23 +22,13 @@
               <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
             </li>
             <li class="list-inline-item">
-              <ascii-payed [status]="payedStatus"></ascii-payed>
+              <i class="fa fa-check text-success" *ngIf="project.payedByCustomer && project.payedEmployees"></i>
+              <b class="text-warning" *ngIf="(project.payedByCustomer && !project.payedEmployees)
+              || !project.payedByCustomer && project.payedEmployees">€</b>
+              <i class="fa fa-times text-danger" *ngIf="!project.payedByCustomer && !project.payedEmployees"></i>
             </li>
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></ascii-fa-bool>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-5">
-          <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link disabled"><i class="fa fa-arrow-left"></i></a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:;" class="nav-link" (click)="goBack()" i18n>Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled"><i class="fa fa-arrow-right"></i></a>
+              <ascii-fa-bool [bool]="project.canceled" [colorized]="true"></ascii-fa-bool>
             </li>
           </ul>
         </div>
@@ -48,10 +38,12 @@
   <div class="row">
     <div class="col">
       <div class="card-columns">
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-success mb-3">
+          <div class="card-header bg-success text-white">
             <h2 class="h4 card-title" i18n>Client</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ client.name }}</h3>
+            <h3 class="h6 card-subtitle">{{ client.name }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Name</dt>
               <dd class="col-md-9 m-0 text-truncate">{{ client.name }}</dd>
@@ -62,10 +54,12 @@
             </dl>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-info mb-3">
+          <div class="card-header bg-info text-white">
             <h2 class="h4 card-title" i18n>Event</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.name }}</h3>
+            <h3 class="h6 card-subtitle">{{ project.name }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Name</dt>
               <dd class="col-md-9 m-0 text-truncate">{{ project.name }}</dd>
@@ -76,10 +70,12 @@
             </dl>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-secondary mb-3" *ngIf="service.time > 0">
+          <div class="card-header bg-secondary text-white">
             <h2 class="h4 card-title" i18n>Service</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ service.net | currency:currencyCode }}</h3>
+            <h3 class="h6 card-subtitle">{{ service.net | currency:currencyCode }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Time</dt>
               <dd class="col-md-9 m-0 text-truncate">{{ service.time }}h</dd>
@@ -102,7 +98,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let employee of employees">
+              <tr *ngFor="let employee of employees; let even = even;" [ngClass]="{ 'table-secondary': even }">
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.salary | currency:currencyCode }}</td>
                 <td>{{ employee.time }}h</td>
@@ -112,10 +108,12 @@
             </table>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-warning mb-3">
+          <div class="card-header bg-warning text-white">
             <h2 class="h4 card-title" i18n>Offer</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ offer.number }}</h3>
+            <h3 class="h6 card-subtitle">{{ offer.number }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Date</dt>
               <dd class="col-md-9 m-0 text-truncate">{{ offer.date | date }}</dd>
@@ -136,7 +134,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of offerItems">
+              <tr *ngFor="let item of offerItems; let even = even" [ngClass]="{ 'table-warning': even }">
                 <td>{{ item.gross | currency:currencyCode }}</td>
                 <td>
                   <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
@@ -148,10 +146,12 @@
             </table>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-danger mb-3" *ngIf="invoice.date">
+          <div class="card-header bg-danger text-white">
             <h2 class="h4 card-title" i18n>Invoice</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ invoice.number }}</h3>
+            <h3 class="h6 card-subtitle">{{ invoice.number }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Date</dt>
               <dd class="col-md-9 m-0 text-truncate">{{ invoice.date | date }}</dd>
@@ -174,7 +174,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of invoiceItems">
+              <tr *ngFor="let item of invoiceItems; let even = even" [ngClass]="{ 'table-danger': even }">
                 <td>{{ item.gross | currency:currencyCode }}</td>
                 <td>
                   <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
@@ -186,26 +186,28 @@
             </table>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-dark mb-3">
+          <div class="card-header bg-dark text-white">
             <h2 class="h4 card-title" i18n>Bill</h2>
+            <h3 class="h6 card-subtitle">&nbsp;</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Offered
                 <small class="text-muted">{{ offered.length }}</small>
               </dt>
               <dd class="col-md-9 m-0">{{ offered | join }}</dd>
-              <dt class="col-md-3" i18n>Invoiced
+              <dt class="col-md-3" *ngIf="invoice.date" i18n>Invoiced
                 <small class="text-muted">{{ invoiced.length }}</small>
               </dt>
-              <dd class="col-md-9 m-0">{{ invoiced | join }}</dd>
+              <dd class="col-md-9 m-0" *ngIf="invoice.date">{{ invoiced | join }}</dd>
             </dl>
-            <h3 class="h6 text-muted" i18n>Offer</h3>
+            <h3 class="h6 text-muted" i18n>Offered</h3>
             <table class="table table-sm table-striped">
               <thead>
               <tr>
                 <th scope="col" i18n>Name</th>
                 <th scope="col" i18n>Price</th>
-                <th scope="col" i18n>Unit</th>
                 <th scope="col" i18n>Amount</th>
                 <th scope="col" i18n>Cost</th>
                 <th scope="col" i18n>Tax</th>
@@ -215,20 +217,18 @@
               <tr *ngFor="let offer of offered">
                 <td>{{ offer.name }}</td>
                 <td>{{ offer.price | currency:currencyCode }}</td>
-                <td>{{ offer.unit }}</td>
-                <td>{{ offer.amount }}</td>
+                <td>{{ offer.amount }}{{ offer.unit }}</td>
                 <td>{{ offer.cost | currency:currencyCode }}</td>
                 <td>{{ offer.tax }}</td>
               </tr>
               </tbody>
             </table>
-            <h3 class="h6 text-muted" i18n>Invoice</h3>
-            <table class="table table-sm table-striped">
+            <h3 class="h6 text-muted" *ngIf="invoice.date" i18n>Invoiced</h3>
+            <table class="table table-sm table-striped" *ngIf="invoice.date">
               <thead>
               <tr>
                 <th scope="col" i18n>Name</th>
                 <th scope="col" i18n>Price</th>
-                <th scope="col" i18n>Unit</th>
                 <th scope="col" i18n>Amount</th>
                 <th scope="col" i18n>Cost</th>
                 <th scope="col" i18n>Tax</th>
@@ -238,8 +238,7 @@
               <tr *ngFor="let invoice of invoiced">
                 <td>{{ invoice.name }}</td>
                 <td>{{ invoice.price | currency:currencyCode }}</td>
-                <td>{{ invoice.unit }}</td>
-                <td>{{ invoice.amount }}</td>
+                <td>{{ invoice.amount }}{{ invoice.unit }}</td>
                 <td>{{ invoice.cost | currency:currencyCode }}</td>
                 <td>{{ invoice.tax }}</td>
               </tr>

@@ -1,29 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { InvoicerService } from '../invoicer.service';
-import { Project } from '../models/project';
-import { environment } from '../../../environments/environment';
+import { InvoiceDTO } from '../models/invoice.dto';
 
 @Component({
-  selector: 'ascii-project',
-  templateUrl: './projects.component.html'
+  selector: 'ascii-invoices',
+  templateUrl: './invoices.component.html'
 })
-export class ProjectsComponent implements OnInit, OnDestroy {
+export class InvoicesComponent implements OnInit, OnDestroy {
 
   private _subscription = new Subscription();
 
-  currencyCode: string = environment.currencyCode;
   currentYear: number;
-  projects: Project[] = [];
+  currencyCode: string = environment.currencyCode;
+  invoices: InvoiceDTO[] = [];
 
   constructor(private route: ActivatedRoute, private invoicer: InvoicerService) {
     this.currentYear = +this.route.snapshot.paramMap.get('year');
   }
 
   ngOnInit() {
-    this._subscription.add(this.invoicer.findProjectsByYear(this.currentYear)
-      .subscribe(value => this.projects = value));
+    this._subscription.add(this.invoicer.findInvoicesByYear(this.currentYear, 9999)
+      .subscribe(invoices => this.invoices = invoices));
   }
 
   ngOnDestroy() {
