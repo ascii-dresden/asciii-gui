@@ -17,6 +17,7 @@ import { ConvertDatePipe } from './pipes/convert-date.pipe';
 import { DueDatePipe } from './pipes/due-date.pipe';
 import { JoinBill, ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { OffersComponent } from './offers/offers.component';
 
 
 @NgModule({
@@ -35,16 +36,18 @@ import { ProjectsComponent } from './projects/projects.component';
     DashboardComponent,
     ConvertBalancePipe,
     DueDatePipe,
-    ConvertDatePipe
+    ConvertDatePipe,
+    OffersComponent
   ],
   providers: [
-    {
+    /*{
       provide: InvoicerService,
       useFactory: (http: HttpClient, logger: LoggerService) =>
         environment.production ? new InvoicerService(http, logger) : settings.os === 'linux'
           ? new InvoicerService(http, logger) : new InvoicerMockService(http, logger),
       deps: [HttpClient, LoggerService]
-    }
+    }*/
+    { provide: InvoicerService, useClass: InvoicerMockService }
   ]
 })
 export class InvoicerModule {}

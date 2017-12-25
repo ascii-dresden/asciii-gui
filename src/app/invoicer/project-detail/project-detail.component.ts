@@ -3,6 +3,16 @@ import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { InvoicerService } from '../invoicer.service';
+import { Project } from '../models/project';
+import { environment } from '../../../environments/environment';
+import { settings } from '../../../environments/settings';
+import { Bill } from '../models/bill';
+import { Client } from '../models/client';
+import { Service } from '../models/serice';
+import { Offer } from '../models/offer';
+import { Invoice } from '../models/invoice';
+import { Employee } from '../models/employee';
+import { Item } from '../models/item';
 
 @Component({
   selector: 'ascii-project-detail',
@@ -10,16 +20,22 @@ import { InvoicerService } from '../invoicer.service';
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
 
-  project: any;
   private _subscription = new Subscription();
 
+  currencyCode: string = settings.currencyCode;
+  payedStatus: number;
+  project: Project = <Project>{};
+  client: Client = <Client>{};
+  service: Service = <Service>{};
+  offer: Offer = <Offer>{};
+  offerItems: Item[] = [];
+  invoice: Invoice = <Invoice>{};
+  invoiceItems: Item[] = [];
+  employees: Employee[] = [];
+  offered: Bill[] = [];
+  invoiced: Bill[] = [];
+
   constructor(private route: ActivatedRoute, private invoicer: InvoicerService, private location: Location) { }
-
-  private _payedStatus: number;
-
-  get payedStatus(): number {
-    return this._payedStatus;
-  }
 
   ngOnInit() {
     this.getProject();
@@ -33,25 +49,34 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  getPayedStatus(): void {
-    const payedByCustomer = this.project.checks.payed_by_customer;
-    const payedEmployee = this.project.checks.payed_employees;
+  private getPayedStatus(project: Project): number {
+    const payedByCustomer = project.payedByCustomer;
+    const payedEmployee = project.payedEmployees;
 
     if (!payedByCustomer && !payedEmployee) {
-      this._payedStatus = 0;
+      return 0;
     } else if ((payedByCustomer && !payedEmployee) || !payedByCustomer && payedEmployee) {
-      this._payedStatus = 1;
+      return 1;
     } else if (payedByCustomer && payedEmployee) {
-      this._payedStatus = 2;
+      return 2;
     } else {
-      this._payedStatus = 0;
+      return 0;
     }
   }
 
   private getProject() {
-    this._subscription.add(this.invoicer.findById(this.route.snapshot.paramMap.get('name')).subscribe(project => {
+    this._subscription.add(this.invoicer.findProjectById(this.route.snapshot.paramMap.get('name')).subscribe(project => {
+      this.payedStatus = this.getPayedStatus(project);
       this.project = project;
-      this.getPayedStatus();
+      this.client = project.client;
+      this.service = project.service;
+      this.offer = project.offer;
+      this.offerItems = project.offer.items;
+      this.invoice = project.invoice;
+      this.invoiceItems = project.invoice.items;
+      this.employees = project.service.employees;
+      this.offered = project.bills.filter(o => o.type === 0);
+      this.invoiced = project.bills.filter(o => o.type === 1);
     }));
   }
 }

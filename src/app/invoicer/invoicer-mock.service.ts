@@ -5,7 +5,9 @@ import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { LoggerService } from '../logger/logger.service';
 import 'rxjs/add/operator/map';
-import * as moment from 'moment/moment';
+import { InvoiceDTO } from './models/invoice.dto';
+import { OfferDTO } from './models/offer.dto';
+import { Project } from './models/project';
 
 
 @Injectable()
@@ -15,43 +17,76 @@ export class InvoicerMockService {
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
-  findAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.url).map(this.parseDates).pipe(
-      tap(() => this.log('fetched projects')),
-      catchError(this.handleError('find projects', []))
-    );
+  findAllProjects(): Observable<Project[]> {
+    return this.http.get<any[]>(this.url)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.sort(this.sort);
+        return p;
+      })
+      .pipe(
+        tap(() => this.log('fetched projects')),
+        catchError(this.handleError('findAllProjects', []))
+      );
   }
 
-  findByYear(year: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/year/${year}`).map(this.parseDates).pipe(
-      tap(() => this.log(`fetched projects w/ year=${year}`)),
-      catchError(this.handleError<any[]>('findAll projects', []))
-    );
+  findProjectsByYear(year: number): Observable<Project[]> {
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.sort(this.sort);
+        return p;
+      })
+      .pipe(
+        tap(() => this.log(`fetched projects w/ year=${year}`)),
+        catchError(this.handleError<any[]>(`findProjectsByYear w/ year=${year}`, []))
+      );
   }
 
-  findById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.url}/${id}`).map(this.parseDates).pipe(
-      tap(() => this.log(`fetched project w/ id=${id}`)),
-      catchError(this.handleError(`find project by id=${id}`, {}))
-    );
+  findProjectById(id: string): Observable<Project> {
+    return this.http.get<any>(`${this.url}/${id}`)
+      .map(p => new Project(p))
+      .pipe(
+        tap(() => this.log(`fetched project w/ id=${id}`)),
+        catchError(this.handleError<any>(`findProjectById w/ id=${id}`, {}))
+      );
   }
 
-  private parseDates(projects: any | any[]) {
-    for (const project of projects) {
-      project.event.date = moment(project.event.date, 'DD.MM.YYYY').isValid()
-        ? moment(project.event.date, 'DD.MM.YYYY').toDate() : project.event.name;
-      project.offer.date = moment(project.offer.date, 'DD.MM.YYYY').isValid()
-        ? moment(project.offer.date, 'DD.MM.YYYY').toDate() : project.offer.date;
-      project.invoice.date = moment(project.invoice.date, 'DD.MM.YYYY').isValid()
-        ? moment(project.invoice.date, 'DD.MM.YYYY').toDate() : project.invoice.date;
-    }
+  findOffersByYear(year: number, maxResults = 10): Observable<OfferDTO[]> {
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new OfferDTO(o));
+        p = p.sort(this.sort);
+        p = p.slice(Math.max(p.length - maxResults, 1));
+        return p;
+      })
+      .pipe(
+        tap(() => this.log(`fetched offers w/ year=${year}`)),
+        catchError(this.handleError<any[]>(`findOffersByYear w/ year=${year}`, []))
+      );
+  }
 
-    return projects;
+  findInvoicesByYear(year: number, maxResults = 10): Observable<InvoiceDTO[]> {
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new InvoiceDTO(o));
+        p = p.sort(this.sort);
+        p = p.slice(Math.max(p.length - maxResults, 1));
+        return p;
+      })
+      .pipe(
+        tap(() => this.log(`fetched invoices w/ year=${year}`)),
+        catchError(this.handleError<any[]>(`findInvoicesByYear w/ year=${year}`, []))
+      );
+  }
+
+  private sort(a, b) {
+    return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      this.logger.error(error);
+      this.logger.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }

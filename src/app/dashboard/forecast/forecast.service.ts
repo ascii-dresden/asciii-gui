@@ -10,7 +10,7 @@ import { SettingsService } from '../../settings.service';
 @Injectable()
 export class ForecastService {
 
-  private _forecastUrl = 'https://api.darksky.balance/forecast';
+  private _forecastUrl = 'https://api.darksky.gross/forecast';
   private _apiKey: string;
   private _location: any;
   private _params: string;

@@ -1,67 +1,39 @@
+import { Item } from './item';
+import { InvoicerUtils } from '../invoicer-utils';
+
 export class Offer {
 
-  private _id: string;
-  private _name: string;
-  private _client: string;
-  private _date: Date;
   private _number: string;
-  private _balance: string;
-  private _sent: boolean;
-  private _approved: boolean;
-  private _rejected: boolean;
+  private _date: number;
+  private _net: number;
+  private _gross: number;
+  private _items: Item[] = [];
 
-  constructor(private _project) {
-    this._id = _project.id;
-    this._name = _project.event.name;
-    this._client = _project.client.full_name;
-    this._date = _project.offer.date;
-    this._number = _project.offer.number;
-    this._balance = _project.offer.net_total;
-    this._sent = _project.checks.ready_for_offer && !_project.checks.ready_for_invoice && !_project.checks.ready_for_archive;
-    this._approved = _project.checks.ready_for_offer && _project.checks.ready_for_invoice && !_project.checks.ready_for_archive;
-    this._rejected = _project.checks.canceled;
+  constructor(project) {
+    this._number = project.offer.number;
+    this._date = InvoicerUtils.parseDate(project.offer.date);
+    this._net = InvoicerUtils.parseCurrency(project.offer.net_total);
+    this._gross = InvoicerUtils.parseCurrency(project.offer.gross_total);
+    project.offer.sums.forEach(s => this._items.push(new Item(s.gross_sum, s.tax_value)));
   }
 
-  get id() {
-    return this._id;
-  }
-
-  get name() {
-    return this._name;
-  }
-
-
-  get client() {
-    return this._client;
-  }
-
-
-  get date() {
-    return this._date;
-  }
-
-
-  get number() {
+  get number(): string {
     return this._number;
   }
 
-
-  get balance() {
-    return this._balance;
+  get date(): number {
+    return this._date;
   }
 
-
-  get sent() {
-    return this._sent;
+  get net(): number {
+    return this._net;
   }
 
-
-  get approved() {
-    return this._approved;
+  get gross(): number {
+    return this._gross;
   }
 
-
-  get rejected() {
-    return this._rejected;
+  get items(): Item[] {
+    return this._items;
   }
 }

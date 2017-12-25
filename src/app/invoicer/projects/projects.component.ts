@@ -19,7 +19,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._subscription.add(this.invoicer.findByYear(this.currentYear)
+    this._subscription.add(this.invoicer.findProjectsByYear(this.currentYear)
       .subscribe(value => this.projects = value));
   }
 

@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { SettingsService } from '../../settings.service';
 import { InvoicerService } from '../invoicer.service';
-import { Invoice } from '../models/invoice';
-import { Offer } from '../models/offer';
+import { InvoiceDTO } from '../models/invoice.dto';
+import { OfferDTO } from '../models/offer.dto';
+import { Project } from '../models/project';
 
 
 @Component({
@@ -18,90 +19,92 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentYear: number = this._now.getFullYear();
   currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);
   currencyCode: string;
-  projects: any[] = [];
-  offers: Offer[] = [];
-  invoices: Invoice[] = [];
+  overdue: number;
+  projects: Project[] = [];
+  offers: OfferDTO[] = [];
+  invoices: InvoiceDTO[] = [];
 
   constructor(private invoicer: InvoicerService, private settings: SettingsService) {
     this.currencyCode = this.settings.currencyCode;
   }
 
   ngOnInit() {
-    this.getProjects((projects: any[]) => {
-      this.getRecentOffers(projects);
-      this.getRecentInvoices(projects);
-    });
+    this.getProjects();
+    this.getOffers();
+    this.getInvoices();
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
   }
 
-  sentOffers(): string[] {
+  sentOffers(): number {
     return this.offers
       .filter(o => o.sent)
-      .map(o => o.balance);
+      .map(o => o.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  approvedOffers(): string[] {
+  approvedOffers(): number {
     return this.offers
       .filter(o => o.approved)
-      .map(o => o.balance);
+      .map(o => o.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  rejectedOffers(): string[] {
+  rejectedOffers(): number {
     return this.offers
       .filter(o => o.rejected)
-      .map(o => o.balance);
+      .map(o => o.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  sentInvoices(): string[] {
+  sentInvoices(): number {
     return this.invoices
       .filter(i => i.sent)
-      .map(i => i.balance);
+      .map(i => i.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  pbcInvoices(): string[] {
+  pbcInvoices(): number {
     return this.invoices
       .filter(i => i.payedByCustomer)
-      .map(i => i.balance);
+      .map(i => i.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  peInvoices(): string[] {
+  peInvoices(): number {
     return this.invoices
       .filter(i => i.payedEmployees)
-      .map(i => i.balance);
+      .map(i => i.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  overdue(): string[] {
-    const now = new Date();
+  private getOverdue(projects: Project[]): number {
+    const now = this._now;
 
-    return this.projects
-      .filter(p => p.invoice.date && !p.checks.payed_by_customer &&
-        (now.setDate(now.getDate() - 14) > p.invoice.date.getDate()))
-      .map(p => p.invoice.net_total);
+    return projects
+      .filter(p => p.invoice.date && !p.payedByCustomer &&
+        (now.setTime(now.getTime() - 1209600000) > p.invoice.date)) // 14 Days in Milliseconds
+      .map(p => p.invoice.gross)
+      .reduce((a, b) => a + b, 0);
   }
 
-  private getProjects(next: any) {
-    this._subscription.add(this.invoicer.findByYear(this.currentYear).subscribe(data => {
-      next(data);
-      this.projects = data.sort((a, b) => a.offer.date < b.offer.date ? -1 : a.offer.date > b.offer.date ? 1 : 0);
-    }));
+  private getProjects() {
+    this._subscription.add(this.invoicer.findProjectsByYear(this.currentYear)
+      .subscribe(projects => {
+        this.projects = projects;
+        this.overdue = this.getOverdue(projects);
+      }));
   }
 
-  private getRecentOffers(projects: any[]) {
-    this.offers = projects
-      .map(p => new Offer(p))
-      .sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
-      .slice(Math.max(projects.length - 10, 1));
+  private getOffers() {
+    this._subscription.add(this.invoicer.findOffersByYear(this.currentYear)
+      .subscribe(offers => this.offers = offers));
   }
 
-  private getRecentInvoices(projects: any[]) {
-    this.invoices = projects
-      .map(p => new Invoice(p))
-      .filter(p => (null !== p.date))
-      .sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
-
-    this.invoices = this.invoices.slice(Math.max(this.invoices.length - 10, 1));
+  private getInvoices() {
+    this._subscription.add(this.invoicer.findInvoicesByYear(this.currentYear)
+      .subscribe(invoices => this.invoices = invoices));
   }
 }

@@ -15,15 +15,15 @@
           <tbody>
           <tr>
             <td><a [routerLink]="['offers', currentYear, 'sent']" i18n>Sent</a></td>
-            <td class="text-right text-info">{{ sentOffers() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-info">{{ sentOffers() | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td><a [routerLink]="['offers', currentYear, 'approved']" i18n>Approved</a></td>
-            <td class="text-right text-success">{{ approvedOffers() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-success">{{ approvedOffers() | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td><a [routerLink]="['offers', currentYear, 'rejected']" i18n>Rejected</a></td>
-            <td class="text-right text-danger">{{ rejectedOffers() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-danger">{{ rejectedOffers() | currency:currencyCode }}</td>
           </tr>
           </tbody>
         </table>
@@ -39,15 +39,15 @@
           <tbody>
           <tr>
             <td><a [routerLink]="['invoices', currentYear, 'sent']" i18n>Sent</a></td>
-            <td class="text-right text-info">{{ sentInvoices() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-info">{{ sentInvoices() | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td><a [routerLink]="['invoices', currentYear, 'pbc']" i18n>Paid by Customer</a></td>
-            <td class="text-right text-success">{{ pbcInvoices() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-success">{{ pbcInvoices() | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td><a [routerLink]="['invoices', currentYear, 'pe']" i18n>Payed Employee</a></td>
-            <td class="text-right text-warning">{{ peInvoices() | convertBalance | currency:currencyCode }}</td>
+            <td class="text-right text-warning">{{ peInvoices() | currency:currencyCode }}</td>
           </tr>
           </tbody>
         </table>
@@ -55,7 +55,7 @@
       <div class="card mb-3 border-danger">
         <div class="card-body p-2">
           <a class="card-text text-danger" [routerLink]="['invoices', currentYear, 'overdue']"><i class="fa fa-external-link"></i> <span i18n>Overdue Invoices</span></a>
-          <span class="float-right text-danger">{{ overdue() | convertBalance | currency:currencyCode }}</span>
+          <span class="float-right text-danger">{{ overdue | currency:currencyCode }}</span>
         </div>
       </div>
     </div>
@@ -76,13 +76,14 @@
           </thead>
           <tbody>
           <tr *ngFor="let offer of offers">
+            <td *ngIf="!offer.sent && !offer.approved && !offer.rejected"><span class="badge badge-secondary">&nbsp;</span></td>
             <td *ngIf="offer.sent"><span class="badge badge-info" i18n>Sent</span></td>
             <td *ngIf="offer.approved"><span class="badge badge-success" i18n>Approved</span></td>
             <td *ngIf="offer.rejected"><span class="badge badge-danger" i18n>Rejected</span></td>
             <td>{{ offer.date | date }}</td>
             <td><a [routerLink]="['project', offer.id]">{{ offer.number }}</a></td>
             <td><a [routerLink]="['project', offer.id]">{{ offer.name }}</a></td>
-            <td class="text-right">{{ offer.balance }}</td>
+            <td class="text-right">{{ offer.gross | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
@@ -113,7 +114,7 @@
             <td>{{ invoice.date | dueDate | date }}</td>
             <td><a [routerLink]="['project', invoice.id]">{{ invoice.number }}</a></td>
             <td><a [routerLink]="['project', invoice.id]">{{ invoice.name }}</a></td>
-            <td class="text-right">{{ invoice.balance }}</td>
+            <td class="text-right">{{ invoice.gross | currency:currencyCode }}</td>
           </tr>
           <tr>
             <td colspan="6" class="text-right">
