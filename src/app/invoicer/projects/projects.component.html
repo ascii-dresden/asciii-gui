@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col">
+      <h1 class="h6 m-0" i18n>Projects {{ currentYear }}</h1>
+    </div>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col" i18n>Number</th>
+    <th scope="col" i18n>Name</th>
+    <th scope="col" i18n>Manager</th>
+    <th scope="col" i18n>Date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col" class="text-right" i18n>Total</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let project of projects; index as i;">
+    <td scope="row">{{ i + 1 }}</td>
+    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.invoice.number }}</a></td>
+    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.name }}</a></td>
+    <td>{{ project.manager }}</td>
+    <td>{{ project.date | date }}</td>
+    <td>
+      <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td>
+      <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td>
+      <i class="fa fa-check text-success" *ngIf="project.payedByCustomer && project.payedEmployees"></i>
+      <b class="text-warning" *ngIf="(project.payedByCustomer && !project.payedEmployees)
+      || !project.payedByCustomer && project.payedEmployees">€</b>
+      <i class="fa fa-times text-danger" *ngIf="!project.payedByCustomer && !project.payedEmployees"></i>
+    <td>
+      <ascii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></ascii-fa-bool>
+    </td>
+    <td class="text-right">{{ project.invoice.net | currency:currencyCode }}</td>
+  </tr>
+  </tbody>
+</table>

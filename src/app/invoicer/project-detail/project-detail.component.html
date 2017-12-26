@@ -1,44 +1,34 @@
 <div class="container-fluid" *ngIf="project">
-  <div class="row">
-    <div class="col-md-4">
-      <h1 class="h2 text-truncate">{{ project.event.name }}
-        <small class="text-muted">{{ project.event.date }}</small>
+  <div class="row mb-3">
+    <div class="col-md-5">
+      <h1 class="h6 m-0 text-truncate">{{ project.name }}
+        <small class="text-muted">{{ project.date | date }}</small>
       </h1>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="row">
+        <div class="col-md-4">
+          <p class="m-0 text-truncate"><b i18n>Manager</b> {{ project.manager }}</p>
+        </div>
         <div class="col-md-3">
-          <p class="m-0 text-truncate"><b i18n>Manager</b> {{ project.event.manager }}</p>
+          <p class="m-0 text-truncate"><b i18n>Total</b> {{ invoice.net | currency:currencyCode }}</p>
         </div>
         <div class="col-md-2">
-          <p class="m-0 text-truncate"><b i18n>Total</b> {{ project.invoice.net_total }}</p>
-        </div>
-        <div class="col-md-2">
-          <ul class="list-inline">
+          <ul class="list-inline m-0">
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.checks.ready_for_offer" [colorized]="true"></ascii-fa-bool>
+              <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
             </li>
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.checks.ready_for_invoice" [colorized]="true"></ascii-fa-bool>
+              <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
             </li>
             <li class="list-inline-item">
-              <ascii-payed [status]="payedStatus"></ascii-payed>
+              <i class="fa fa-check text-success" *ngIf="project.payedByCustomer && project.payedEmployees"></i>
+              <b class="text-warning" *ngIf="(project.payedByCustomer && !project.payedEmployees)
+              || !project.payedByCustomer && project.payedEmployees">€</b>
+              <i class="fa fa-times text-danger" *ngIf="!project.payedByCustomer && !project.payedEmployees"></i>
             </li>
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.checks.ready_for_archive" [colorized]="true"></ascii-fa-bool>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-5">
-          <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <a class="nav-link disabled"><i class="fa fa-arrow-left"></i></a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:;" class="nav-link" (click)="goBack()" i18n>Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled"><i class="fa fa-arrow-right"></i></a>
+              <ascii-fa-bool [bool]="project.canceled" [colorized]="true"></ascii-fa-bool>
             </li>
           </ul>
         </div>
@@ -48,191 +38,208 @@
   <div class="row">
     <div class="col">
       <div class="card-columns">
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-success mb-3">
+          <div class="card-header bg-success text-white">
             <h2 class="h4 card-title" i18n>Client</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.client.full_name }}</h3>
+            <h3 class="h6 card-subtitle">{{ client.name }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Name</dt>
-              <dd class="col-md-9 m-0 text-truncate">
-                {{ [project.client.title, project.client.first_name, project.client.last_name] | displayName }}
-              </dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ client.name }}</dd>
               <dt class="col-md-3" i18n>Email</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.client.email }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ client.email }}</dd>
               <dt class="col-md-3" i18n>Address</dt>
-              <dd class="col-md-9 m-0 text-truncate" style="white-space: pre-wrap;">{{ project.client.address }}</dd>
+              <dd class="col-md-9 m-0 text-truncate" style="white-space: pre-wrap;">{{ client.address }}</dd>
             </dl>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-info mb-3">
+          <div class="card-header bg-info text-white">
             <h2 class="h4 card-title" i18n>Event</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.event.name }}</h3>
+            <h3 class="h6 card-subtitle">{{ project.name }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Name</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.event.name }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ project.name }}</dd>
               <dt class="col-md-3" i18n>Date</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.event.date }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ project.date | date}}</dd>
               <dt class="col-md-3" i18n>Manager</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.event.manager }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ project.manager }}</dd>
             </dl>
           </div>
         </div>
-        <div class="card mb-3">
-          <div class="card-body">
+        <div class="card border-secondary mb-3" *ngIf="service.time > 0">
+          <div class="card-header bg-secondary text-white">
             <h2 class="h4 card-title" i18n>Service</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.service.net_total }}</h3>
+            <h3 class="h6 card-subtitle">{{ service.net | currency:currencyCode }}</h3>
+          </div>
+          <div class="card-body">
             <dl class="row">
               <dt class="col-md-3" i18n>Time</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.service.time }}h</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ service.time }}h</dd>
               <dt class="col-md-3" i18n>Tax</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.service.tax }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ service.tax }}</dd>
               <dt class="col-md-3" i18n>Salary</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.service.salary }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ service.salary | currency:currencyCode }}</dd>
               <dt class="col-md-3" i18n>Gross</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.service.gross_total }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ service.gross | currency:currencyCode }}</dd>
               <dt class="col-md-3" i18n>Net</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.service.net_total }}</dd>
+              <dd class="col-md-9 m-0 text-truncate">{{ service.net | currency:currencyCode }}</dd>
             </dl>
-            <table class="table table-sm table-striped" *ngIf="project.service.employees.length > 0">
-              <thead>
-              <th scope="col" i18n>Name</th>
-              <th scope="col" i18n>Salary</th>
-              <th scope="col" i18n>Time</th>
-              <th scope="col" i18n>Wage</th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let employee of project.service.employees">
-                <td>{{ employee.name }}</td>
-                <td>{{ employee.salary }}</td>
-                <td>{{ employee.time }}h</td>
-                <td>{{ employee.wage }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card mb-3">
-          <div class="card-body">
-            <h2 class="h4 card-title" i18n>Offer</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.offer.number }}</h3>
-            <dl class="row">
-              <dt class="col-md-3" i18n>Date</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.offer.date }}</dd>
-              <dt class="col-md-3" i18n>Number</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.offer.number }}</dd>
-            </dl>
-            <table class="table table-sm table-striped" *ngIf="project.offer.sums.length > 0">
-              <thead>
-              <th scope="col" i18n>Gross</th>
-              <th scope="col" i18n>Taxable</th>
-              <th scope="col" i18n>Tax sum</th>
-              <th scope="col" i18n>Tax value</th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let sum of project.offer.sums">
-                <td>{{ sum.gross_sum }}</td>
-                <td>
-                  <ascii-fa-bool [bool]="sum.has_tax" [centered]="true"></ascii-fa-bool>
-                </td>
-                <td>{{ sum.tax_sum }}</td>
-                <td>{{ sum.tax_value }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card mb-3" *ngIf="project.invoice.date">
-          <div class="card-body">
-            <h2 class="h4 card-title" i18n>Invoice</h2>
-            <h3 class="h6 card-subtitle mb-2 text-muted">{{ project.invoice.number_long }}</h3>
-            <dl class="row">
-              <dt class="col-md-3" i18n>Date</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.invoice.date }}</dd>
-              <dt class="col-md-3" i18n>Due Date</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.invoice.date | convertDate | dueDate | date}}</dd>
-              <dt class="col-md-3" i18n>Number</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.invoice.number }}</dd>
-              <dt class="col-md-3" i18n>Official</dt>
-              <dd class="col-md-9 m-0 text-truncate">
-                <ascii-fa-bool [bool]="project.invoice.number"></ascii-fa-bool>
-              </dd>
-              <dt class="col-md-3" i18n>Gross</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.invoice.gross_total }}</dd>
-              <dt class="col-md-3" i18n>Net</dt>
-              <dd class="col-md-9 m-0 text-truncate">{{ project.invoice.net_total }}</dd>
-            </dl>
-            <table class="table table-sm table-striped" *ngIf="project.invoice.sums.length > 0">
-              <thead>
-              <th scope="col" i18n>Gross</th>
-              <th scope="col" i18n>Has Tax</th>
-              <th scope="col" i18n>Tax Sum</th>
-              <th scope="col" i18n>Tax Value</th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let invoice of project.invoice.sums">
-                <td>{{ invoice.gross_sum }}</td>
-                <td>
-                  <ascii-fa-bool [bool]="invoice.has_tax" [centered]="true"></ascii-fa-bool>
-                </td>
-                <td>{{ invoice.tax_sum }}</td>
-                <td>{{ invoice.tax_value }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card mb-3">
-          <div class="card-body">
-            <h2 class="h4 card-title" i18n>Bill</h2>
-            <dl class="row">
-              <dt class="col-md-3"><span i18n>Offered</span>
-                <small class="text-muted">{{ project.bills.offer.length }}</small>
-              </dt>
-              <dd class="col-md-9 m-0">{{ project.bills.offer | join }}</dd>
-              <dt class="col-md-3" *ngIf="project.invoice.date"><span i18n>Invoiced</span>
-                <small class="text-muted">{{ project.bills.invoice.length }}</small>
-              </dt>
-              <dd class="col-md-9 m-0" *ngIf="project.invoice.date">{{ project.bills.invoice | join }}</dd>
-            </dl>
-            <h3 class="h6 text-muted" i18n>Offer</h3>
             <table class="table table-sm table-striped">
               <thead>
-              <th scope="col" i18n>Name</th>
-              <th scope="col" i18n>Price</th>
-              <th scope="col" i18n>Unit</th>
-              <th scope="col" i18n>Amount</th>
-              <th scope="col" i18n>Cost</th>
-              <th scope="col" i18n>Tax</th>
+              <tr>
+                <th scope="col" i18n>Name</th>
+                <th scope="col" i18n>Salary</th>
+                <th scope="col" i18n>Time</th>
+                <th scope="col" i18n>Wage</th>
+              </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let offer of project.bills.offer">
+              <tr *ngFor="let employee of employees; let even = even;" [ngClass]="{ 'table-secondary': even }">
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.salary | currency:currencyCode }}</td>
+                <td>{{ employee.time }}h</td>
+                <td>{{ employee.wage | currency:currencyCode }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card border-warning mb-3">
+          <div class="card-header bg-warning text-white">
+            <h2 class="h4 card-title" i18n>Offer</h2>
+            <h3 class="h6 card-subtitle">{{ offer.number }}</h3>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-md-3" i18n>Date</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ offer.date | date }}</dd>
+              <dt class="col-md-3" i18n>Number</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ offer.number }}</dd>
+              <dt class="col-md-3" i18n>Net</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ offer.net | currency:currencyCode }}</dd>
+              <dt class="col-md-3" i18n>Gross</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ offer.gross | currency:currencyCode }}</dd>
+            </dl>
+            <table class="table table-sm table-striped">
+              <thead>
+              <tr>
+                <th scope="col" i18n>Gross</th>
+                <th scope="col" i18n>Taxed</th>
+                <th scope="col" i18n>Tax Sum</th>
+                <th scope="col" i18n>Tax</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of offerItems; let even = even" [ngClass]="{ 'table-warning': even }">
+                <td>{{ item.gross | currency:currencyCode }}</td>
+                <td>
+                  <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
+                </td>
+                <td>{{ item.taxTotal | currency:currencyCode }}</td>
+                <td>{{ item.tax }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card border-danger mb-3" *ngIf="invoice.date">
+          <div class="card-header bg-danger text-white">
+            <h2 class="h4 card-title" i18n>Invoice</h2>
+            <h3 class="h6 card-subtitle">{{ invoice.number }}</h3>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-md-3" i18n>Date</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ invoice.date | date }}</dd>
+              <dt class="col-md-3" i18n>Due Date</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ invoice.date | dueDate | date}}</dd>
+              <dt class="col-md-3" i18n>Number</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ invoice.number }}</dd>
+              <dt class="col-md-3" i18n>Gross</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ invoice.gross | currency:currencyCode }}</dd>
+              <dt class="col-md-3" i18n>Net</dt>
+              <dd class="col-md-9 m-0 text-truncate">{{ invoice.net | currency:currencyCode }}</dd>
+            </dl>
+            <table class="table table-sm table-striped">
+              <thead>
+              <tr>
+                <th scope="col" i18n>Gross</th>
+                <th scope="col" i18n>Taxed</th>
+                <th scope="col" i18n>Tax Sum</th>
+                <th scope="col" i18n>Tax</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of invoiceItems; let even = even" [ngClass]="{ 'table-danger': even }">
+                <td>{{ item.gross | currency:currencyCode }}</td>
+                <td>
+                  <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
+                </td>
+                <td>{{ item.taxTotal | currency:currencyCode }}</td>
+                <td>{{ item.tax }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card border-dark mb-3">
+          <div class="card-header bg-dark text-white">
+            <h2 class="h4 card-title" i18n>Bill</h2>
+            <h3 class="h6 card-subtitle">&nbsp;</h3>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-md-3" i18n>Offered
+                <small class="text-muted">{{ offered.length }}</small>
+              </dt>
+              <dd class="col-md-9 m-0">{{ offered | join }}</dd>
+              <dt class="col-md-3" *ngIf="invoice.date" i18n>Invoiced
+                <small class="text-muted">{{ invoiced.length }}</small>
+              </dt>
+              <dd class="col-md-9 m-0" *ngIf="invoice.date">{{ invoiced | join }}</dd>
+            </dl>
+            <h3 class="h6 text-muted" i18n>Offered</h3>
+            <table class="table table-sm table-striped">
+              <thead>
+              <tr>
+                <th scope="col" i18n>Name</th>
+                <th scope="col" i18n>Price</th>
+                <th scope="col" i18n>Amount</th>
+                <th scope="col" i18n>Cost</th>
+                <th scope="col" i18n>Tax</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let offer of offered">
                 <td>{{ offer.name }}</td>
-                <td>{{ offer.price }}</td>
-                <td>{{ offer.unit }}</td>
-                <td>{{ offer.amount }}</td>
-                <td>{{ offer.cost }}</td>
+                <td>{{ offer.price | currency:currencyCode }}</td>
+                <td>{{ offer.amount }}{{ offer.unit }}</td>
+                <td>{{ offer.cost | currency:currencyCode }}</td>
                 <td>{{ offer.tax }}</td>
               </tr>
               </tbody>
             </table>
-            <h3 class="h6 text-muted" *ngIf="project.invoice.date" i18n>Invoice</h3>
-            <table class="table table-sm table-striped" *ngIf="project.invoice.date">
+            <h3 class="h6 text-muted" *ngIf="invoice.date" i18n>Invoiced</h3>
+            <table class="table table-sm table-striped" *ngIf="invoice.date">
               <thead>
-              <th scope="col" i18n>Name</th>
-              <th scope="col" i18n>Price</th>
-              <th scope="col" i18n>Unit</th>
-              <th scope="col" i18n>Amount</th>
-              <th scope="col" i18n>Cost</th>
-              <th scope="col" i18n>Tax</th>
+              <tr>
+                <th scope="col" i18n>Name</th>
+                <th scope="col" i18n>Price</th>
+                <th scope="col" i18n>Amount</th>
+                <th scope="col" i18n>Cost</th>
+                <th scope="col" i18n>Tax</th>
+              </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let invoice of project.bills.invoice">
+              <tr *ngFor="let invoice of invoiced">
                 <td>{{ invoice.name }}</td>
-                <td>{{ invoice.price }}</td>
-                <td>{{ invoice.unit }}</td>
-                <td>{{ invoice.amount }}</td>
-                <td>{{ invoice.cost }}</td>
+                <td>{{ invoice.price | currency:currencyCode }}</td>
+                <td>{{ invoice.amount }}{{ invoice.unit }}</td>
+                <td>{{ invoice.cost | currency:currencyCode }}</td>
                 <td>{{ invoice.tax }}</td>
               </tr>
               </tbody>

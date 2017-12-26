@@ -4,24 +4,23 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { LoggerService } from '../../logger/logger.service';
-import { SettingsService } from '../../settings.service';
+import { ConfigurationService } from '../../configuration.service';
 
 
 @Injectable()
 export class ForecastService {
 
-  private _forecastUrl = 'https://api.darksky.balance/forecast';
+  private _forecastUrl = 'https://api.darksky.gross/forecast';
   private _apiKey: string;
   private _location: any;
   private _params: string;
 
-  constructor(private http: HttpClient, private logger: LoggerService, private settings: SettingsService) {
+  constructor(private http: HttpClient, private logger: LoggerService, private settings: ConfigurationService) {
     const forecast = this.settings.forecast;
     this._apiKey = forecast.apiKey;
     this._location = forecast.location;
     this._params = Object.keys(forecast.params)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(forecast.params[key])}`)
-      .join('&');
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(forecast.params[key])}`).join('&');
   }
 
   getForecast(): Observable<any> {

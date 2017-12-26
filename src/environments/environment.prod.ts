@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  forecast: true
+  forecast: true,
+  invoicerMock: false,
+  currencyCode: 'EUR'
 };

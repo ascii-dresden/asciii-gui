@@ -1,70 +1,39 @@
-const tr = { 'ä': 'ae', 'ü': 'ue', 'ö': 'oe', 'ß': 'ss' };
+import { Item } from './item';
+import { InvoicerUtils } from '../invoicer-utils';
 
 export class Invoice {
 
-  private _id: string;
-  private _name: string;
-  private _client: string;
-  private _date: Date | null;
-  private _number: string;
-  private _balance: string;
-  private _sent: boolean;
-  private _payedByCustomer: boolean;
-  private _payedEmployees: boolean;
+  private _number: string | null;
+  private _date: number | null;
+  private _net: number;
+  private _gross: number;
+  private _items: Item[] = [];
 
-  constructor(private _project) {
-    this._name = _project.event.name;
-    this._client = _project.client.full_name;
-    this._date = _project.invoice.date;
-    this._number = _project.invoice.number_long;
-    this._balance = _project.invoice.net_total;
-    this._sent = _project.checks.ready_for_offer && _project.checks.ready_for_invoice &&
-      !_project.checks.payed_by_customer && !_project.checks.payed_employees;
-    this._payedByCustomer = _project.checks.payed_by_customer;
-    this._payedEmployees = _project.checks.payed_employees;
-    this._id = `${(this._date ? this._date.getFullYear() : '') + '-'}${this.normalizeEventName()}`;
+  constructor(project: any) {
+    this._number = project.invoice.number_long;
+    this._date = InvoicerUtils.parseDate(project.invoice.date);
+    this._net = InvoicerUtils.parseCurrency(project.invoice.net_total);
+    this._gross = InvoicerUtils.parseCurrency(project.invoice.gross_total);
+    project.invoice.sums.forEach(s => this._items.push(new Item(s.gross_sum, s.tax_value)));
   }
 
-  get name() {
-    return this._name;
-  }
-
-
-  get client() {
-    return this._client;
-  }
-
-
-  get date() {
-    return this._date;
-  }
-
-
-  get number() {
+  get number(): string | null {
     return this._number;
   }
 
-
-  get balance() {
-    return this._balance;
+  get date(): number | null {
+    return this._date;
   }
 
-
-  get sent() {
-    return this._sent;
+  get net(): number {
+    return this._net;
   }
 
-
-  get payedByCustomer() {
-    return this._payedByCustomer;
+  get gross(): number {
+    return this._gross;
   }
 
-
-  get payedEmployees() {
-    return this._payedEmployees;
-  }
-
-  private normalizeEventName(): string {
-    return this._name.replace(/[äöüß]/g, $0 => tr[$0]).replace(' ', '-');
+  get items(): Item[] {
+    return this._items;
   }
 }

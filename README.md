@@ -30,7 +30,7 @@ Install the dependencies.
 npm install
 ``` 
 
-Some settings are stored in `src/environments/settings.ts`. Simply copy `src/environments/settings.sample.ts`.
+Some settings are stored in `src/environments/config.ts`. Simply copy `src/environments/config.sample.ts`.
 
 ## Development server
 
@@ -54,7 +54,7 @@ Cross-Origin requests to use the asciii REST API.
 ### Weather forecast
 
 The dashboard provides a weather forecast widget. Visit [darksky.net](https://darksky.net) to get your own 
-free API Key and put in into the `src/environments/settings.ts` file. In dev mode the app uses a mock 
+free API Key and put in into the `src/environments/config.ts` file. In dev mode the app uses a mock 
 service to prevent unnecessary HTTP requests onto the Dark Sky API. 
 
 ### i18n
@@ -65,7 +65,7 @@ To change your interface language to german run
 npm run start:de
 ```
 
-Change currency and locale by editing `src/environments/settings.ts`.
+Change currency and locale by editing `src/environments/config.ts`.
 
 ## License
 
