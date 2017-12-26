@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private _now = new Date();
 
   currentYear: number = this._now.getFullYear();
-  currentQuarter: number = Math.floor((this._now.getMonth() + 3) / 3);
   currencyCode: string = environment.currencyCode;
   overdue: number;
   projects: Project[] = [];

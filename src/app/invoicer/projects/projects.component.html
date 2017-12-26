@@ -23,8 +23,8 @@
   <tbody>
   <tr *ngFor="let project of projects; index as i;">
     <td scope="row">{{ i + 1 }}</td>
-    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.invoice.number }}</a></td>
-    <td><a [routerLink]="['../..', 'project', project.id]">{{ project.name }}</a></td>
+    <td><a [routerLink]="['../../..', 'project', project.id]">{{ project.invoice.number }}</a></td>
+    <td><a [routerLink]="['../../..', 'project', project.id]">{{ project.name }}</a></td>
     <td>{{ project.manager }}</td>
     <td>{{ project.date | date }}</td>
     <td>

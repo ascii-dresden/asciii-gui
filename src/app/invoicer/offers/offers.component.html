@@ -1,7 +1,40 @@
 <div class="container-fluid">
-  <div class="row mb-3">
-    <div class="col">
+  <div class="row mb-3 justify-content-center align-items-center">
+    <div class="col-md-6">
       <h1 class="h6 m-0" i18n>Offers {{ currentYear }}</h1>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with Sub Navigation">
+        <div class="btn-group btn-group-sm mr-2" role="group" aria-label="Sub Navigation">
+          <a class="btn"
+             routerLink="../all"
+             routerLinkActive
+             #rla0="routerLinkActive"
+             [ngClass]="rla0.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>All</a>
+          <a class="btn"
+             routerLink="../sent"
+             routerLinkActive
+             #rla1="routerLinkActive"
+             [ngClass]="rla1.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Sent</a>
+          <a class="btn"
+             routerLink="../approved"
+             routerLinkActive
+             #rla2="routerLinkActive"
+             [ngClass]="rla2.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Approved</a>
+          <a class="btn"
+             routerLink="../rejected"
+             routerLinkActive
+             #rla3="routerLinkActive"
+             [ngClass]="rla3.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Rejected</a>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Back">
+          <a href="javascript:;" type="button" class="btn btn-link" (click)="goBack()" i18n>Back</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -25,8 +58,8 @@
     <td *ngIf="offer.sent"><span class="badge badge-info" i18n>Sent</span></td>
     <td *ngIf="offer.approved"><span class="badge badge-success" i18n>Approved</span></td>
     <td *ngIf="offer.rejected"><span class="badge badge-danger" i18n>Rejected</span></td>
-    <td><a [routerLink]="['../..', 'project', offer.id]">{{ offer.number }}</a></td>
-    <td><a [routerLink]="['../..', 'project', offer.id]">{{ offer.name }}</a></td>
+    <td><a [routerLink]="['../../..', 'project', offer.id]">{{ offer.number }}</a></td>
+    <td><a [routerLink]="['../../..', 'project', offer.id]">{{ offer.name }}</a></td>
     <td>{{ offer.date | date }}</td>
     <td>{{ offer.manager }}</td>
     <td>{{ offer.client }}</td>

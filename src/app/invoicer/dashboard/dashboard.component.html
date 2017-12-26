@@ -9,7 +9,7 @@
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-bar-chart"></i> <span i18n>Offer Overview</span>
-          <span class="float-right text-muted">Q{{ currentQuarter }}</span>
+          <span class="float-right text-muted">{{ currentYear }}</span>
         </div>
         <table class="table table-sm table-bordered mb-0">
           <tbody>
@@ -33,7 +33,7 @@
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-bar-chart"></i> <span i18n>Invoice Overview</span>
-          <span class="float-right text-muted">Q{{ currentQuarter }}</span>
+          <span class="float-right text-muted">{{ currentYear }}</span>
         </div>
         <table class="table table-sm table-bordered mb-0">
           <tbody>
@@ -110,7 +110,12 @@
           <tbody>
           <tr *ngFor="let invoice of invoices">
             <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
-            <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success" i18n>Payed</span></td>
+            <td *ngIf="invoice.payedByCustomer && invoice.payedEmployees">
+              <span class="badge badge-success" i18n>Payed</span>
+            </td>
+            <td *ngIf="(invoice.payedByCustomer && !invoice.payedEmployees)
+              || !invoice.payedByCustomer && invoice.payedEmployees"><span class="badge badge-warning" i18n>Payed</span>
+            </td>
             <td>{{ invoice.date | dueDate | date }}</td>
             <td><a [routerLink]="['project', invoice.id]">{{ invoice.number }}</a></td>
             <td><a [routerLink]="['project', invoice.id]">{{ invoice.name }}</a></td>

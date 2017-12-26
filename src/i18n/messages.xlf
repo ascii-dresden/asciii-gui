@@ -31,8 +31,10 @@
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:41</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:80</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:112</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:25</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:24</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:20</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:58</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:20</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:63</note>
       </notes>
       <segment>
         <source>Sent</source>
@@ -43,6 +45,7 @@
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:21</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:81</note>
         <note category="location">app/invoicer/offers/offers.component.ts:26</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:59</note>
       </notes>
       <segment>
         <source>Approved</source>
@@ -52,7 +55,8 @@
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:25</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:82</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:27</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:32</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:60</note>
       </notes>
       <segment>
         <source>Rejected</source>
@@ -69,6 +73,7 @@
     <unit id="8066224365658475662">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:45</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:26</note>
       </notes>
       <segment>
         <source>Paid by Customer</source>
@@ -102,8 +107,8 @@
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:70</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:103</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:12</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:12</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:45</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:51</note>
       </notes>
       <segment>
         <source>Status</source>
@@ -112,9 +117,9 @@
     <unit id="3973931101896534797">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:71</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:66</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:118</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:156</note>
+        <note category="location">app/invoicer/project/project.component.ts:69</note>
+        <note category="location">app/invoicer/project/project.component.ts:121</note>
+        <note category="location">app/invoicer/project/project.component.ts:159</note>
         <note category="location">app/invoicer/projects/projects.component.ts:15</note>
       </notes>
       <segment>
@@ -124,8 +129,8 @@
     <unit id="5980912879753983465">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:72</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:113</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:13</note>
+        <note category="location">app/invoicer/project/project.component.ts:116</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:46</note>
       </notes>
       <segment>
         <source>Offer</source>
@@ -135,13 +140,13 @@
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:73</note>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:106</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:48</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:64</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:94</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:209</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:230</note>
+        <note category="location">app/invoicer/project/project.component.ts:51</note>
+        <note category="location">app/invoicer/project/project.component.ts:67</note>
+        <note category="location">app/invoicer/project/project.component.ts:97</note>
+        <note category="location">app/invoicer/project/project.component.ts:212</note>
+        <note category="location">app/invoicer/project/project.component.ts:233</note>
         <note category="location">app/invoicer/projects/projects.component.ts:13</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:14</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:47</note>
       </notes>
       <segment>
         <source>Name</source>
@@ -159,7 +164,7 @@
     <unit id="6472599282785029372">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:90</note>
-        <note category="location">app/invoicer/dashboard/dashboard.component.ts:121</note>
+        <note category="location">app/invoicer/dashboard/dashboard.component.ts:126</note>
       </notes>
       <segment>
         <source>View All</source>
@@ -176,8 +181,8 @@
     <unit id="1917979079769004212">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:104</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:158</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:16</note>
+        <note category="location">app/invoicer/project/project.component.ts:161</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:55</note>
       </notes>
       <segment>
         <source>Due Date</source>
@@ -186,8 +191,8 @@
     <unit id="5731972491580424912">
       <notes>
         <note category="location">app/invoicer/dashboard/dashboard.component.ts:105</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:151</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:13</note>
+        <note category="location">app/invoicer/project/project.component.ts:154</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:52</note>
       </notes>
       <segment>
         <source>Invoice</source>
@@ -195,8 +200,10 @@
     </unit>
     <unit id="2742898151424611004">
       <notes>
-        <note category="location">app/invoicer/dashboard/dashboard.component.ts:113</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:25</note>
+        <note category="location">app/invoicer/dashboard/dashboard.component.ts:114</note>
+        <note category="location">app/invoicer/dashboard/dashboard.component.ts:117</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:65</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:68</note>
       </notes>
       <segment>
         <source>Payed</source>
@@ -204,8 +211,8 @@
     </unit>
     <unit id="1540281436321485610">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:11</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:68</note>
+        <note category="location">app/invoicer/project/project.component.ts:11</note>
+        <note category="location">app/invoicer/project/project.component.ts:71</note>
         <note category="location">app/invoicer/projects/projects.component.ts:14</note>
       </notes>
       <segment>
@@ -214,18 +221,28 @@
     </unit>
     <unit id="3448462145758383019">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:14</note>
+        <note category="location">app/invoicer/project/project.component.ts:14</note>
         <note category="location">app/invoicer/projects/projects.component.ts:20</note>
-        <note category="location">app/invoicer/offers/offers.component.ts:18</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:18</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:51</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:57</note>
       </notes>
       <segment>
         <source>Total</source>
       </segment>
     </unit>
+    <unit id="8890553633144307762">
+      <notes>
+        <note category="location">app/invoicer/project/project.component.ts:36</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:35</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:41</note>
+      </notes>
+      <segment>
+        <source>Back</source>
+      </segment>
+    </unit>
     <unit id="3014142150963657456">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:43</note>
+        <note category="location">app/invoicer/project/project.component.ts:46</note>
       </notes>
       <segment>
         <source>Client</source>
@@ -233,7 +250,7 @@
     </unit>
     <unit id="4768749765465246664">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:50</note>
+        <note category="location">app/invoicer/project/project.component.ts:53</note>
       </notes>
       <segment>
         <source>Email</source>
@@ -241,7 +258,7 @@
     </unit>
     <unit id="6304432362546770951">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:52</note>
+        <note category="location">app/invoicer/project/project.component.ts:55</note>
       </notes>
       <segment>
         <source>Address</source>
@@ -249,7 +266,7 @@
     </unit>
     <unit id="3304972143698843178">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:59</note>
+        <note category="location">app/invoicer/project/project.component.ts:62</note>
       </notes>
       <segment>
         <source>Event</source>
@@ -257,7 +274,7 @@
     </unit>
     <unit id="2218082343053095278">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:75</note>
+        <note category="location">app/invoicer/project/project.component.ts:78</note>
       </notes>
       <segment>
         <source>Service</source>
@@ -265,8 +282,8 @@
     </unit>
     <unit id="8497528947328199741">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:80</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:96</note>
+        <note category="location">app/invoicer/project/project.component.ts:83</note>
+        <note category="location">app/invoicer/project/project.component.ts:99</note>
       </notes>
       <segment>
         <source>Time</source>
@@ -274,11 +291,11 @@
     </unit>
     <unit id="2617580077225620079">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:82</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:133</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:173</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:213</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:234</note>
+        <note category="location">app/invoicer/project/project.component.ts:85</note>
+        <note category="location">app/invoicer/project/project.component.ts:136</note>
+        <note category="location">app/invoicer/project/project.component.ts:176</note>
+        <note category="location">app/invoicer/project/project.component.ts:216</note>
+        <note category="location">app/invoicer/project/project.component.ts:237</note>
       </notes>
       <segment>
         <source>Tax</source>
@@ -286,8 +303,8 @@
     </unit>
     <unit id="498286527813307230">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:84</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:95</note>
+        <note category="location">app/invoicer/project/project.component.ts:87</note>
+        <note category="location">app/invoicer/project/project.component.ts:98</note>
       </notes>
       <segment>
         <source>Salary</source>
@@ -295,11 +312,11 @@
     </unit>
     <unit id="3612295001678001579">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:86</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:124</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:130</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:162</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:170</note>
+        <note category="location">app/invoicer/project/project.component.ts:89</note>
+        <note category="location">app/invoicer/project/project.component.ts:127</note>
+        <note category="location">app/invoicer/project/project.component.ts:133</note>
+        <note category="location">app/invoicer/project/project.component.ts:165</note>
+        <note category="location">app/invoicer/project/project.component.ts:173</note>
       </notes>
       <segment>
         <source>Gross</source>
@@ -307,9 +324,9 @@
     </unit>
     <unit id="7499171457478930272">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:88</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:122</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:164</note>
+        <note category="location">app/invoicer/project/project.component.ts:91</note>
+        <note category="location">app/invoicer/project/project.component.ts:125</note>
+        <note category="location">app/invoicer/project/project.component.ts:167</note>
       </notes>
       <segment>
         <source>Net</source>
@@ -317,7 +334,7 @@
     </unit>
     <unit id="742635407096884374">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:97</note>
+        <note category="location">app/invoicer/project/project.component.ts:100</note>
       </notes>
       <segment>
         <source>Wage</source>
@@ -325,8 +342,8 @@
     </unit>
     <unit id="6370642728789544052">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:120</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:160</note>
+        <note category="location">app/invoicer/project/project.component.ts:123</note>
+        <note category="location">app/invoicer/project/project.component.ts:163</note>
         <note category="location">app/invoicer/projects/projects.component.ts:12</note>
       </notes>
       <segment>
@@ -335,8 +352,8 @@
     </unit>
     <unit id="3531762560214238772">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:131</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:171</note>
+        <note category="location">app/invoicer/project/project.component.ts:134</note>
+        <note category="location">app/invoicer/project/project.component.ts:174</note>
       </notes>
       <segment>
         <source>Taxed</source>
@@ -344,8 +361,8 @@
     </unit>
     <unit id="4072394891369480601">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:132</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:172</note>
+        <note category="location">app/invoicer/project/project.component.ts:135</note>
+        <note category="location">app/invoicer/project/project.component.ts:175</note>
       </notes>
       <segment>
         <source>Tax Sum</source>
@@ -353,7 +370,7 @@
     </unit>
     <unit id="5806543578000217592">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:191</note>
+        <note category="location">app/invoicer/project/project.component.ts:194</note>
       </notes>
       <segment>
         <source>Bill</source>
@@ -361,7 +378,7 @@
     </unit>
     <unit id="6166411467049256337">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:196,198</note>
+        <note category="location">app/invoicer/project/project.component.ts:199,201</note>
       </notes>
       <segment>
         <source>Offered
@@ -371,7 +388,7 @@
     </unit>
     <unit id="1386557844990020707">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:200,202</note>
+        <note category="location">app/invoicer/project/project.component.ts:203,205</note>
       </notes>
       <segment>
         <source>Invoiced
@@ -381,7 +398,7 @@
     </unit>
     <unit id="5258882959729159217">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:205</note>
+        <note category="location">app/invoicer/project/project.component.ts:208</note>
       </notes>
       <segment>
         <source>Offered</source>
@@ -389,8 +406,8 @@
     </unit>
     <unit id="8894377483833272091">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:210</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:231</note>
+        <note category="location">app/invoicer/project/project.component.ts:213</note>
+        <note category="location">app/invoicer/project/project.component.ts:234</note>
       </notes>
       <segment>
         <source>Price</source>
@@ -398,8 +415,8 @@
     </unit>
     <unit id="6533918067030990396">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:211</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:232</note>
+        <note category="location">app/invoicer/project/project.component.ts:214</note>
+        <note category="location">app/invoicer/project/project.component.ts:235</note>
       </notes>
       <segment>
         <source>Amount</source>
@@ -407,8 +424,8 @@
     </unit>
     <unit id="2578732368187466916">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:212</note>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:233</note>
+        <note category="location">app/invoicer/project/project.component.ts:215</note>
+        <note category="location">app/invoicer/project/project.component.ts:236</note>
       </notes>
       <segment>
         <source>Cost</source>
@@ -416,7 +433,7 @@
     </unit>
     <unit id="7895121031455488897">
       <notes>
-        <note category="location">app/invoicer/project-detail/project-detail.component.ts:226</note>
+        <note category="location">app/invoicer/project/project.component.ts:229</note>
       </notes>
       <segment>
         <source>Invoiced</source>
@@ -438,10 +455,19 @@
         <source>Offers <ph id="0" equiv="INTERPOLATION" disp="{{ currentYear }}"/></source>
       </segment>
     </unit>
+    <unit id="1616102757855967475">
+      <notes>
+        <note category="location">app/invoicer/offers/offers.component.ts:14</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:14</note>
+      </notes>
+      <segment>
+        <source>All</source>
+      </segment>
+    </unit>
     <unit id="4207916966377787111">
       <notes>
-        <note category="location">app/invoicer/offers/offers.component.ts:15</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:14</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:48</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:53</note>
       </notes>
       <segment>
         <source>Created</source>
@@ -449,7 +475,7 @@
     </unit>
     <unit id="5532607755771835121">
       <notes>
-        <note category="location">app/invoicer/offers/offers.component.ts:16</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:49</note>
       </notes>
       <segment>
         <source>Manager Name</source>
@@ -457,8 +483,8 @@
     </unit>
     <unit id="3900220144977574067">
       <notes>
-        <note category="location">app/invoicer/offers/offers.component.ts:17</note>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:17</note>
+        <note category="location">app/invoicer/offers/offers.component.ts:50</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:56</note>
       </notes>
       <segment>
         <source>Client Name</source>
@@ -472,9 +498,25 @@
         <source>Invoices <ph id="0" equiv="INTERPOLATION" disp="{{ currentYear }}"/></source>
       </segment>
     </unit>
+    <unit id="3227923777346391020">
+      <notes>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:32</note>
+      </notes>
+      <segment>
+        <source>Paid Employees</source>
+      </segment>
+    </unit>
+    <unit id="8547153724791757236">
+      <notes>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:38</note>
+      </notes>
+      <segment>
+        <source>Overdue</source>
+      </segment>
+    </unit>
     <unit id="invoiceDate">
       <notes>
-        <note category="location">app/invoicer/invoices/invoices.component.ts:15</note>
+        <note category="location">app/invoicer/invoices/invoices.component.ts:54</note>
       </notes>
       <segment>
         <source>Date</source>

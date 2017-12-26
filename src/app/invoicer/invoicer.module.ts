@@ -13,7 +13,7 @@ import { InvoicerService } from './invoicer.service';
 import { ConvertBalancePipe } from './pipes/convert-balance.pipe';
 import { ConvertDatePipe } from './pipes/convert-date.pipe';
 import { DueDatePipe } from './pipes/due-date.pipe';
-import { JoinBill, ProjectDetailComponent } from './project-detail/project-detail.component';
+import { JoinBill, ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { OffersComponent } from './offers/offers.component';
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -28,7 +28,7 @@ import { InvoicesComponent } from './invoices/invoices.component';
   ],
   declarations: [
     InvoicerComponent,
-    ProjectDetailComponent,
+    ProjectComponent,
     ProjectsComponent,
     JoinBill,
     DashboardComponent,

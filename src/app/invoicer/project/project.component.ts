@@ -15,9 +15,9 @@ import { Item } from '../models/item';
 
 @Component({
   selector: 'ascii-project-detail',
-  templateUrl: './project-detail.component.html'
+  templateUrl: './project.component.html'
 })
-export class ProjectDetailComponent implements OnInit, OnDestroy {
+export class ProjectComponent implements OnInit, OnDestroy {
 
   private _subscription = new Subscription();
 

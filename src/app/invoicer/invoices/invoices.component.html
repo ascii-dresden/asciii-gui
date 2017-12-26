@@ -1,7 +1,46 @@
 <div class="container-fluid">
-  <div class="row mb-3">
-    <div class="col">
+  <div class="row mb-3 justify-content-center align-items-center">
+    <div class="col-md-6">
       <h1 class="h6 m-0" i18n>Invoices {{ currentYear }}</h1>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with Sub Navigation">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Sub Navigation">
+          <a class="btn"
+             routerLink="../all"
+             routerLinkActive
+             #rla0="routerLinkActive"
+             [ngClass]="rla0.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>All</a>
+          <a class="btn"
+             routerLink="../sent"
+             routerLinkActive
+             #rla1="routerLinkActive"
+             [ngClass]="rla1.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Sent</a>
+          <a class="btn"
+             routerLink="../paid-by-customer"
+             routerLinkActive
+             #rla2="routerLinkActive"
+             [ngClass]="rla2.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Paid by Customer</a>
+          <a class="btn"
+             routerLink="../paid-employees"
+             routerLinkActive
+             #rla3="routerLinkActive"
+             [ngClass]="rla3.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Paid Employees</a>
+          <a class="btn"
+             routerLink="../overdue"
+             routerLinkActive
+             #rla4="routerLinkActive"
+             [ngClass]="rla4.isActive ? 'btn-primary' : 'btn-outline-primary'"
+             i18n>Overdue</a>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Back">
+          <a href="javascript:;" type="button" class="btn btn-link" (click)="goBack()" i18n>Back</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -22,9 +61,14 @@
   <tr *ngFor="let invoice of invoices; index as i;">
     <td scope="row">{{ i + 1 }}</td>
     <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
-    <td *ngIf="invoice.payedByCustomer"><span class="badge badge-success" i18n>Payed</span></td>
-    <td><a [routerLink]="['../..', 'project', invoice.id]">{{ invoice.number }}</a></td>
-    <td><a [routerLink]="['../..', 'project', invoice.id]">{{ invoice.name }}</a></td>
+    <td *ngIf="invoice.payedByCustomer && invoice.payedEmployees">
+      <span class="badge badge-success" i18n>Payed</span>
+    </td>
+    <td *ngIf="(invoice.payedByCustomer && !invoice.payedEmployees)
+              || !invoice.payedByCustomer && invoice.payedEmployees"><span class="badge badge-warning" i18n>Payed</span>
+    </td>
+    <td><a [routerLink]="['../../..', 'project', invoice.id]">{{ invoice.number }}</a></td>
+    <td><a [routerLink]="['../../..', 'project', invoice.id]">{{ invoice.name }}</a></td>
     <td>{{ invoice.date | date }}</td>
     <td>{{ invoice.date | dueDate | date }}</td>
     <td>{{ invoice.client }}</td>
