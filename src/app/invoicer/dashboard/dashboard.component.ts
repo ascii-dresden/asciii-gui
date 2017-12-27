@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs/Subscription';
-import { InvoicerService } from '../invoicer.service';
-import { InvoiceDTO } from '../models/invoice.dto';
-import { OfferDTO } from '../models/offer.dto';
-import { Project } from '../models/project';
+
 import { environment } from '../../../environments/environment';
+import { InvoicerService } from '../invoicer.service';
+import { InvoiceDTO, OfferDTO, Project } from '../models';
 
 
 @Component({
@@ -26,9 +26,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private invoicer: InvoicerService) { }
 
   ngOnInit() {
-    this.getProjects();
-    this.getOffers();
-    this.getInvoices();
+    this.getProjects(projects => {
+      this.getOffers(projects);
+      this.getInvoices(projects);
+    });
   }
 
   ngOnDestroy() {
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .reduce((a, b) => a + b, 0);
   }
 
-  private getOverdue(projects: Project[]): number {
+  getOverdue(projects: Project[]): number {
     const now = this._now;
 
     return projects
@@ -87,21 +88,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .reduce((a, b) => a + b, 0);
   }
 
-  private getProjects() {
+  getProjects(cb) {
     this._subscription.add(this.invoicer.findProjectsByYear(this.currentYear)
       .subscribe(projects => {
         this.projects = projects;
         this.overdue = this.getOverdue(projects);
+        cb(projects);
       }));
   }
 
-  private getOffers() {
-    this._subscription.add(this.invoicer.findOffersByYear(this.currentYear)
-      .subscribe(offers => this.offers = offers));
+  getOffers(projects: Project[]) {
+    this.offers = this.invoicer.getOffers(projects, 10);
   }
 
-  private getInvoices() {
-    this._subscription.add(this.invoicer.findInvoicesByYear(this.currentYear)
-      .subscribe(invoices => this.invoices = invoices));
+  getInvoices(projects: Project[]) {
+    this.invoices = this.invoicer.getInvoices(projects, 10);
   }
 }

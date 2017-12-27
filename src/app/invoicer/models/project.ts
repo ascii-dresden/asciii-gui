@@ -1,9 +1,9 @@
-import { Client } from './client';
-import { Offer } from './offer';
-import { Invoice } from './invoice';
-import { Service } from './serice';
 import { Bill, BillType } from './bill';
-import { InvoicerUtils } from '../invoicer-utils';
+import { Client } from './client';
+import { Invoice } from './invoice';
+import { InvoicerUtils } from './invoicer-utils';
+import { Offer } from './offer';
+import { Service } from './service';
 
 export class Project {
 

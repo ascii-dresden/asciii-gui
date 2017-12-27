@@ -1,23 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { environment } from '../../environments/environment';
+
 import { AppRoutingModule } from '../app-routing.module';
 import { FontAwesomeModule } from '../components/font-awesome/font-awesome.module';
 import { AsciiPipeModule } from '../components/pipes/ascii-pipe.module';
-import { LoggerService } from '../logger/logger.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { InvoicerMockService } from './invoicer-mock.service';
 import { InvoicerComponent } from './invoicer.component';
 import { InvoicerService } from './invoicer.service';
-import { ConvertBalancePipe } from './pipes/convert-balance.pipe';
-import { ConvertDatePipe } from './pipes/convert-date.pipe';
-import { DueDatePipe } from './pipes/due-date.pipe';
-import { JoinBill, ProjectComponent } from './project/project.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { OffersComponent } from './offers/offers.component';
 import { InvoicesComponent } from './invoices/invoices.component';
-
+import { OffersComponent } from './offers/offers.component';
+import { DueDatePipe } from './pipes/due-date.pipe';
+import { JoinBillPipe } from './pipes/join-bill.pipe';
+import { ProjectComponent } from './project/project.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   imports: [
@@ -30,22 +25,12 @@ import { InvoicesComponent } from './invoices/invoices.component';
     InvoicerComponent,
     ProjectComponent,
     ProjectsComponent,
-    JoinBill,
     DashboardComponent,
-    ConvertBalancePipe,
     DueDatePipe,
-    ConvertDatePipe,
+    JoinBillPipe,
     OffersComponent,
     InvoicesComponent
   ],
-  providers: [
-    {
-      provide: InvoicerService,
-      useFactory: (http: HttpClient, logger: LoggerService) =>
-        environment.production ? new InvoicerService(http, logger) : !environment.invoicerMock
-          ? new InvoicerService(http, logger) : new InvoicerMockService(http, logger),
-      deps: [HttpClient, LoggerService]
-    }
-  ]
+  providers: [InvoicerService]
 })
-export class InvoicerModule {}
+export class InvoicerModule { }

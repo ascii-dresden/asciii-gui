@@ -1,5 +1,5 @@
 import { Employee } from './employee';
-import { InvoicerUtils } from '../invoicer-utils';
+import { InvoicerUtils } from './invoicer-utils';
 
 export class Service {
 

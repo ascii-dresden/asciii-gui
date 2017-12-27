@@ -1,4 +1,4 @@
-import { InvoicerUtils } from '../invoicer-utils';
+import { Project } from './project';
 
 export class OfferDTO {
 
@@ -14,18 +14,18 @@ export class OfferDTO {
   private _approved: boolean;
   private _rejected: boolean;
 
-  constructor(project) {
+  constructor(project: Project) {
     this._id = project.id;
-    this._name = project.event.name;
-    this._client = project.client.full_name;
-    this._manager = project.event.manager;
-    this._date = InvoicerUtils.parseDate(project.offer.date);
+    this._name = project.name;
+    this._client = project.client.name;
+    this._manager = project.manager;
+    this._date = project.offer.date;
     this._number = project.offer.number;
-    this._net = InvoicerUtils.parseCurrency(project.offer.net_total);
-    this._gross = InvoicerUtils.parseCurrency(project.offer.gross_total);
-    this._sent = project.checks.ready_for_offer && !project.checks.ready_for_invoice && !project.checks.ready_for_archive;
-    this._approved = project.checks.ready_for_offer && project.checks.ready_for_invoice && !project.checks.ready_for_archive;
-    this._rejected = project.checks.canceled;
+    this._net = project.offer.net;
+    this._gross = project.offer.gross;
+    this._sent = project.readyForOffer && !project.readyForInvoice && !project.readyForArchive;
+    this._approved = project.readyForOffer && project.readyForInvoice && !project.readyForArchive;
+    this._rejected = project.canceled;
   }
 
   get id(): string {

@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { InvoicerService } from '../invoicer.service';
-import { InvoiceDTO } from '../models/invoice.dto';
-import { OfferDTO } from '../models/offer.dto';
 import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
+
+import { environment } from '../../../environments/environment';
+import { InvoicerService } from '../invoicer.service';
+import { InvoiceDTO } from '../models';
 
 @Component({
   selector: 'ascii-invoices',

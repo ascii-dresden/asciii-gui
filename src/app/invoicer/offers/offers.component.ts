@@ -1,14 +1,15 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InvoicerService } from '../invoicer.service';
-import { OfferDTO } from '../models/offer.dto';
-import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import { Location } from '@angular/common';
+import { Subscription } from 'rxjs/Subscription';
+
+import { environment } from '../../../environments/environment';
+import { InvoicerService } from '../invoicer.service';
+import { OfferDTO } from '../models';
 
 @Component({
   selector: 'ascii-offers',
@@ -35,6 +36,7 @@ export class OffersComponent implements OnInit, OnDestroy {
         status = params.get('status');
         this.changeState(status, data);
       }));
+
     this._subscription.add(this.invoicer.findOffersByYear(this.currentYear, 9999)
       .subscribe(offers => {
         data = offers;

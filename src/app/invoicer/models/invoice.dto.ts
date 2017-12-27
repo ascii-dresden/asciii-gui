@@ -1,28 +1,30 @@
-import { InvoicerUtils } from '../invoicer-utils';
+import { Project } from './project';
 
 export class InvoiceDTO {
 
   private _id: string;
   private _name: string;
   private _client: string;
-  private _date: number | null;
-  private _number: string | null;
+  private _date: number | undefined;
+  private _number: string | undefined;
+  private _net: number;
   private _gross: number;
   private _sent: boolean;
   private _payedByCustomer: boolean;
   private _payedEmployees: boolean;
 
-  constructor(project) {
+  constructor(project: Project) {
     this._id = project.id;
-    this._name = project.event.name;
-    this._client = project.client.full_name;
-    this._date = InvoicerUtils.parseDate(project.invoice.date);
-    this._number = project.invoice.number_long;
-    this._gross = InvoicerUtils.parseCurrency(project.invoice.gross_total);
-    this._sent = project.checks.ready_for_offer && project.checks.ready_for_invoice &&
-      !project.checks.payed_by_customer && !project.checks.payed_employees;
-    this._payedByCustomer = project.checks.payed_by_customer;
-    this._payedEmployees = project.checks.payed_employees;
+    this._name = project.name;
+    this._client = project.client.name;
+    this._date = project.invoice.date;
+    this._number = project.invoice.number;
+    this._net = project.invoice.net;
+    this._gross = project.invoice.gross;
+    this._sent = project.readyForOffer && project.readyForInvoice &&
+      !project.payedByCustomer && !project.payedEmployees;
+    this._payedByCustomer = project.payedByCustomer;
+    this._payedEmployees = project.payedEmployees;
   }
 
   get id(): string {
@@ -37,12 +39,16 @@ export class InvoiceDTO {
     return this._client;
   }
 
-  get date(): number | null {
+  get date(): number | undefined {
     return this._date;
   }
 
-  get number(): string | null {
+  get number(): string | undefined {
     return this._number;
+  }
+
+  get net(): number {
+    return this._net;
   }
 
   get gross(): number {

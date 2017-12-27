@@ -1,4 +1,4 @@
-import { InvoicerUtils } from '../invoicer-utils';
+import { InvoicerUtils } from './invoicer-utils';
 
 export class Employee {
 

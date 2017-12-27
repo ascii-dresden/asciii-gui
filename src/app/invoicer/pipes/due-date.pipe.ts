@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'dueDate'
-})
+@Pipe({ name: 'dueDate' })
 export class DueDatePipe implements PipeTransform {
 
-  transform(date: number, days: number = 14): number {
-    return date + 1209600000;
+  transform(date: number, days: number = 14) {
+    const newDate: Date = new Date(date);
+    return newDate.setDate(newDate.getDate() + days);
   }
-
 }

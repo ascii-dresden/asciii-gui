@@ -1,5 +1,5 @@
+import { InvoicerUtils } from './invoicer-utils';
 import { Item } from './item';
-import { InvoicerUtils } from '../invoicer-utils';
 
 export class Invoice {
 

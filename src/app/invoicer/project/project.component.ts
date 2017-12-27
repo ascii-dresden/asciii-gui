@@ -1,17 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Subscription } from 'rxjs/Subscription';
-import { InvoicerService } from '../invoicer.service';
-import { Project } from '../models/project';
+
 import { environment } from '../../../environments/environment';
-import { Bill } from '../models/bill';
-import { Client } from '../models/client';
-import { Service } from '../models/serice';
-import { Offer } from '../models/offer';
-import { Invoice } from '../models/invoice';
-import { Employee } from '../models/employee';
-import { Item } from '../models/item';
+import { InvoicerService } from '../invoicer.service';
+import { Bill, Client, Employee, Invoice, Item, Offer, Project, Service } from '../models';
 
 @Component({
   selector: 'ascii-project-detail',
@@ -60,13 +55,5 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.offered = project.bills.filter(o => o.type === 0);
       this.invoiced = project.bills.filter(o => o.type === 1);
     }));
-  }
-}
-
-@Pipe({ name: 'join' })
-export class JoinBill implements PipeTransform {
-
-  transform(values: any[]): string {
-    return values.map(v => v.name).join(', ');
   }
 }

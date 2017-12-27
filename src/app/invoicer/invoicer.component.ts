@@ -4,4 +4,4 @@ import { Component } from '@angular/core';
   selector: 'ascii-invoicer',
   template: `<router-outlet></router-outlet>`
 })
-export class InvoicerComponent {}
+export class InvoicerComponent { }

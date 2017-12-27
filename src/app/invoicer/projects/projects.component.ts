@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Subscription } from 'rxjs/Subscription';
+
+import { environment } from '../../../environments/environment';
 import { InvoicerService } from '../invoicer.service';
 import { Project } from '../models/project';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ascii-project',
