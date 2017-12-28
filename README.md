@@ -1,6 +1,6 @@
 # AsciiHub
 
-Simplifies all day work at ascii Dresden, featuring ascii invoicer 3.x frontend and matemat.
+... simplifies all day work at ascii Dresden, featuring ascii invoicer 3.x frontend and matemat.
 AsciiHub is built with [Angular 5](https://angular.io).
 
 [![travis](https://travis-ci.org/ascii-dresden/ascii-hub.svg?branch=master)](https://travis-ci.org/ascii-dresden/ascii-hub/)
@@ -12,7 +12,7 @@ AsciiHub is built with [Angular 5](https://angular.io).
 
 > Build with :heart: in Dresden
 
-:construction: Checkout the [dev](https://github.com/ascii-dresden/ascii-hub/tree/dev) branch to the latest features an bugs. :construction:
+:construction: Checkout the branches to get the latest features and bugs. :construction:
 
 ## Features
 
@@ -40,7 +40,7 @@ For a dev server run
 ng serve
 ```
 
-To use the RESTful API from ascii invoicer you need to run a local instance of [rocket](https://github.com/SergioBenitez/Rocket). Checkout the asciii project and switch to [feature/server](https://github.com/ascii-dresden/asciii/tree/feature/server) branch. Run
+To use the RESTful API from asciii you need to run a local instance of [rocket](https://github.com/SergioBenitez/Rocket). Checkout the asciii project and switch to [feature/server](https://github.com/ascii-dresden/asciii/tree/feature/server) branch. Run
 
 ```
 cargo run --example server --features server
