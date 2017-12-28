@@ -34,9 +34,7 @@ export class Project {
       project.client.email
     );
     this._service = new Service(
-      project.service.time,
       project.service.tax,
-      project.service.salary,
       project.service.employees
     );
     this._offer = new Offer(project);

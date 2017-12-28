@@ -1,4 +1,3 @@
-import { Bill } from '../models';
 import { DueDatePipe } from './due-date.pipe';
 import { JoinBillPipe } from './join-bill.pipe';
 
@@ -7,6 +6,10 @@ describe('DueDatePipe', () => {
 
   beforeEach(() => {
     pipe = new DueDatePipe();
+  });
+
+  afterEach(() => {
+    pipe = undefined;
   });
 
   it('should create an instance', () => {
@@ -28,11 +31,15 @@ describe('JoinBillPipe', () => {
     { name: 'bill0' },
     { name: 'bill1' },
     { name: 'bill2' },
-    { name: 'bill3' },
+    { name: 'bill3' }
   ];
 
   beforeEach(() => {
     pipe = new JoinBillPipe();
+  });
+
+  afterEach(() => {
+    pipe = undefined;
   });
 
   it('should create an instance', () => {

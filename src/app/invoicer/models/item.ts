@@ -11,7 +11,7 @@ export class Item {
     this._taxed = tax > 0;
     this._tax = tax / 100;
     this._gross = InvoicerUtils.parseCurrency(gross);
-    this._taxTotal = this._gross * (this._tax / 100);
+    this._taxTotal = this._gross * this._tax;
   }
 
   get gross(): number {

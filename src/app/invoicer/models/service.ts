@@ -1,18 +1,37 @@
 import { Employee } from './employee';
-import { InvoicerUtils } from './invoicer-utils';
 
 export class Service {
 
+  private _tax: number;
+  private _employees: Employee[] = [];
+  private _time: number;
   private _salary: number;
   private _net: number;
   private _gross: number;
-  private _employees: Employee[] = [];
 
-  constructor(private _time: number, private _tax: number, salary: string, employees) {
-    this._salary = InvoicerUtils.parseCurrency(salary);
-    this._net = _time * this._salary;
-    this._gross = _time * this._salary * ((_tax || 0.19) + 1);
+  constructor(tax: number, employees) {
+    this._tax = tax || 0;
     employees.forEach(e => this._employees.push(new Employee(e.name, e.salary, e.time)));
+    this._time = this._employees.map(e => e.time).reduce((a, b) => a + b, 0);
+    this._salary = this._employees.length > 0 ? this._employees[0].salary : 9;
+    this._gross = this._time * this._salary;
+    this._net = this._time * this._salary * (this._tax + 1);
+  }
+
+  get tax(): number {
+    return this._tax;
+  }
+
+  get employees(): Employee[] {
+    return this._employees;
+  }
+
+  get time(): number {
+    return this._time;
+  }
+
+  get salary(): number {
+    return this._salary;
   }
 
   get net(): number {
@@ -21,21 +40,5 @@ export class Service {
 
   get gross(): number {
     return this._gross;
-  }
-
-  get time(): number {
-    return this._time;
-  }
-
-  get tax(): number {
-    return this._tax;
-  }
-
-  get salary(): number {
-    return this._salary;
-  }
-
-  get employees(): Employee[] {
-    return this._employees;
   }
 }
