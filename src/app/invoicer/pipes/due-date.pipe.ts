@@ -1,10 +1,11 @@
+import * as moment from 'moment';
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'dueDate' })
 export class DueDatePipe implements PipeTransform {
 
   transform(date: number, days: number = 14) {
-    const newDate: Date = new Date(date);
-    return newDate.setDate(newDate.getDate() + days);
+    return moment(date).add(days, 'days').valueOf();
   }
 }

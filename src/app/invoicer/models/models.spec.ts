@@ -1,13 +1,29 @@
+import * as moment from 'moment';
+
 import { Bill, BillType } from './bill';
 import { Client } from './client';
 import { Employee } from './employee';
 import { Invoice } from './invoice';
 import { InvoiceDTO } from './invoice.dto';
+import { InvoicerUtils } from './invoicer-utils';
 import { Item } from './item';
 import { Offer } from './offer';
 import { OfferDTO } from './offer.dto';
 import { Project } from './project';
 import { Service } from './service';
+
+describe('InvoicerUtils', () => {
+  it('should parse currency', () => {
+    const curr0 = '42,00€';
+    const curr1 = '42.23 €';
+    expect(InvoicerUtils.parseCurrency(curr0)).toBe(42);
+    expect(InvoicerUtils.parseCurrency(curr1)).toBe(42.23);
+  });
+
+  it('should parse date', () => {
+    expect(InvoicerUtils.parseDate('30.12.2017')).toBe(moment('30.12.2017', 'DD.MM.YYYY').valueOf());
+  });
+});
 
 describe('Bill', () => {
   let bill: Bill;
@@ -355,7 +371,7 @@ describe('InvoiceDTO', () => {
   });
 
   it('should have date', () => {
-    expect(dto.date).toBe(1502316000000);
+    expect(dto.date).toBe(InvoicerUtils.parseDate('10.08.2017'));
     expect(dto.date).toBe(PROJECT.invoice.date);
   });
 
@@ -407,7 +423,7 @@ describe('OfferDTO', () => {
   });
 
   it('should have date', () => {
-    expect(dto.date).toBe(1496786400000);
+    expect(dto.date).toBe(InvoicerUtils.parseDate('07.06.2017'));
     expect(dto.date).toBe(PROJECT.offer.date);
   });
 
@@ -466,7 +482,7 @@ describe('Invoice', () => {
   });
 
   it('should have date', () => {
-    expect(invoice.date).toBe(1502316000000);
+    expect(invoice.date).toBe(InvoicerUtils.parseDate('10.08.2017'));
   });
 
   it('should have net', () => {
@@ -562,7 +578,7 @@ describe('Offer', () => {
   });
 
   it('should have date', () => {
-    expect(offer.date).toBe(1496786400000);
+    expect(offer.date).toBe(InvoicerUtils.parseDate('07.06.2017'));
   });
 
   it('should have items', () => {
@@ -646,43 +662,43 @@ describe('Project', () => {
     project = undefined;
   });
 
-  it('should have id', function () {
+  it('should have id', () => {
     expect(project.id).toBeTruthy();
   });
 
-  it('should have name', function () {
+  it('should have name', () => {
     expect(project.name).toBeTruthy();
   });
 
-  it('should have date', function () {
+  it('should have date', () => {
     expect(project.date).toBeTruthy();
   });
 
-  it('should have manager', function () {
+  it('should have manager', () => {
     expect(project.manager).toBeTruthy();
   });
 
-  it('should have client', function () {
+  it('should have client', () => {
     expect(project.client).toBeTruthy();
   });
 
-  it('should have service', function () {
+  it('should have service', () => {
     expect(project.service).toBeTruthy();
   });
 
-  it('should have offer', function () {
+  it('should have offer', () => {
     expect(project.offer).toBeTruthy();
   });
 
-  it('should have invoice', function () {
+  it('should have invoice', () => {
     expect(project.invoice).toBeTruthy();
   });
 
-  it('should have bills', function () {
+  it('should have bills', () => {
     expect(project.bills).toBeTruthy();
   });
 
-  it('should have checks', function () {
+  it('should have checks', () => {
     expect(project.readyForOffer).toBeTruthy();
     expect(project.readyForInvoice).toBeTruthy();
     expect(project.readyForArchive).toBeTruthy();
