@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 invoicer-sidebar">
+      <form class="invoicer-search d-flex align-items-center">
+        <input class="form-control" id="search-input" placeholder="Search..." i18n-placeholder="@@searchPlaceholder"
+               autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top;" dir="auto"
+               type="search">
+        <button class="btn btn-link d-md-none p-0 ml-3" type="button" data-toggle="collapse"
+                data-target="#sidebar" aria-controls="sidebar" aria-expanded="false"
+                aria-label="Toggle docs navigation" style="line-height: 1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
+            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10"
+                  d="M4 7h22M4 15h22M4 23h22"></path>
+          </svg>
+        </button>
+      </form>
+      <nav id="sidebar" class="collapse invoicer-links">
+        <div class="py-3">
+          <div class="invoicer-toc-item" routerLinkActive="active">
+            <a class="invoicer-toc-link" routerLink="/invoicer/dashboard">
+              <i class="fa fa-dashboard"></i> <span i18n>Invoicer</span>
+            </a>
+            <ul class="nav invoicer-sidenav">
+              <li><a routerLink="/invoicer/dashboard" routerLinkActive="active" i18n>Dashboard</a></li>
+              <!--<li><a routerLink="/invoicer/calendar" routerLinkActive="active" i18n>Calendar</a></li>-->
+            </ul>
+          </div>
+          <div class="invoicer-toc-item" routerLinkActive="active">
+            <a class="invoicer-toc-link" [routerLink]="['/invoicer/projects/', year]" routerLinkActive="active">
+              <i class="fa fa-exchange"></i> <span i18n>Projects</span>
+            </a>
+          </div>
+          <div class="invoicer-toc-item" routerLinkActive="active">
+            <a class="invoicer-toc-link" [routerLink]="['/invoicer/offers/', year]" routerLinkActive="active">
+              <i class="fa fa-long-arrow-left"></i> <span i18n>Offers</span>
+            </a>
+            <ul class="nav invoicer-sidenav">
+              <li><a [routerLink]="['/invoicer/offers/', year, 'all']" routerLinkActive="active" i18n>All</a></li>
+              <li><a [routerLink]="['/invoicer/offers/', year, 'sent']" routerLinkActive="active" i18n>Sent</a></li>
+              <li><a [routerLink]="['/invoicer/offers/', year, 'approved']" routerLinkActive="active" i18n>Approved</a></li>
+              <li><a [routerLink]="['/invoicer/offers/', year, 'rejected']" routerLinkActive="active" i18n>Rejected</a></li>
+            </ul>
+          </div>
+          <div class="invoicer-toc-item" routerLinkActive="active">
+            <a class="invoicer-toc-link" [routerLink]="['/invoicer/invoices/', year]" routerLinkActive="active">
+              <i class="fa fa-long-arrow-right"></i> <span i18n>Invoices</span>
+            </a>
+            <ul class="nav invoicer-sidenav">
+              <li><a [routerLink]="['/invoicer/invoices/', year, 'all']" routerLinkActive="active" i18n>All</a></li>
+              <li><a [routerLink]="['/invoicer/invoices/', year, 'sent']" routerLinkActive="active" i18n>Sent</a></li>
+              <li><a [routerLink]="['/invoicer/invoices/', year, 'paid-by-customer']" routerLinkActive="active" i18n>Paid by Customer</a></li>
+              <li><a [routerLink]="['/invoicer/invoices/', year, 'paid-employees']" routerLinkActive="active" i18n>Paid Employees</a></li>
+              <li><a [routerLink]="['/invoicer/invoices/', year, 'overdue']" routerLinkActive="active" i18n>Overdue</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 invoicer-content" role="main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+

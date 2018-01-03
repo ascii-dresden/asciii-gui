@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ascii-invoicer',
-  template: `<router-outlet></router-outlet>`
+  templateUrl: './invoicer.component.html'
 })
-export class InvoicerComponent { }
+export class InvoicerComponent {
+  year = new Date().getFullYear();
+}

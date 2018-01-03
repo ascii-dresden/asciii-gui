@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
 import { InvoicerService } from '../invoicer.service';
-import { Project } from '../models/project';
+import { Project } from '../models';
 
 @Component({
   selector: 'ascii-project',
