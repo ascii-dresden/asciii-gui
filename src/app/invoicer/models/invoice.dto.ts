@@ -21,8 +21,7 @@ export class InvoiceDTO {
     this._number = project.invoice.number;
     this._net = project.invoice.net;
     this._gross = project.invoice.gross;
-    this._sent = project.readyForOffer && project.readyForInvoice &&
-      !project.payedByCustomer && !project.payedEmployees;
+    this._sent = project.readyForInvoice && !project.payedByCustomer;
     this._payedByCustomer = project.payedByCustomer;
     this._payedEmployees = project.payedEmployees;
   }

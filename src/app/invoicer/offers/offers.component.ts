@@ -37,7 +37,7 @@ export class OffersComponent implements OnInit, OnDestroy {
         this.changeState(status, data);
       }));
 
-    this._subscription.add(this.invoicer.findOffersByYear(this.currentYear, 9999)
+    this._subscription.add(this.invoicer.findOffersByYear(this.currentYear)
       .subscribe(offers => {
         data = offers;
         this.changeState(status, data);

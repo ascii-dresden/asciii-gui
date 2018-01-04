@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { config } from '../../environments/config';
+
 import { AppRoutingModule } from '../app-routing.module';
 import { FontAwesomeModule } from '../components/font-awesome/font-awesome.module';
 import { AsciiPipeModule } from '../components/pipes/ascii-pipe.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InvoicerMockService } from './invoicer-mock.service';
 import { InvoicerComponent } from './invoicer.component';
 import { InvoicerService } from './invoicer.service';
 import { InvoicesComponent } from './invoices/invoices.component';
@@ -31,6 +34,8 @@ import { ProjectsComponent } from './projects/projects.component';
     OffersComponent,
     InvoicesComponent
   ],
-  providers: [InvoicerService]
+  providers: [
+    { provide: InvoicerService, useClass: config.invoicerMockApi ? InvoicerMockService : InvoicerService }
+  ]
 })
 export class InvoicerModule { }

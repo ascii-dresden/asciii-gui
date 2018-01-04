@@ -3,6 +3,7 @@
 
 export const config = {
   language: 'de',
+  invoicerMockApi: false,
   forecastIo: { // Visit https://darksky.net/dev/docs for more information
     apiKey: '[your api key]',
     location: { // Dresden <3

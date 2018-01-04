@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
+import * as moment from 'moment';
 
 import { environment } from '../../../environments/environment';
 import { InvoicerService } from '../invoicer.service';
@@ -33,7 +34,7 @@ export class InvoicesComponent implements OnInit, OnDestroy {
         status = params.get('status');
         this.changeState(status, invoices);
       }));
-    this._subscription.add(this.invoicer.findInvoicesByYear(this.currentYear, 9999)
+    this._subscription.add(this.invoicer.findInvoicesByYear(this.currentYear)
       .subscribe(data => {
         invoices = data;
         this.changeState(status, invoices);
@@ -62,8 +63,8 @@ export class InvoicesComponent implements OnInit, OnDestroy {
         this.invoices = invoices.filter(o => o.payedEmployees);
         break;
       case 'overdue':
-        this.invoices = invoices.filter(p => p.date && !p.payedByCustomer &&
-          (now.setTime(now.getTime() - 1209600000) > p.date));
+        this.invoices = invoices.filter(i => !i.payedByCustomer &&
+          (moment().add(-14, 'days').valueOf() > i.date));
         break;
       case 'all':
         this.invoices = invoices;

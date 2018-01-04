@@ -70,7 +70,7 @@
     <td>{{ invoice.date | date }}</td>
     <td>{{ invoice.date | dueDate | date }}</td>
     <td>{{ invoice.client }}</td>
-    <td class="text-right">{{ invoice.gross | currency:currencyCode }}</td>
+    <td class="text-right">{{ invoice.net | currency:currencyCode }}</td>
   </tr>
   </tbody>
 </table>

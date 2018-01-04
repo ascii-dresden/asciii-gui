@@ -84,7 +84,7 @@
           <td>{{ offer.date | date }}</td>
           <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.number }}</a></td>
           <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.name }}</a></td>
-          <td class="text-right">{{ offer.gross | currency:currencyCode }}</td>
+          <td class="text-right">{{ offer.net | currency:currencyCode }}</td>
         </tr>
         <tr>
           <td colspan="6" class="text-right">
@@ -120,7 +120,7 @@
           <td>{{ invoice.date | dueDate | date }}</td>
           <td><a [routerLink]="['/invoicer/project', invoice.id]">{{ invoice.number }}</a></td>
           <td><a [routerLink]="['/invoicer/project', invoice.id]">{{ invoice.name }}</a></td>
-          <td class="text-right">{{ invoice.gross | currency:currencyCode }}</td>
+          <td class="text-right">{{ invoice.net | currency:currencyCode }}</td>
         </tr>
         <tr>
           <td colspan="6" class="text-right">

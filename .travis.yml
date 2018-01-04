@@ -25,7 +25,7 @@ before_script:
 - sleep 3
 
 script:
-- npm run lint
+- ng lint
 - ng test --sr
 - ng build --prod --base-href /
 

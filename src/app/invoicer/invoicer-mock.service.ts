@@ -10,24 +10,18 @@ import { LoggerService } from '../logger/logger.service';
 import { InvoiceDTO, OfferDTO, Project } from './models';
 
 @Injectable()
-export class InvoicerService {
+export class InvoicerMockService {
 
-  private url = 'http://localhost:8000/api';
+  private url = 'http://localhost:3001/api/projects';
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
   findAllProjects(): Observable<Project[]> {
-    return this.http.get<any>(`${this.url}/full_projects`)
-      .map((p: any) => {
-        let projects: any[] = [];
-        for (const entries of Object.entries(p)) {
-          const project = entries[1];
-          project.id = entries[0];
-          projects.push(project);
-        }
-        projects = projects.map(o => new Project(o));
-        projects = projects.sort(this.sort);
-        return projects;
+    return this.http.get<any[]>(this.url)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.sort(this.sort);
+        return p;
       })
       .pipe(
         tap(() => this.log('fetched projects')),
@@ -36,18 +30,11 @@ export class InvoicerService {
   }
 
   findProjectsByYear(year: number): Observable<Project[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-    // return this.http.get<any>(`${this.url}/full_projects/year/2017`)
-      .map((p: any) => {
-        let projects: any[] = [];
-        for (const entries of Object.entries(p)) {
-          const project = entries[1];
-          project.id = entries[0];
-          projects.push(project);
-        }
-        projects = projects.map(o => new Project(o));
-        projects = projects.sort(this.sort);
-        return projects;
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.sort(this.sort);
+        return p;
       })
       .pipe(
         tap(() => this.log(`fetched projects w/ year=${year}`)),
@@ -56,7 +43,7 @@ export class InvoicerService {
   }
 
   findProjectById(id: string): Observable<Project> {
-    return this.http.get<any>(`${this.url}/projects/${id}`)
+    return this.http.get<any>(`${this.url}/${id}`)
       .map(p => new Project(p))
       .pipe(
         tap(() => this.log(`fetched project w/ id=${id}`)),
@@ -65,18 +52,12 @@ export class InvoicerService {
   }
 
   findOffersByYear(year: number): Observable<OfferDTO[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-      .map((p: any) => {
-        let offers: any[] = [];
-        for (const entries of Object.entries(p)) {
-          const project = entries[1];
-          project.id = entries[0];
-          offers.push(project);
-        }
-        offers = offers.map(o => new Project(o));
-        offers = offers.map(o => new OfferDTO(o));
-        offers = offers.sort(this.sort);
-        return offers;
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.map(o => new OfferDTO(o));
+        p = p.sort(this.sort);
+        return p;
       })
       .pipe(
         tap(() => this.log(`fetched offers w/ year=${year}`)),
@@ -85,28 +66,21 @@ export class InvoicerService {
   }
 
   getOffers(projects: Project[], maxResults = Number.MAX_VALUE): OfferDTO[] {
-    const offers = projects
+    const invoices = projects
       .map(o => new OfferDTO(o));
 
-    return offers
+    return invoices
       .sort(this.sort)
-      .slice(Math.max(offers.length - maxResults));
+      .slice(Math.max(invoices.length - maxResults));
   }
 
   findInvoicesByYear(year: number): Observable<InvoiceDTO[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-      .map((p: any) => {
-        let invoices: any[] = [];
-        for (const entries of Object.entries(p)) {
-          const project = entries[1];
-          project.id = entries[0];
-          invoices.push(project);
-        }
-        invoices = invoices.map(o => new Project(o));
-        invoices = invoices.filter(o => !o.canceled && o.invoice.date);
-        invoices = invoices.map(o => new InvoiceDTO(o));
-        invoices = invoices.sort(this.sort);
-        return invoices;
+    return this.http.get<any[]>(`${this.url}/year/${year}`)
+      .map((p: any[]) => {
+        p = p.map(o => new Project(o));
+        p = p.map(o => new InvoiceDTO(o));
+        p = p.sort(this.sort);
+        return p;
       })
       .pipe(
         tap(() => this.log(`fetched invoices w/ year=${year}`)),
@@ -116,7 +90,7 @@ export class InvoicerService {
 
   getInvoices(projects: Project[], maxResults = Number.MAX_VALUE): InvoiceDTO[] {
     const offers = projects
-      .filter(p => !p.canceled && p.invoice.date)
+      .filter(p => p.invoice.date)
       .map(p => new InvoiceDTO(p));
 
     return offers
@@ -136,6 +110,6 @@ export class InvoicerService {
   }
 
   private log(message: string) {
-    this.logger.info(`InvoicerService: ${message}`);
+    this.logger.info(`InvoicerMockService: ${message}`);
   }
 }
