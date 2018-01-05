@@ -14,6 +14,7 @@ import { LoggerService } from './logger/logger.service';
 import { MatematModule } from './matemat/matemat.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ConfigurationService } from './configuration.service';
+import { CookieService } from './cookie.service';
 
 
 registerLocaleData(localeDe, 'de');
@@ -33,6 +34,7 @@ registerLocaleData(localeDe, 'de');
   ],
   providers: [
     ConfigurationService,
+    CookieService,
     EmitterService,
     { provide: LOCALE_ID, deps: [ConfigurationService], useFactory: getLanguage },
     { provide: LoggerService, useClass: ConsoleLoggerService }

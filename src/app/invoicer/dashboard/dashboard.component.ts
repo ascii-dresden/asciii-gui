@@ -8,6 +8,7 @@ import { InvoicerService } from '../invoicer.service';
 import { InvoiceDTO, OfferDTO, Project } from '../models';
 import { InvoiceStatus } from '../models/invoice.dto';
 import { OfferStatus } from '../models/offer.dto';
+import { CookieService } from '../../cookie.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   invoiceOpenPaymentToEmployee: number;
   invoiceOverdue: number;
 
-  constructor(private invoicer: InvoicerService) { }
+  constructor(private cookieService: CookieService, private invoicer: InvoicerService) { }
 
   ngOnInit() {
     this.getYear(() => {
@@ -41,11 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getOffers(projects);
         this.getInvoices(projects);
       });
-    });
-
-    this.getProjects(projects => {
-      this.getOffers(projects);
-      this.getInvoices(projects);
     });
   }
 

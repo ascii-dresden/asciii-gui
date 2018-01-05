@@ -8,7 +8,7 @@ import { EventEmitter, Injectable } from '@angular/core';
  * it via property binding to its child components. Or simply use the id to get the needed
  * EventEmitter. Emit and subscribe events like you use it via @Output event binding.
  *
- * @example See HeaderComponent and PersonListComponent#ngOnChanges()
+ * @example See InvoicerComponent and DashboardComponent
  */
 @Injectable()
 export class EmitterService {
