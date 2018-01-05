@@ -13,4 +13,8 @@ export class InvoicerUtils {
     currency = currency.replace('€', '');
     return +currency;
   }
+
+  static isOverdue(date: number, days = 14): boolean {
+    return moment().valueOf() > moment(date).add(days, 'days').valueOf();
+  }
 }

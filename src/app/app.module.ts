@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { EmitterService } from './emitter.service';
 import { InvoicerModule } from './invoicer/invoicer.module';
 import { ConsoleLoggerService } from './logger/console-logger.service';
 import { LoggerService } from './logger/logger.service';
@@ -32,6 +33,7 @@ registerLocaleData(localeDe, 'de');
   ],
   providers: [
     ConfigurationService,
+    EmitterService,
     { provide: LOCALE_ID, deps: [ConfigurationService], useFactory: getLanguage },
     { provide: LoggerService, useClass: ConsoleLoggerService }
   ],

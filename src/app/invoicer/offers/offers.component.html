@@ -12,11 +12,11 @@
            [ngClass]="rla0.isActive ? 'btn-primary' : 'btn-outline-primary'"
            i18n>All</a>
         <a class="btn"
-           routerLink="../sent"
+           routerLink="../pending"
            routerLinkActive
            #rla1="routerLinkActive"
            [ngClass]="rla1.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Sent</a>
+           i18n>Pending</a>
         <a class="btn"
            routerLink="../approved"
            routerLinkActive
@@ -24,11 +24,11 @@
            [ngClass]="rla2.isActive ? 'btn-primary' : 'btn-outline-primary'"
            i18n>Approved</a>
         <a class="btn"
-           routerLink="../rejected"
+           routerLink="../canceled"
            routerLinkActive
            #rla3="routerLinkActive"
            [ngClass]="rla3.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Rejected</a>
+           i18n>Canceled</a>
       </div>
       <!--<div class="btn-group btn-group-sm" role="group" aria-label="Back">
         <a href="javascript:;" type="button" class="btn btn-link" (click)="goBack()" i18n>Back</a>
@@ -39,23 +39,24 @@
 <table class="table table-striped table-responsive-md">
   <thead>
   <tr>
-    <th scope="col">#</th>
-    <th scope="col" i18n>Status</th>
-    <th scope="col" i18n>Offer</th>
-    <th scope="col" i18n>Name</th>
-    <th scope="col" i18n>Created</th>
-    <th scope="col" i18n>Manager Name</th>
-    <th scope="col" i18n>Client Name</th>
-    <th scope="col" class="text-right" i18n>Total</th>
+    <th class="mw-30">#</th>
+    <th i18n>Status</th>
+    <th i18n>Offer</th>
+    <th i18n>Name</th>
+    <th i18n>Created</th>
+    <th i18n>Manager Name</th>
+    <th i18n>Client Name</th>
+    <th class="text-right" i18n>Total</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let offer of offers; index as i;">
-    <td scope="row">{{ i + 1 }}</td>
-    <td *ngIf="!offer.sent && !offer.approved && !offer.rejected"><span class="badge badge-secondary">&nbsp;</span></td>
-    <td *ngIf="offer.sent"><span class="badge badge-info" i18n>Sent</span></td>
-    <td *ngIf="offer.approved"><span class="badge badge-success" i18n>Approved</span></td>
-    <td *ngIf="offer.rejected"><span class="badge badge-danger" i18n>Rejected</span></td>
+    <td class="mw-30">{{ i + 1 }}</td>
+    <td [ngSwitch]="offer.status">
+      <span class="badge badge-info" *ngSwitchCase="0" i18n>Pending</span>
+      <span class="badge badge-success" *ngSwitchCase="1" i18n>Approved</span>
+      <span class="badge badge-danger" *ngSwitchCase="2" i18n>Canceled</span>
+    </td>
     <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.number }}</a></td>
     <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.name }}</a></td>
     <td>{{ offer.date | date }}</td>

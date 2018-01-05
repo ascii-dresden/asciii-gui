@@ -38,10 +38,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   private getProject() {
     this._subscription.add(this.invoicer.findProjectById(this.route.snapshot.paramMap.get('name')).subscribe(project => {
       this.project = project;

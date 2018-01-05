@@ -3,11 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
-import * as moment from 'moment';
 
 import { environment } from '../../../environments/environment';
 import { InvoicerService } from '../invoicer.service';
 import { InvoiceDTO } from '../models';
+import { InvoiceStatus } from '../models/invoice.dto';
 
 @Component({
   selector: 'ascii-invoices',
@@ -45,26 +45,18 @@ export class InvoicesComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   private changeState(status: string, invoices: InvoiceDTO[]) {
-    const now = new Date();
-
     switch (status) {
-      case 'sent':
-        this.invoices = invoices.filter(o => o.sent);
+      case 'open':
+        this.invoices = invoices.filter(o =>
+          o.status === InvoiceStatus.Open ||
+          o.status === InvoiceStatus.Overdue
+        );
         break;
-      case 'paid-by-customer':
-        this.invoices = invoices.filter(o => o.payedByCustomer);
-        break;
-      case 'paid-employees':
-        this.invoices = invoices.filter(o => o.payedEmployees);
-        break;
-      case 'overdue':
-        this.invoices = invoices.filter(i => !i.payedByCustomer &&
-          (moment().add(-14, 'days').valueOf() > i.date));
+      case 'paid':
+        this.invoices = invoices.filter(o =>
+          o.status === InvoiceStatus.OpenPaymentToEmployees ||
+          o.status === InvoiceStatus.PaidAll);
         break;
       case 'all':
         this.invoices = invoices;

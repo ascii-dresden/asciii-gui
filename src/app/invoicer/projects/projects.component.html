@@ -6,37 +6,29 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th scope="col">#</th>
-    <th scope="col" i18n>Number</th>
-    <th scope="col" i18n>Name</th>
-    <th scope="col" i18n>Manager</th>
-    <th scope="col" i18n>Date</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-    <th scope="col" class="text-right" i18n>Total</th>
+    <th class="mw-30">#</th>
+    <th i18n>Number</th>
+    <th i18n>Name</th>
+    <th i18n>Manager</th>
+    <th i18n>Date</th>
+    <th class="mw-70"></th>
+    <th class="text-right" i18n>Total</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let project of projects; index as i;">
-    <td scope="row">{{ i + 1 }}</td>
+    <td class="mw-30">{{ i + 1 }}</td>
     <td><a [routerLink]="['/invoicer/project', project.id]">{{ project.invoice.number }}</a></td>
     <td><a [routerLink]="['/invoicer/project', project.id]">{{ project.name }}</a></td>
     <td>{{ project.manager }}</td>
     <td>{{ project.date | date }}</td>
-    <td>
+    <td class="mw-70">
       <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
-    </td>
-    <td>
       <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
-    </td>
-    <td>
-      <i class="fa fa-check text-success" *ngIf="project.payedByCustomer && project.payedEmployees"></i>
-      <i class="fa fa-eur text-warning" *ngIf="(project.payedByCustomer && !project.payedEmployees)
-      || !project.payedByCustomer && project.payedEmployees"></i>
-      <i class="fa fa-times text-danger" *ngIf="!project.payedByCustomer && !project.payedEmployees"></i>
-    <td>
+      <i class="fa fa-check text-success" *ngIf="project.paidByCustomer && project.paidEmployees"></i>
+      <i class="fa fa-eur text-warning" *ngIf="(project.paidByCustomer && !project.paidEmployees)
+      || !project.paidByCustomer && project.paidEmployees"></i>
+      <i class="fa fa-times text-danger" *ngIf="!project.paidByCustomer && !project.paidEmployees"></i>
       <ascii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></ascii-fa-bool>
     </td>
     <td class="text-right">{{ project.invoice.net | currency:currencyCode }}</td>

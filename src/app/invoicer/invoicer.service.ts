@@ -37,7 +37,6 @@ export class InvoicerService {
 
   findProjectsByYear(year: number): Observable<Project[]> {
     return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-    // return this.http.get<any>(`${this.url}/full_projects/year/2017`)
       .map((p: any) => {
         let projects: any[] = [];
         for (const entries of Object.entries(p)) {
@@ -84,9 +83,11 @@ export class InvoicerService {
       );
   }
 
-  getOffers(projects: Project[], maxResults = Number.MAX_VALUE): OfferDTO[] {
+  getOffers(projects: Project[], allOffers?: (o: OfferDTO[]) => void, maxResults = Number.MAX_VALUE): OfferDTO[] {
     const offers = projects
       .map(o => new OfferDTO(o));
+
+    allOffers(offers);
 
     return offers
       .sort(this.sort)
@@ -114,14 +115,16 @@ export class InvoicerService {
       );
   }
 
-  getInvoices(projects: Project[], maxResults = Number.MAX_VALUE): InvoiceDTO[] {
-    const offers = projects
+  getInvoices(projects: Project[], allInvoices?: (i: InvoiceDTO[]) => void, maxResults = Number.MAX_VALUE): InvoiceDTO[] {
+    const invoices = projects
       .filter(p => !p.canceled && p.invoice.date)
       .map(p => new InvoiceDTO(p));
 
-    return offers
+    allInvoices(invoices);
+
+    return invoices
       .sort(this.sort)
-      .slice(Math.max(offers.length - maxResults));
+      .slice(Math.max(invoices.length - maxResults));
   }
 
   private sort(a, b) {

@@ -12,64 +12,50 @@
            [ngClass]="rla0.isActive ? 'btn-primary' : 'btn-outline-primary'"
            i18n>All</a>
         <a class="btn"
-           routerLink="../sent"
+           routerLink="../open"
            routerLinkActive
            #rla1="routerLinkActive"
            [ngClass]="rla1.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Sent</a>
+           i18n>Open</a>
         <a class="btn"
-           routerLink="../paid-by-customer"
+           routerLink="../paid"
            routerLinkActive
            #rla2="routerLinkActive"
            [ngClass]="rla2.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Paid by Customer</a>
-        <a class="btn"
-           routerLink="../paid-employees"
-           routerLinkActive
-           #rla3="routerLinkActive"
-           [ngClass]="rla3.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Paid Employees</a>
-        <a class="btn"
-           routerLink="../overdue"
-           routerLinkActive
-           #rla4="routerLinkActive"
-           [ngClass]="rla4.isActive ? 'btn-primary' : 'btn-outline-primary'"
-           i18n>Overdue</a>
+           i18n>Paid</a>
       </div>
-      <!--<div class="btn-group btn-group-sm" role="group" aria-label="Back">
-        <a href="javascript:;" type="button" class="btn btn-link" (click)="goBack()" i18n>Back</a>
-      </div>-->
     </div>
   </div>
 </div>
 <table class="table table-striped table-responsive-md">
   <thead>
   <tr>
-    <th scope="col">#</th>
-    <th scope="col" i18n>Status</th>
-    <th scope="col" i18n>Invoice</th>
-    <th scope="col" i18n>Created</th>
-    <th scope="col" i18n="@@invoiceDate">Date</th>
-    <th scope="col" i18n>Due Date</th>
-    <th scope="col" i18n>Client Name</th>
-    <th scope="col" class="text-right" i18n>Total</th>
+    <th class="mw-30">#</th>
+    <th i18n>Status</th>
+    <th i18n>Invoice</th>
+    <th i18n>Created</th>
+    <th i18n="@@invoiceDate">Date</th>
+    <th i18n>Due Date</th>
+    <th i18n>Client Name</th>
+    <th class="text-right" i18n>Service Wage</th>
+    <th class="text-right" i18n>Total</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let invoice of invoices; index as i;">
-    <td scope="row">{{ i + 1 }}</td>
-    <td *ngIf="invoice.sent"><span class="badge badge-info" i18n>Sent</span></td>
-    <td *ngIf="invoice.payedByCustomer && invoice.payedEmployees">
-      <span class="badge badge-success" i18n>Payed</span>
-    </td>
-    <td *ngIf="(invoice.payedByCustomer && !invoice.payedEmployees)
-              || !invoice.payedByCustomer && invoice.payedEmployees"><span class="badge badge-warning" i18n>Payed</span>
+    <td class="mw-30">{{ i + 1 }}</td>
+    <td [ngSwitch]="invoice.status">
+      <span class="badge badge-info" *ngSwitchCase="0" i18n>Open</span>
+      <span class="badge badge-success" *ngSwitchCase="1" i18n>Paid</span>
+      <span class="badge badge-warning" *ngSwitchCase="2" i18n>Paid</span>
+      <span class="badge badge-danger" *ngSwitchCase="3" i18n>Overdue</span>
     </td>
     <td><a [routerLink]="['/invoicer/project', invoice.id]">{{ invoice.number }}</a></td>
     <td><a [routerLink]="['/invoicer/project', invoice.id]">{{ invoice.name }}</a></td>
     <td>{{ invoice.date | date }}</td>
     <td>{{ invoice.date | dueDate | date }}</td>
     <td>{{ invoice.client }}</td>
+    <td class="text-right">{{ invoice.serviceWage | currency:currencyCode }}</td>
     <td class="text-right">{{ invoice.net | currency:currencyCode }}</td>
   </tr>
   </tbody>

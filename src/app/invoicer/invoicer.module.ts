@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { config } from '../../environments/config';
 
@@ -21,6 +22,7 @@ import { ProjectsComponent } from './projects/projects.component';
   imports: [
     CommonModule,
     AppRoutingModule,
+    FormsModule,
     FontAwesomeModule,
     AsciiPipeModule
   ],

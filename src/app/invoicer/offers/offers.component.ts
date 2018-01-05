@@ -2,14 +2,12 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
 import { InvoicerService } from '../invoicer.service';
 import { OfferDTO } from '../models';
+import { OfferStatus } from '../models/offer.dto';
 
 @Component({
   selector: 'ascii-offers',
@@ -48,20 +46,16 @@ export class OffersComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   private changeState(status: string, offers: OfferDTO[]) {
     switch (status) {
-      case 'sent':
-        this.offers = offers.filter(o => o.sent);
+      case 'pending':
+        this.offers = offers.filter(o => o.status === OfferStatus.Pending);
         break;
       case 'approved':
-        this.offers = offers.filter(o => o.approved);
+        this.offers = offers.filter(o => o.status === OfferStatus.Approved);
         break;
-      case 'rejected':
-        this.offers = offers.filter(o => o.rejected);
+      case 'canceled':
+        this.offers = offers.filter(o => o.status === OfferStatus.Canceled);
         break;
       case 'all':
         this.offers = offers;

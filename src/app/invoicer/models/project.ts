@@ -19,8 +19,8 @@ export class Project {
   private _readyForOffer: boolean;
   private _readyForInvoice: boolean;
   private _readyForArchive: boolean;
-  private _payedByCustomer: boolean;
-  private _payedEmployees: boolean;
+  private _paidByCustomer: boolean;
+  private _paidEmployees: boolean;
   private _canceled: boolean;
 
   constructor(project) {
@@ -44,8 +44,8 @@ export class Project {
     this._readyForOffer = project.checks.ready_for_offer;
     this._readyForInvoice = project.checks.ready_for_invoice;
     this._readyForArchive = project.checks.ready_for_archive;
-    this._payedByCustomer = project.checks.payed_by_customer;
-    this._payedEmployees = project.checks.payed_employees;
+    this._paidByCustomer = project.checks.payed_by_customer;
+    this._paidEmployees = project.checks.payed_employees;
     this._canceled = project.checks.canceled;
   }
 
@@ -97,12 +97,12 @@ export class Project {
     return this._readyForArchive;
   }
 
-  get payedByCustomer(): boolean {
-    return this._payedByCustomer;
+  get paidByCustomer(): boolean {
+    return this._paidByCustomer;
   }
 
-  get payedEmployees(): boolean {
-    return this._payedEmployees;
+  get paidEmployees(): boolean {
+    return this._paidEmployees;
   }
 
   get canceled(): boolean {

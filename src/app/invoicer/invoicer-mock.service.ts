@@ -65,13 +65,15 @@ export class InvoicerMockService {
       );
   }
 
-  getOffers(projects: Project[], maxResults = Number.MAX_VALUE): OfferDTO[] {
-    const invoices = projects
+  getOffers(projects: Project[], allOffers?: (o: OfferDTO[]) => void, maxResults = Number.MAX_VALUE): OfferDTO[] {
+    const offers = projects
       .map(o => new OfferDTO(o));
 
-    return invoices
+    allOffers(offers);
+
+    return offers
       .sort(this.sort)
-      .slice(Math.max(invoices.length - maxResults));
+      .slice(Math.max(offers.length - maxResults));
   }
 
   findInvoicesByYear(year: number): Observable<InvoiceDTO[]> {
@@ -88,14 +90,16 @@ export class InvoicerMockService {
       );
   }
 
-  getInvoices(projects: Project[], maxResults = Number.MAX_VALUE): InvoiceDTO[] {
-    const offers = projects
-      .filter(p => p.invoice.date)
+  getInvoices(projects: Project[], allInvoices?: (i: InvoiceDTO[]) => void, maxResults = Number.MAX_VALUE): InvoiceDTO[] {
+    const invoices = projects
+      .filter(p => !p.canceled && p.invoice.date)
       .map(p => new InvoiceDTO(p));
 
-    return offers
+    allInvoices(invoices);
+
+    return invoices
       .sort(this.sort)
-      .slice(Math.max(offers.length - maxResults));
+      .slice(Math.max(invoices.length - maxResults));
   }
 
   private sort(a, b) {

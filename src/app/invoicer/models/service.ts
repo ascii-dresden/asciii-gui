@@ -13,7 +13,7 @@ export class Service {
     this._tax = tax || 0;
     employees.forEach(e => this._employees.push(new Employee(e.name, e.salary, e.time)));
     this._time = this._employees.map(e => e.time).reduce((a, b) => a + b, 0);
-    this._salary = this._employees.length > 0 ? this._employees[0].salary : 9;
+    this._salary = this._employees.length ? this._employees[0].salary : 9;
     this._gross = this._time * this._salary;
     this._net = this._time * this._salary * (this._tax + 1);
   }

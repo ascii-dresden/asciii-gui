@@ -1,0 +1,13 @@
+// Sizing
+
+@each $size, $length in $sizes {
+  .mw-#{$size} {
+    max-width: $length;
+  }
+}
+
+@each $size, $length in $sizes {
+  .width-fix-#{$size} {
+    width: $length;
+  }
+}

@@ -1,5 +1,11 @@
 import { Project } from './project';
 
+export enum OfferStatus {
+  Pending,
+  Approved,
+  Canceled
+}
+
 export class OfferDTO {
 
   private _id: string;
@@ -10,9 +16,7 @@ export class OfferDTO {
   private _number: string;
   private _net: number;
   private _gross: number;
-  private _sent: boolean;
-  private _approved: boolean;
-  private _rejected: boolean;
+  private _status: OfferStatus;
 
   constructor(project: Project) {
     this._id = project.id;
@@ -23,9 +27,13 @@ export class OfferDTO {
     this._number = project.offer.number;
     this._net = project.offer.net;
     this._gross = project.offer.gross;
-    this._sent = project.readyForOffer && !project.readyForInvoice && !project.readyForArchive;
-    this._approved = project.readyForOffer && project.readyForInvoice && !project.readyForArchive;
-    this._rejected = project.canceled;
+    if (project.canceled) {
+      this._status = OfferStatus.Canceled;
+    } else if (project.readyForOffer && !project.readyForInvoice) {
+      this._status = OfferStatus.Pending;
+    } else if (project.readyForInvoice) {
+      this._status = OfferStatus.Approved;
+    }
   }
 
   get id(): string {
@@ -60,15 +68,7 @@ export class OfferDTO {
     return this._gross;
   }
 
-  get sent(): boolean {
-    return this._sent;
-  }
-
-  get approved(): boolean {
-    return this._approved;
-  }
-
-  get rejected(): boolean {
-    return this._rejected;
+  get status(): OfferStatus {
+    return this._status;
   }
 }

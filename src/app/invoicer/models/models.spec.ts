@@ -23,6 +23,11 @@ describe('InvoicerUtils', () => {
   it('should parse date', () => {
     expect(InvoicerUtils.parseDate('30.12.2017')).toBe(moment('30.12.2017', 'DD.MM.YYYY').valueOf());
   });
+
+  it('should calc if invoice is overdue', () => {
+    expect(InvoicerUtils.isOverdue(moment().add(5, 'd').valueOf())).toBeFalsy();
+    expect(InvoicerUtils.isOverdue(moment().add(30, 'd').valueOf())).toBeTruthy();
+  });
 });
 
 describe('Bill', () => {
@@ -702,8 +707,8 @@ describe('Project', () => {
     expect(project.readyForOffer).toBeTruthy();
     expect(project.readyForInvoice).toBeTruthy();
     expect(project.readyForArchive).toBeTruthy();
-    expect(project.payedEmployees).toBeTruthy();
-    expect(project.payedByCustomer).toBeTruthy();
+    expect(project.paidEmployees).toBeTruthy();
+    expect(project.paidByCustomer).toBeTruthy();
     expect(project.canceled).toBeFalsy();
   });
 });
