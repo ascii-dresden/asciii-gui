@@ -19,7 +19,6 @@ cache:
   - "node_modules"
 
 before_script:
-- "cp src/environments/config.sample.ts src/environments/config.ts"
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3
