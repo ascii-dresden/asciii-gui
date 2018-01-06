@@ -6,5 +6,7 @@
 export const environment = {
   production: false,
   forecast: false,
-  currencyCode: 'EUR'
+  currencyCode: 'EUR',
+  language: 'de',
+  invoicerMockApi: false,
 };

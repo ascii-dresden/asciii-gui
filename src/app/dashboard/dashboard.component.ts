@@ -1,33 +1,100 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { ForecastService } from './forecast/forecast.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-declare var Skycons: any;
+import { Subscription } from 'rxjs/Subscription';
+
+import { environment } from '../../environments/environment';
+import { CookieService } from '../services/cookie.service';
+import { EmitterService } from '../services/emitter.service';
+import { InvoicerService } from '../services/invoicer.service';
+import { InvoiceDTO, InvoiceStatus, OfferDTO, OfferStatus, Project } from '../models';
+
 
 @Component({
   selector: 'ascii-dashboard',
   templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 
-  forecast: any;
-  scyconId = 'skycon' + Math.floor((Math.random() * 1000) + 1);
-  skycons = new Skycons({ color: '#212529', resizeClear: true });
   private _subscription = new Subscription();
 
-  constructor(private forecastService: ForecastService) { }
+  year: number;
+  currencyCode: string = environment.currencyCode;
+  projects: Project[] = [];
+  offers: OfferDTO[] = [];
+  invoices: InvoiceDTO[] = [];
 
-  ngOnInit() {
-    this._subscription.add(this.forecastService.getForecast()
-      .subscribe(forecast => this.forecast = forecast));
+  offerPending: number;
+  offerApproved: number;
+  offerCanceled: number;
+
+  invoiceDue: number;
+  invoicePaid: number;
+  invoiceOpenPaymentToEmployee: number;
+  invoiceOverdue: number;
+
+  constructor(private cookieService: CookieService, private invoicer: InvoicerService) {
+    this.year = +this.cookieService.get('activeYear') || new Date().getFullYear();
   }
 
-  ngAfterViewInit() {
-    this.skycons.set(this.scyconId, this.forecast.currently.icon);
-    this.skycons.play();
+  ngOnInit() {
+    this.getProjects();
+    this.getYear();
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
+  }
+
+  getYear(): void {
+    this._subscription.add(EmitterService.get('activeYear')
+      .subscribe(data => {
+        this.year = data;
+        this.getProjects();
+      }));
+  }
+
+  getProjects(): void {
+    this._subscription.add(this.invoicer.findProjectsByYear(this.year)
+      .subscribe(projects => {
+        this.projects = projects;
+        this.getOffers(projects);
+        this.getInvoices(projects);
+      }));
+  }
+
+  getOffers(projects: Project[]) {
+    this.offers = this.invoicer.getOffers(projects, offers => {
+      this.offerPending = this.countNet(offers.filter(o =>
+        o.status === OfferStatus.Pending
+      ));
+      this.offerApproved = this.countNet(offers.filter(o =>
+        o.status === OfferStatus.Approved
+      ));
+      this.offerCanceled = this.countNet(offers.filter(o =>
+        o.status === OfferStatus.Canceled
+      ));
+    }, 10);
+  }
+
+  getInvoices(projects: Project[]) {
+    this.invoices = this.invoicer.getInvoices(projects, invoices => {
+      this.invoiceDue = this.countNet(invoices.filter(i =>
+        i.status === InvoiceStatus.Open ||
+        i.status === InvoiceStatus.Overdue
+      ));
+      this.invoicePaid = this.countNet(invoices.filter(i =>
+        i.status === InvoiceStatus.PaidAll
+      ));
+      this.invoiceOpenPaymentToEmployee = invoices.filter(i =>
+        i.status === InvoiceStatus.OpenPaymentToEmployees
+      ).map(i => i.serviceWage).reduce((a, b) => a + b, 0);
+      this.invoiceOverdue = this.countNet(invoices.filter(i =>
+        i.status === InvoiceStatus.Overdue
+      ));
+    }, 10);
+  }
+
+  countNet(data): number {
+    return data.map(i => i.net).reduce((a, b) => a + b, 0);
   }
 }

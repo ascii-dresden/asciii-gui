@@ -23,8 +23,7 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.bundle.js",
-        "assets/skycons.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.bundle.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
