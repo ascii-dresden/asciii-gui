@@ -3,12 +3,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
+import { CookieService } from '../../cookie.service';
 import { EmitterService } from '../../emitter.service';
 import { InvoicerService } from '../invoicer.service';
-import { InvoiceDTO, OfferDTO, Project } from '../models';
-import { InvoiceStatus } from '../models/invoice.dto';
-import { OfferStatus } from '../models/offer.dto';
-import { CookieService } from '../../cookie.service';
+import { InvoiceDTO, InvoiceStatus, OfferDTO, OfferStatus, Project } from '../models';
 
 
 @Component({
@@ -19,7 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private _subscription = new Subscription();
 
-  year: number = new Date().getFullYear();
+  year: number;
   currencyCode: string = environment.currencyCode;
   projects: Project[] = [];
   offers: OfferDTO[] = [];
@@ -34,34 +32,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
   invoiceOpenPaymentToEmployee: number;
   invoiceOverdue: number;
 
-  constructor(private cookieService: CookieService, private invoicer: InvoicerService) { }
+  constructor(private cookieService: CookieService, private invoicer: InvoicerService) {
+    this.year = +this.cookieService.get('activeYear') || new Date().getFullYear();
+  }
 
   ngOnInit() {
-    this.getYear(() => {
-      this.getProjects(projects => {
-        this.getOffers(projects);
-        this.getInvoices(projects);
-      });
-    });
+    this.getProjects();
+    this.getYear();
   }
 
   ngOnDestroy() {
     this._subscription.unsubscribe();
   }
 
-  getYear(next: () => void) {
+  getYear(): void {
     this._subscription.add(EmitterService.get('activeYear')
       .subscribe(data => {
         this.year = data;
-        next();
+        this.getProjects();
       }));
   }
 
-  getProjects(cb) {
+  getProjects(): void {
     this._subscription.add(this.invoicer.findProjectsByYear(this.year)
       .subscribe(projects => {
         this.projects = projects;
-        cb(projects);
+        this.getOffers(projects);
+        this.getInvoices(projects);
       }));
   }
 

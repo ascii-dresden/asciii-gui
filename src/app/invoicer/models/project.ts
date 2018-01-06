@@ -23,7 +23,7 @@ export class Project {
   private _paidEmployees: boolean;
   private _canceled: boolean;
 
-  constructor(project) {
+  constructor(project: any) {
     this._id = project.id;
     this._name = project.event.name;
     this._date = InvoicerUtils.parseDate(project.event.date);
@@ -35,7 +35,7 @@ export class Project {
     );
     this._service = new Service(
       project.service.tax,
-      project.service.employees
+      project.service.employees || []
     );
     this._offer = new Offer(project);
     this._invoice = new Invoice(project);

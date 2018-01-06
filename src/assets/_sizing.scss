@@ -4,6 +4,10 @@
   .mw-#{$size} {
     max-width: $length;
   }
+
+  .w-#{$size} {
+    width: $length;
+  }
 }
 
 @each $size, $length in $sizes {

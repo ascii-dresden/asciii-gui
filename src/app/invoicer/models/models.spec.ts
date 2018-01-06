@@ -26,7 +26,7 @@ describe('InvoicerUtils', () => {
 
   it('should calc if invoice is overdue', () => {
     expect(InvoicerUtils.isOverdue(moment().add(5, 'd').valueOf())).toBeFalsy();
-    expect(InvoicerUtils.isOverdue(moment().add(30, 'd').valueOf())).toBeTruthy();
+    expect(InvoicerUtils.isOverdue(moment().add(-30, 'd').valueOf())).toBeTruthy();
   });
 });
 
@@ -394,6 +394,10 @@ describe('InvoiceDTO', () => {
     expect(dto.gross).toBe(PROJECT.invoice.gross);
     expect(dto.gross).toBe(66.66);
   });
+
+  it('should have status', () => {
+    expect(dto.status).toBe(1);
+  });
 });
 
 describe('OfferDTO', () => {
@@ -445,6 +449,10 @@ describe('OfferDTO', () => {
   it('should have gross', () => {
     expect(dto.gross).toBe(PROJECT.offer.gross);
     expect(dto.gross).toBe(154.72);
+  });
+
+  it('should have status', () => {
+    expect(dto.status).toBe(1);
   });
 });
 

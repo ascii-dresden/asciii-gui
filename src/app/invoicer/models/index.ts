@@ -6,6 +6,8 @@ export { Item } from './item';
 export { Offer } from './offer';
 export { Project } from './project';
 export { Service } from './service';
+export { InvoiceStatus } from './invoice.dto';
 export { InvoiceDTO } from './invoice.dto';
+export { OfferStatus } from './offer.dto';
 export { OfferDTO } from './offer.dto';
 export { InvoicerUtils } from './invoicer-utils';

@@ -1,6 +1,6 @@
 <div class="row mt-3 mt-md-1 mb-3 justify-content-center align-items-center">
   <div class="col-sm-6">
-    <h1 class="h6 mb-2 m-sm-0" i18n>Offers {{ currentYear }}</h1>
+    <h1 class="h6 mb-2 m-sm-0" i18n>Offers {{ year }}</h1>
   </div>
   <div class="col-sm-6 d-flex justify-content-end">
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with Sub Navigation">
@@ -56,6 +56,7 @@
       <span class="badge badge-info" *ngSwitchCase="0" i18n>Pending</span>
       <span class="badge badge-success" *ngSwitchCase="1" i18n>Approved</span>
       <span class="badge badge-danger" *ngSwitchCase="2" i18n>Canceled</span>
+      <span class="badge badge-secondary" *ngSwitchDefault>&nbsp;</span>
     </td>
     <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.number }}</a></td>
     <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.name }}</a></td>

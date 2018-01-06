@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
+import { EmitterService } from '../../emitter.service';
 import { InvoicerService } from '../invoicer.service';
 import { Project } from '../models';
 
@@ -15,17 +16,29 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   private _subscription = new Subscription();
 
+  year: number;
   currencyCode: string = environment.currencyCode;
-  currentYear: number;
   projects: Project[] = [];
 
   constructor(private route: ActivatedRoute, private invoicer: InvoicerService) {
-    this.currentYear = +this.route.snapshot.paramMap.get('year');
+    this.year = +this.route.snapshot.paramMap.get('year');
   }
 
   ngOnInit() {
-    this._subscription.add(this.invoicer.findProjectsByYear(this.currentYear)
-      .subscribe(value => this.projects = value));
+    this.getProjects();
+    this.getYear();
+  }
+
+  getYear(): void {
+    this._subscription.add(EmitterService.get('activeYear')
+      .subscribe(data => {
+        this.year = data;
+        this.getProjects();
+      }));
+  }
+
+  getProjects(): void {
+    this._subscription.add(this.invoicer.findProjectsByYear(this.year).subscribe(projects => this.projects = projects));
   }
 
   ngOnDestroy() {

@@ -53,6 +53,10 @@ describe('DueDatePipe', () => {
     const amount = 30;
     expect(pipe.transform(invoice.date, amount)).toBe(moment('10.08.2017', 'DD.MM.YYYY').add(amount, 'days').valueOf());
   });
+
+  it('should return undefined', () => {
+    expect(pipe.transform(null)).toBeUndefined();
+  });
 });
 
 describe('JoinBillPipe', () => {

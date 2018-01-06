@@ -14,7 +14,7 @@ export class InvoicerComponent implements OnInit {
   constructor(private cookieService: CookieService) { }
 
   ngOnInit() {
-    for (let i = 2013; i <= new Date().getFullYear(); i++) {
+    for (let i = 2012; i <= new Date().getFullYear(); i++) {
       this.years.push(i);
     }
 
@@ -28,7 +28,8 @@ export class InvoicerComponent implements OnInit {
   }
 
   changeYear(year) {
+    this.activeYear = year;
     EmitterService.get('activeYear').emit(year);
-    this.cookieService.set('activeYear', year);
+    this.cookieService.set('activeYear', year, 2592000000, '/invoicer');
   }
 }

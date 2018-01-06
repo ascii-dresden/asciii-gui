@@ -1,6 +1,6 @@
 <div class="row mt-3 mt-md-2 mb-3">
   <div class="col">
-    <h1 class="h6 m-0" i18n>Projects {{ currentYear }}</h1>
+    <h1 class="h6 m-0" i18n>Projects {{ year }}</h1>
   </div>
 </div>
 <table class="table table-striped">
@@ -11,7 +11,7 @@
     <th i18n>Name</th>
     <th i18n>Manager</th>
     <th i18n>Date</th>
-    <th class="mw-70"></th>
+    <th class="w-90"></th>
     <th class="text-right" i18n>Total</th>
   </tr>
   </thead>
@@ -22,7 +22,7 @@
     <td><a [routerLink]="['/invoicer/project', project.id]">{{ project.name }}</a></td>
     <td>{{ project.manager }}</td>
     <td>{{ project.date | date }}</td>
-    <td class="mw-70">
+    <td class="w-90">
       <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
       <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
       <i class="fa fa-check text-success" *ngIf="project.paidByCustomer && project.paidEmployees"></i>

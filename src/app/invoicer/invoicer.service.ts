@@ -117,7 +117,7 @@ export class InvoicerService {
 
   getInvoices(projects: Project[], allInvoices?: (i: InvoiceDTO[]) => void, maxResults = Number.MAX_VALUE): InvoiceDTO[] {
     const invoices = projects
-      .filter(p => !p.canceled && p.invoice.date)
+      .filter(p => !p.canceled && p.invoice.number)
       .map(p => new InvoiceDTO(p));
 
     allInvoices(invoices);

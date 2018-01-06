@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'invoicer', component: InvoicerComponent, children: [...invoicerRoutes] },
   { path: 'matemat', component: MatematComponent, children: [...matematRoutes] },
-  { path: '', redirectTo: '/invoicer', pathMatch: 'full' }
+  { path: '', redirectTo: '/invoicer/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

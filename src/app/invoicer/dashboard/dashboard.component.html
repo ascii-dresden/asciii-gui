@@ -77,6 +77,7 @@
             <span class="badge badge-info" *ngSwitchCase="0" i18n>Pending</span>
             <span class="badge badge-success" *ngSwitchCase="1" i18n>Approved</span>
             <span class="badge badge-danger" *ngSwitchCase="2" i18n>Canceled</span>
+            <span class="badge badge-secondary" *ngSwitchDefault>&nbsp;</span>
           </td>
           <td>{{ offer.date | date }}</td>
           <td><a [routerLink]="['/invoicer/project', offer.id]">{{ offer.number }}</a></td>
@@ -112,6 +113,7 @@
             <span class="badge badge-success" *ngSwitchCase="1" i18n>Paid</span>
             <span class="badge badge-warning" *ngSwitchCase="2" i18n>Paid</span>
             <span class="badge badge-danger" *ngSwitchCase="3" i18n>Overdue</span>
+            <span class="badge badge-secondary" *ngSwitchDefault>&nbsp;</span>
           </td>
           <td>{{ invoice.date | dueDate | date }}</td>
           <td><a [routerLink]="['/invoicer/project', invoice.id]">{{ invoice.number }}</a></td>
