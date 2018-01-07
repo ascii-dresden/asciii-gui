@@ -55,15 +55,10 @@ Change currency and locale by editing `src/environments/environment.ts`.
 
 ### Production
 
-1. Dowload the latest release from the [release](https://github.com/ascii-dresden/asciii-gui/releases/latest) section
+1. Download the latest release from the [release](https://github.com/ascii-dresden/asciii-gui/releases/latest) section
 2. Extract the package and copy all files to your webserver or destination machine
 3. Start the asciii server as described [here](#dev)
-4. Start the asciii GUI.
-
-```sh
-$ chmod +x ./bin/www
-$ ./bin/www
-```
+4. Enjoy
 
 ## License
 
