@@ -1,30 +1,61 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const favicon = require('serve-favicon');
-const logger = require('morgan');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const rfs = require('rotating-file-stream');
 
 const app = express();
+const logDirectory = path.join(__dirname, 'log');
+const accessLogStream = rfs('access.log', {
+  interval: '1d',
+  path: logDirectory
+});
 
-app.use(logger('dev'));
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+app.use(morgan('dev', { skip: (req, res) => res.statusCode < 400 }));
+app.use(morgan('common', { skip: (req, res) => app.get('env') !== 'production', stream: accessLogStream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(notFound);
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
-app.use((req, res, next) => {
+function notFound(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
-});
+}
 
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
+function logErrors(err, req, res, next) {
+  console.error(err.stack);
+  next(err);
+}
+
+function clientErrorHandler(err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' });
+  } else {
+    next(err);
+  }
+}
+
+function errorHandler(err, req, res, next) {
+  if (res.headersSent) {
+    return next(err);
+  }
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
-  res.render('error');
-});
+  res.json({
+    message: err.message,
+    error: err
+  });
+}
 
 module.exports = app;

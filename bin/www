@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
 const app = require('../app');
-const debug = require('debug')('mean-app:server');
 const http = require('http');
+const argv = require('minimist')(process.argv.slice(2));
 
 
-const port = normalizePort(process.env.PORT || '3000');
+const env = normalizeEnv(process.env.NODE_ENV || argv.prod || 'development');
+app.set('env', env);
+
+const port = normalizePort(process.env.PORT || argv.port || '3000');
 app.set('port', port);
 
 const server = http.createServer(app);
@@ -13,16 +16,22 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+function normalizeEnv(val) {
+  if (val === true) {
+    return 'production';
+  } else {
+    return val;
+  }
+}
+
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
-    // named pipe
     return val;
   }
 
   if (port >= 0) {
-    // port number
     return port;
   }
 
@@ -38,7 +47,6 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -58,5 +66,5 @@ function onListening() {
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log(`Express server listening on port ${bind} in ${app.get('env')} mode.`);
 }
