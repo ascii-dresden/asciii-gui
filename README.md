@@ -5,12 +5,12 @@ members to evaluate and review our projects, clients, offers and clients.
 
 asciii GUI is built with [Angular 5](https://angular.io) and was inspired by [InvoicePlane](https://github.com/InvoicePlane/InvoicePlane).
 
-[![travis](https://travis-ci.org/ascii-dresden/ascii-hub.svg?branch=master)](https://travis-ci.org/ascii-dresden/ascii-hub/)
-[![dependency Status](https://david-dm.org/ascii-dresden/ascii-hub.svg)](https://david-dm.org/ascii-dresden/ascii-hub)
-[![devDependency Status](https://david-dm.org/ascii-dresden/ascii-hub/dev-status.svg)](https://david-dm.org/ascii-dresden/ascii-hub?type=dev)
+[![travis](https://travis-ci.org/ascii-dresden/asciii-gui.svg?branch=master)](https://travis-ci.org/ascii-dresden/asciii-gui/)
+[![dependency Status](https://david-dm.org/ascii-dresden/asciii-gui.svg)](https://david-dm.org/ascii-dresden/asciii-gui)
+[![devDependency Status](https://david-dm.org/ascii-dresden/asciii-gui/dev-status.svg)](https://david-dm.org/ascii-dresden/asciii-gui?type=dev)
 
-[![GitHub forks](https://img.shields.io/github/forks/ascii-dresden/ascii-hub.svg?style=social&label=Fork)](https://github.com/ascii-dresden/ascii-hub/fork)
-[![GitHub stars](https://img.shields.io/github/stars/ascii-dresden/ascii-hub.svg?style=social&label=Star)](https://github.com/ascii-dresden/ascii-hub)
+[![GitHub forks](https://img.shields.io/github/forks/ascii-dresden/asciii-gui.svg?style=social&label=Fork)](https://github.com/ascii-dresden/asciii-gui/fork)
+[![GitHub stars](https://img.shields.io/github/stars/ascii-dresden/asciii-gui.svg?style=social&label=Star)](https://github.com/ascii-dresden/asciii-gui)
 
 > Built with :heart: in Dresden
 
