@@ -26,7 +26,7 @@ before_script:
 script:
 - ng lint
 - ng test --sr
-- ng build --prod --base-href /
+- ng build
 
 notifications:
   email:
