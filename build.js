@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
 const argv = require('minimist')(process.argv.slice(2));
 const fs = require('fs');
@@ -13,7 +13,7 @@ if (!fs.existsSync(target)) {
   fs.mkdirSync(target);
 }
 
-const output = fs.createWriteStream(`${target}/${getFileName()}`);
+const output = fs.createWriteStream(`${target}${path.sep}${getFileName()}`);
 
 output.on('close', () => {
   console.log(archive.pointer() + ' total bytes');
@@ -28,7 +28,7 @@ output.on('end', () => {
 archive.on('warning', onWarning);
 archive.on('error', onError);
 
-archive.directory('dist/', false);
+archive.directory('dist'+path.sep, false);
 archive.pipe(output);
 archive.finalize();
 
@@ -38,13 +38,13 @@ function getPath() {
     return argv.path;
   }
 
-  return './target';
+  return `.${path.sep}target`;
 }
 
 function getFileName() {
   let languageCode;
 
-  const packageJson = JSON.parse(fs.readFileSync(path.join('./package.json'), 'utf-8'));
+  const packageJson = JSON.parse(fs.readFileSync(path.join(`.${path.sep}package.json`), 'utf-8'));
   const projectName = packageJson.name;
   const version = packageJson.version;
 
