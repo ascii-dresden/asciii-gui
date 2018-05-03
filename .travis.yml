@@ -1,36 +1,24 @@
-dist: trusty
-
 language: node_js
 node_js:
 - 8
-
-env:
-- MOZ_HEADLESS=1
-
-addons:
-  firefox: latest
+- 9
 
 branches:
   only:
   - master
+  - develop
 
 cache:
   directories:
-  - "node_modules"
+  - node_modules
 
-before_script:
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
-- sleep 3
+install:
+- npm install
 
 script:
-- ng lint
-- ng test --sr
-- ng build
+- npm run build
 
 notifications:
   email:
-    on_failure: change
-    on_success: change
-
-
+    on_failure: never
+    on_success: never
