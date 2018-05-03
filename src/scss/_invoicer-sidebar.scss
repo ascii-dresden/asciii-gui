@@ -1,24 +1,4 @@
-// Invoicer Sidebar
-
-// Bootstrap 4 Mixins
-
-@function breakpoint-min($name, $breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)) {
-  $min: map-get($breakpoints, $name);
-  @return if($min != 0, $min, null);
-}
-
-@mixin media-breakpoint-up($name, $breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)) {
-  $min: breakpoint-min($name, $breakpoints);
-  @if $min {
-    @media (min-width: $min) {
-      @content;
-    }
-  } @else {
-    @content;
-  }
-}
-
-// Left-side Navbar
+// Invoicer-Sidebar.scss
 
 .invoicer-sidebar {
   order: 0;

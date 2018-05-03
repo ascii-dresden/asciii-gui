@@ -1,12 +1,12 @@
-import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Location} from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 
-import { environment } from '../../environments/environment';
-import { InvoicerService } from '../services/invoicer.service';
-import { Bill, Client, Employee, Invoice, Item, Offer, Project, Service } from '../models';
+import {environment} from '@env/environment';
+import {InvoicerService} from '@app/core';
+import {Bill, Client, Employee, Invoice, Item, Offer, Project, Service} from '@app/models';
 
 @Component({
   selector: 'ascii-project-detail',

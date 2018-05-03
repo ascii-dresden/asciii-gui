@@ -1,4 +1,4 @@
-// Variables
+// Theme.scss
 
 $gray-100: #f8f9fa !default;
 $gray-900: #212529 !default;
@@ -20,3 +20,5 @@ $sizes: (
   200: 200px,
   300: 300px
 ) !default;
+
+@import "node_modules/bootstrap/scss/bootstrap";

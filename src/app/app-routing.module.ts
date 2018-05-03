@@ -1,13 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { InvoicesComponent } from './invoices/invoices.component';
-import { OffersComponent } from './offers/offers.component';
-import { ProjectComponent } from './project/project.component';
-import { ProjectsComponent } from './projects/projects.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-
-const routes: Routes = [
+/*const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'projects/:year', component: ProjectsComponent },
   { path: 'offers/:year/:status', component: OffersComponent },
@@ -16,6 +10,16 @@ const routes: Routes = [
   { path: 'invoices/:year', redirectTo: 'invoices/:year/all' },
   { path: 'project/:name', component: ProjectComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+];*/
+
+const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' },
+  { path: 'projects', loadChildren: 'app/projects/projects.module#ProjectsModule' },
+  { path: 'offers', loadChildren: 'app/offers/offers.module#OffersModule' },
+  { path: 'invoices', loadChildren: 'app/invoices/invoices.module#InvoicesModule' },
+  { path: 'project', loadChildren: 'app/project/project.module#ProjectModule' },
+  { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({

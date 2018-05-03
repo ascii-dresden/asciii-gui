@@ -22,17 +22,22 @@
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "styles.scss"
       ],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.bundle.js"
-      ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
+      },
+      "stylePreprocessorOptions": {
+        "includePaths": ["./", "./scss"]
       }
     }
   ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
   "lint": [
     {
       "project": "src/tsconfig.app.json",
@@ -40,6 +45,10 @@
     },
     {
       "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
     }
   ],
@@ -50,8 +59,31 @@
   },
   "defaults": {
     "styleExt": "scss",
+    "build": {
+      "showCircularDependencies": false
+    },
+    "class": {
+      "spec": false
+    },
     "component": {
-      "inlineStyle": true
+      "inlineStyle": true,
+      "inlineTemplate": false,
+      "spec": false
+    },
+    "directive": {
+      "spec": false
+    },
+    "guard": {
+      "spec": false
+    },
+    "module": {
+      "spec": false
+    },
+    "pipe": {
+      "spec": false
+    },
+    "service": {
+      "spec": false
     }
   }
 }

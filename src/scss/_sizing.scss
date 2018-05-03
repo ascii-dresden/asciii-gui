@@ -1,4 +1,4 @@
-// Sizing
+// Sizing.scss
 
 @each $size, $length in $sizes {
   .mw-#{$size} {

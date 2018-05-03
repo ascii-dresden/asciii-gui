@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { catchError, tap } from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
+import {catchError, tap} from 'rxjs/operators';
 
-import { LoggerService } from './logger/logger.service';
-import { InvoiceDTO, OfferDTO, Project } from '../models/index';
+import {LoggerService} from './logger/logger.service';
+import {InvoiceDTO, OfferDTO, Project} from '@app/models';
 
 @Injectable()
 export class InvoicerMockService {

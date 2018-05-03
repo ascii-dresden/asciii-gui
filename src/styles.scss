@@ -1,7 +1,7 @@
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
-@import "assets/variables";
-@import "assets/sizing";
-@import "assets/invoicer-sidebar";
+
+@import './scss/theme';
+@import './scss/sizing';
+@import './scss/invoicer-sidebar';
 
 body {
   font-size: 0.875rem;

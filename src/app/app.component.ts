@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CookieService } from './services/cookie.service';
-import { EmitterService } from './services/emitter.service';
+import {Component, OnInit} from '@angular/core';
+
+import {CookieService, EmitterService} from '@app/core';
 
 @Component({
   selector: 'ascii-root',

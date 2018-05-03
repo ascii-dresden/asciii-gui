@@ -1,13 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 
-import { environment } from '../../environments/environment';
-import { CookieService } from '../services/cookie.service';
-import { EmitterService } from '../services/emitter.service';
-import { InvoicerService } from '../services/invoicer.service';
-import { OfferDTO, OfferStatus } from '../models';
+import {environment} from '@env/environment';
+import {OfferDTO, OfferStatus} from '@app/models';
+import {CookieService, EmitterService, InvoicerService} from '@app/core';
 
 @Component({
   selector: 'ascii-offers',
