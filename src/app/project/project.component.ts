@@ -1,15 +1,15 @@
-import {Location} from '@angular/common';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
-import {environment} from '@env/environment';
-import {InvoicerService} from '@app/core';
-import {Bill, Client, Employee, Invoice, Item, Offer, Project, Service} from '@app/models';
+import { environment } from '@env/environment';
+import { InvoicerService } from '@app/core';
+import { Bill, Client, Employee, Invoice, Item, Offer, Project, Service } from '@app/models';
 
 @Component({
-  selector: 'ascii-project-detail',
+  selector: 'asciii-project-detail',
   templateUrl: './project.component.html'
 })
 export class ProjectComponent implements OnInit, OnDestroy {

@@ -1,7 +1,7 @@
-import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
-import {OffersComponent} from './offers.component';
+import { OffersComponent } from './offers.component';
 
 const routes: Routes = [
   { path: ':year/:status', component: OffersComponent },

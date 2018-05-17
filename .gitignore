@@ -1,38 +1,28 @@
-# Logs
-log/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# compiled output
+/dist
+/tmp
+/out-tsc
 
-# Coverage directory used by tools like istanbul
-coverage/
-
-# Node
-node_modules/
-.npm/
-
-# Compiled output
-/dist/
-/target/
-/tmp/
-/out-tsc/
+# dependencies
+/node_modules
 
 # IDEs and editors
-.idea/
-.project/
-.classpath/
+/.idea
+.project
+.classpath
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
-.vscode/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 # misc
 /.sass-cache
@@ -40,11 +30,11 @@ node_modules/
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-
+/target
 
 # System Files
 .DS_Store
 Thumbs.db
-

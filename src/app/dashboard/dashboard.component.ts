@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
-import {environment} from '@env/environment';
-import {CookieService, EmitterService, InvoicerService} from '@app/core';
-import {InvoiceDTO, InvoiceStatus, OfferDTO, OfferStatus, Project} from '@app/models';
+import { environment } from '@env/environment';
+import { CookieService, EmitterService, InvoicerService } from '@app/core';
+import { InvoiceDTO, InvoiceStatus, OfferDTO, OfferStatus, Project } from '@app/models';
 
 @Component({
-  selector: 'ascii-dashboard',
+  selector: 'asciii-dashboard',
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit, OnDestroy {

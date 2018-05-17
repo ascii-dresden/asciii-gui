@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
-import {environment} from '@env/environment';
-import {OfferDTO, OfferStatus} from '@app/models';
-import {CookieService, EmitterService, InvoicerService} from '@app/core';
+import { environment } from '@env/environment';
+import { OfferDTO, OfferStatus } from '@app/models';
+import { CookieService, EmitterService, InvoicerService } from '@app/core';
 
 @Component({
-  selector: 'ascii-offers',
+  selector: 'asciii-offers',
   templateUrl: './offers.component.html'
 })
 export class OffersComponent implements OnInit, OnDestroy {
@@ -20,7 +20,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   offers: OfferDTO[] = [];
 
   constructor(private cookieService: CookieService, private router: Router, private route: ActivatedRoute,
-              private invoicer: InvoicerService) {
+    private invoicer: InvoicerService) {
     this.year = +this.route.snapshot.paramMap.get('year');
   }
 

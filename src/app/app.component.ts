@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {CookieService, EmitterService} from '@app/core';
+import { CookieService, EmitterService } from '@app/core';
 
 @Component({
-  selector: 'ascii-root',
+  selector: 'asciii-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
