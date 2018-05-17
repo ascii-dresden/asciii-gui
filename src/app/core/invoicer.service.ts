@@ -1,13 +1,11 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
-import {catchError, tap} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 
-import {LoggerService} from './logger/logger.service';
-import {InvoiceDTO, OfferDTO, Project} from '@app/models';
+import { LoggerService } from './logger/logger.service';
+import { InvoiceDTO, OfferDTO, Project } from '@app/models';
 
 @Injectable()
 export class InvoicerService {
@@ -17,58 +15,59 @@ export class InvoicerService {
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
   findAllProjects(): Observable<Project[]> {
-    return this.http.get<any>(`${this.url}/full_projects`)
-      .map((p: any) => {
+    return this.http.get<any>(`${this.url}/full_projects`).pipe(
+      map((p: any) => {
         let projects: any[] = [];
+
         for (const entries of Object.entries(p)) {
-          const project = entries[1];
+          const project: any = entries[1];
           project.id = entries[0];
           projects.push(project);
         }
+
         projects = projects.map(o => new Project(o));
         projects = projects.sort(this.sort);
         return projects;
-      })
-      .pipe(
-        tap(() => this.log('fetched projects')),
-        catchError(this.handleError('findAllProjects', []))
-      );
+      }),
+      tap(() => this.log('fetched projects')),
+      catchError(this.handleError('findAllProjects', []))
+    );
   }
 
   findProjectsByYear(year: number): Observable<Project[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-      .map((p: any) => {
+    return this.http.get<any>(`${this.url}/full_projects/year/${year}`).pipe(
+      map((p: any) => {
         let projects: any[] = [];
+
         for (const entries of Object.entries(p)) {
-          const project = entries[1];
+          const project: any = entries[1];
           project.id = entries[0];
           projects.push(project);
         }
+
         projects = projects.map(o => new Project(o));
         projects = projects.sort(this.sort);
         return projects;
-      })
-      .pipe(
-        tap(() => this.log(`fetched projects w/ year=${year}`)),
-        catchError(this.handleError<any[]>(`findProjectsByYear w/ year=${year}`, []))
-      );
+      }),
+      tap(() => this.log(`fetched projects w/ year=${year}`)),
+      catchError(this.handleError<any[]>(`findProjectsByYear w/ year=${year}`, []))
+    );
   }
 
   findProjectById(id: string): Observable<Project> {
-    return this.http.get<any>(`${this.url}/projects/${id}`)
-      .map(p => new Project(p))
-      .pipe(
-        tap(() => this.log(`fetched project w/ id=${id}`)),
-        catchError(this.handleError<any>(`findProjectById w/ id=${id}`, {}))
-      );
+    return this.http.get<any>(`${this.url}/projects/${id}`).pipe(
+      map(p => new Project(p)),
+      tap(() => this.log(`fetched project w/ id=${id}`)),
+      catchError(this.handleError<any>(`findProjectById w/ id=${id}`, {}))
+    );
   }
 
   findOffersByYear(year: number): Observable<OfferDTO[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-      .map((p: any) => {
+    return this.http.get<any>(`${this.url}/full_projects/year/${year}`).pipe(
+      map((p: any) => {
         let offers: any[] = [];
         for (const entries of Object.entries(p)) {
-          const project = entries[1];
+          const project: any = entries[1];
           project.id = entries[0];
           offers.push(project);
         }
@@ -76,11 +75,10 @@ export class InvoicerService {
         offers = offers.map(o => new OfferDTO(o));
         offers = offers.sort(this.sort);
         return offers;
-      })
-      .pipe(
-        tap(() => this.log(`fetched offers w/ year=${year}`)),
-        catchError(this.handleError<any[]>(`findOffersByYear w/ year=${year}`, []))
-      );
+      }),
+      tap(() => this.log(`fetched offers w/ year=${year}`)),
+      catchError(this.handleError<any[]>(`findOffersByYear w/ year=${year}`, []))
+    );
   }
 
   getOffers(projects: Project[], allOffers?: (o: OfferDTO[]) => void, maxResults = Number.MAX_VALUE): OfferDTO[] {
@@ -95,24 +93,25 @@ export class InvoicerService {
   }
 
   findInvoicesByYear(year: number): Observable<InvoiceDTO[]> {
-    return this.http.get<any>(`${this.url}/full_projects/year/${year}`)
-      .map((p: any) => {
+    return this.http.get<any>(`${this.url}/full_projects/year/${year}`).pipe(
+      map((p: any) => {
         let invoices: any[] = [];
+
         for (const entries of Object.entries(p)) {
-          const project = entries[1];
+          const project: any = entries[1];
           project.id = entries[0];
           invoices.push(project);
         }
+
         invoices = invoices.map(o => new Project(o));
         invoices = invoices.filter(o => !o.canceled && o.invoice.date);
         invoices = invoices.map(o => new InvoiceDTO(o));
         invoices = invoices.sort(this.sort);
         return invoices;
-      })
-      .pipe(
-        tap(() => this.log(`fetched invoices w/ year=${year}`)),
-        catchError(this.handleError<any[]>(`findInvoicesByYear w/ year=${year}`, []))
-      );
+      }),
+      tap(() => this.log(`fetched invoices w/ year=${year}`)),
+      catchError(this.handleError<any[]>(`findInvoicesByYear w/ year=${year}`, []))
+    );
   }
 
   getInvoices(projects: Project[], allInvoices?: (i: InvoiceDTO[]) => void, maxResults = Number.MAX_VALUE): InvoiceDTO[] {

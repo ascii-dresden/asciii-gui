@@ -6,7 +6,7 @@ export class Bill {
   private _price: number;
 
   constructor(private _type: BillType, private _name: string, price: string, private _unit: string, private _amount: number,
-              private _tax: number) {
+    private _tax: number) {
     this._price = InvoicerUtils.parseCurrency(price);
     this._cost = this._price * _amount;
   }

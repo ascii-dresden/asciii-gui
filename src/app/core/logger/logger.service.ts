@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export abstract class Logger {
   log: any;
@@ -12,6 +12,7 @@ export abstract class Logger {
  */
 @Injectable()
 export class LoggerService implements Logger {
+
   log: any;
   info: any;
   warn: any;

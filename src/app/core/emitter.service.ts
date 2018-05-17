@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 /**
  * To avoid unnecessary property and event bindings between your sibling or cousin components use EmitterService.

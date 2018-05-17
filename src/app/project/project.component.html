@@ -16,10 +16,10 @@
         <div class="col-md-2">
           <ul class="list-inline m-0">
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
+              <asciii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></asciii-fa-bool>
             </li>
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
+              <asciii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></asciii-fa-bool>
             </li>
             <li class="list-inline-item">
               <i class="fa fa-check text-success" *ngIf="project.paidByCustomer && project.paidEmployees"></i>
@@ -28,7 +28,7 @@
               <i class="fa fa-times text-danger" *ngIf="!project.paidByCustomer && !project.paidEmployees"></i>
             </li>
             <li class="list-inline-item">
-              <ascii-fa-bool [bool]="project.canceled" [colorized]="true"></ascii-fa-bool>
+              <asciii-fa-bool [bool]="project.canceled" [colorized]="true"></asciii-fa-bool>
             </li>
           </ul>
         </div>
@@ -140,7 +140,7 @@
               <tr *ngFor="let item of offerItems; let even = even" [ngClass]="{ 'table-warning': even }">
                 <td>{{ item.gross | currency:currencyCode }}</td>
                 <td>
-                  <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
+                  <asciii-fa-bool [bool]="item.taxed" [centered]="true"></asciii-fa-bool>
                 </td>
                 <td>{{ item.taxTotal | currency:currencyCode }}</td>
                 <td>{{ item.tax }}</td>
@@ -180,7 +180,7 @@
               <tr *ngFor="let item of invoiceItems; let even = even" [ngClass]="{ 'table-danger': even }">
                 <td>{{ item.gross | currency:currencyCode }}</td>
                 <td>
-                  <ascii-fa-bool [bool]="item.taxed" [centered]="true"></ascii-fa-bool>
+                  <asciii-fa-bool [bool]="item.taxed" [centered]="true"></asciii-fa-bool>
                 </td>
                 <td>{{ item.taxTotal | currency:currencyCode }}</td>
                 <td>{{ item.tax }}</td>

@@ -23,13 +23,13 @@
     <td>{{ project.manager }}</td>
     <td>{{ project.date | date }}</td>
     <td class="w-90">
-      <ascii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></ascii-fa-bool>
-      <ascii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></ascii-fa-bool>
+      <asciii-fa-bool [bool]="project.readyForOffer" [colorized]="true"></asciii-fa-bool>
+      <asciii-fa-bool [bool]="project.readyForInvoice" [colorized]="true"></asciii-fa-bool>
       <i class="fa fa-check text-success" *ngIf="project.paidByCustomer && project.paidEmployees"></i>
       <i class="fa fa-eur text-warning" *ngIf="(project.paidByCustomer && !project.paidEmployees)
       || !project.paidByCustomer && project.paidEmployees"></i>
       <i class="fa fa-times text-danger" *ngIf="!project.paidByCustomer && !project.paidEmployees"></i>
-      <ascii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></ascii-fa-bool>
+      <asciii-fa-bool [bool]="project.readyForArchive" [colorized]="true"></asciii-fa-bool>
     </td>
     <td class="text-right">{{ project.invoice.net | currency:currencyCode }}</td>
   </tr>
