@@ -12,6 +12,7 @@
     "i18n:en": "ng xi18n -c en",
     "i18n:de": "ng xi18n -c de",
     "test": "ng test",
+    "test:sr": "ng test --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
