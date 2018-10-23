@@ -3,7 +3,7 @@
 ... provides an alternative to the CLI of [asciii](https://github.com/ascii-dresden/asciii). The project helps our
 members to evaluate and review our projects, clients, offers and clients.
 
-asciii GUI is built with [Angular 6](https://angular.io) and was inspired by [InvoicePlane](https://github.com/InvoicePlane/InvoicePlane).
+asciii GUI is built with [Angular 7](https://angular.io) and was inspired by [InvoicePlane](https://github.com/InvoicePlane/InvoicePlane).
 
 [![travis](https://travis-ci.org/ascii-dresden/asciii-gui.svg?branch=master)](https://travis-ci.org/ascii-dresden/asciii-gui/)
 [![dependency Status](https://david-dm.org/ascii-dresden/asciii-gui.svg)](https://david-dm.org/ascii-dresden/asciii-gui)
