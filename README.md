@@ -1,9 +1,9 @@
 # asciii GUI
 
-... provides an alternative to the CLI of [asciii](https://github.com/ascii-dresden/asciii). The project helps our 
+... provides an alternative to the CLI of [asciii](https://github.com/ascii-dresden/asciii). The project helps our
 members to evaluate and review our projects, clients, offers and clients.
 
-asciii GUI is built with [Angular 5](https://angular.io) and was inspired by [InvoicePlane](https://github.com/InvoicePlane/InvoicePlane).
+asciii GUI is built with [Angular 7](https://angular.io) and was inspired by [InvoicePlane](https://github.com/InvoicePlane/InvoicePlane).
 
 [![travis](https://travis-ci.org/ascii-dresden/asciii-gui.svg?branch=master)](https://travis-ci.org/ascii-dresden/asciii-gui/)
 [![dependency Status](https://david-dm.org/ascii-dresden/asciii-gui.svg)](https://david-dm.org/ascii-dresden/asciii-gui)
@@ -21,21 +21,22 @@ In order to build the project, you'll need NodeJS and NPM.
 Install the dependencies.
 
 ```sh
-$ npm install
-``` 
+npm install
+```
 
 ### Development
 
 For a dev server run
 
 ```sh
-$ npm run start
+npm run start
 ```
 
-To use the RESTful API from asciii you need to run a local instance of [rocket](https://github.com/SergioBenitez/Rocket). Checkout the asciii project and switch to [feature/server](https://github.com/ascii-dresden/asciii/tree/feature/server) branch. Run
+To use the RESTful API from asciii you need to run a local instance of [rocket](https://github.com/SergioBenitez/Rocket).
+Checkout the asciii project and run
 
-```
-$ cargo run --example server --features server
+```sh
+cargo +nightly run --features server
 ```
 
 to setup a local server instance. Read the asciii documentation for more information.
@@ -47,8 +48,8 @@ Cross-Origin requests to use the asciii REST API.
 
 To change your interface language to german run
 
-```
-$ npm run start:de
+```sh
+npm run start:de
 ```
 
 Change currency and locale by editing `src/environments/environment.ts`.

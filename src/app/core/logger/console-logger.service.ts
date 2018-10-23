@@ -1,5 +1,5 @@
-import {Injectable, isDevMode} from '@angular/core';
-import {Logger} from './logger.service';
+import { Injectable, isDevMode } from '@angular/core';
+import { Logger } from './logger.service';
 
 const noop = (): any => undefined;
 

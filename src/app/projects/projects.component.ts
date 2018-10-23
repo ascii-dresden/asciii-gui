@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
-import {Project} from '@app/models';
-import {environment} from '@env/environment';
-import {EmitterService, InvoicerService} from '@app/core';
+import { Project } from '@app/models';
+import { environment } from '@env/environment';
+import { EmitterService, InvoicerService } from '@app/core';
 
 @Component({
-  selector: 'ascii-project',
+  selector: 'asciii-project',
   templateUrl: './projects.component.html'
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
