@@ -14,11 +14,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', loadChildren: 'src/app/dashboard/dashboard.module#DashboardModule' },
-  { path: 'projects', loadChildren: 'src/app/projects/projects.module#ProjectsModule' },
-  { path: 'offers', loadChildren: 'src/app/offers/offers.module#OffersModule' },
-  { path: 'invoices', loadChildren: 'src/app/invoices/invoices.module#InvoicesModule' },
-  { path: 'project', loadChildren: 'src/app/project/project.module#ProjectModule' },
+  { path: 'dashboard', loadChildren: () => import('src/app/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'projects', loadChildren: () => import('src/app/projects/projects.module').then(m => m.ProjectsModule) },
+  { path: 'offers', loadChildren: () => import('src/app/offers/offers.module').then(m => m.OffersModule) },
+  { path: 'invoices', loadChildren: () => import('src/app/invoices/invoices.module').then(m => m.InvoicesModule) },
+  { path: 'project', loadChildren: () => import('src/app/project/project.module').then(m => m.ProjectModule) },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
